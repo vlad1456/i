@@ -70,6 +70,7 @@ header {
   justify-content: center;
 }
 
+
 header h1 {
   position: absolute;
   left: 1rem;
@@ -1452,6 +1453,12 @@ nav.active {
     });
   });
 });
+
+window.addEventListener('resize', function() {
+  document.querySelector('header').style.height = window.innerHeight + 'px';
+});
+
+
   </script>
 </body>
 </html>
