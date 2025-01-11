@@ -19,6 +19,7 @@ body {
   color: #fff;
   font-family: sans-serif;
   overflow-x: hidden;
+  overflow-y: show;
   text-align: center;
 }
 canvas {
@@ -34,11 +35,13 @@ canvas {
 /* Container to help center and manage max width for content */
 .container {
   width: 100%;
+  height: 100%;
   max-width: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
   padding: 1rem;
 }
+
 
 
 .pdf-container {
@@ -208,6 +211,7 @@ footer {
 /* Responsive navigation */
 @media (max-width:768px) {
   nav {
+    display: none;
     flex-direction: column;
     background: rgba(0,0,0,0.9);
     position: absolute;
@@ -220,18 +224,16 @@ footer {
     margin: 0.5rem 0;
   }
   .hamburger {
-    display: none; /* Hide the hamburger menu */
+    display: block; /* Show hamburger menu */
   }
   .narrow-btn {
-    display: none; /* Hide narrow view buttons */
+    display: inline-block; /* Show only in mobile view */
   }
 }
-
 
 nav.active {
   display: flex;
 }
-
 
 /* Contact Form */
 #contact-form {
