@@ -16,7 +16,9 @@
  
 html, body {
   overscroll-behavior: none;
-} 
+}
+
+ 
   
 body {
   margin: 0;
@@ -70,25 +72,22 @@ object {
 
 /* Header */
 header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 999;
   padding: 1rem;
   background: rgba(0,0,0,0.9);
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: translateZ(0); /* Forces hardware acceleration */
 }
 
 
 
-header h1 {
-  position: absolute;
-  left: 1rem;
-  margin: 0;
-  font-size: 1.4rem;
-  font-weight: 600;
-}
+
 
 /* New narrow view buttons */
 .narrow-btn {
