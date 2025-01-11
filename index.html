@@ -208,7 +208,6 @@ footer {
 /* Responsive navigation */
 @media (max-width:768px) {
   nav {
-    display: none;
     flex-direction: column;
     background: rgba(0,0,0,0.9);
     position: absolute;
@@ -221,16 +220,18 @@ footer {
     margin: 0.5rem 0;
   }
   .hamburger {
-    display: block; /* Show hamburger menu */
+    display: none; /* Hide the hamburger menu */
   }
   .narrow-btn {
-    display: inline-block; /* Show only in mobile view */
+    display: none; /* Hide narrow view buttons */
   }
 }
+
 
 nav.active {
   display: flex;
 }
+
 
 /* Contact Form */
 #contact-form {
