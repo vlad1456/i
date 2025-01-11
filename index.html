@@ -40,11 +40,10 @@ canvas {
   padding: 1rem;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; /* Be careful with global overflow properties */
-}
+#header {
+          position: sticky;
+          top: 0;
+    }
 
 .pdf-container {
   width: calc(100% - 2rem); /* Full width minus margins */
@@ -1462,12 +1461,6 @@ nav.active {
     });
   });
 });
-
-window.addEventListener('resize', function() {
-  document.querySelector('header').style.height = window.innerHeight + 'px';
-});
-
-
   </script>
 </body>
 </html>
