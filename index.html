@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="description" content="Vlad Slyusar's Digital Resume + 3D City Demo">
-  <meta name="viewport" content="height=device-height, 
-                      width=device-width, initial-scale=1.0, 
-                      minimum-scale=1.0, maximum-scale=1.0, 
-                      user-scalable=no, target-densitydpi=device-dpi">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
   <title>Vlad Slyusar | Digital Resume 3D</title>
   <!-- THREE.JS -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.min.js"></script>
@@ -23,7 +21,6 @@ body {
   text-align: center;
 }
 canvas {
-  display: block;
   position: fixed;
   top: 0;
   left: 0;
@@ -1460,6 +1457,26 @@ nav.active {
     });
   });
 });
+
+function updateCanvasSize() {
+    const canvas = document.getElementById('webgl-bg');
+    const vw = window.visualViewport ? window.visualViewport.width : window.innerWidth;
+    const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    
+    canvas.style.width = vw + 'px';
+    canvas.style.height = vh + 'px';
+    r.setSize(vw, vh);
+    
+    cam.aspect = vw / vh;
+    cam.updateProjectionMatrix();
+  }
+
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', updateCanvasSize);
+  }
+  window.addEventListener('resize', updateCanvasSize);
+  updateCanvasSize();
+
   </script>
 </body>
 </html>
