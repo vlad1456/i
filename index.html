@@ -3,290 +3,292 @@
 <head>
   <meta charset="UTF-8">
   <meta name="description" content="Vlad Slyusar's Digital Resume + 3D City Demo">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="height=device-height, 
+                      width=device-width, initial-scale=1.0, 
+                      minimum-scale=1.0, maximum-scale=1.0, 
+                      user-scalable=no, target-densitydpi=device-dpi">
   <title>Vlad Slyusar | Digital Resume 3D</title>
-  
   <!-- THREE.JS -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.min.js"></script>
-  
-  <!-- Set custom viewport height for mobile -->
-  <script>
-    function setVh() {
-      // 1vh is equal to 1% of the viewport height in pixels
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
-    window.addEventListener('resize', setVh);
-    setVh();
-  </script>
-
   <style>
     /* Basic global styles */
-    body {
-      margin: 0;
-      background: #000;
-      color: #fff;
-      font-family: sans-serif;
-      overflow-x: hidden;
-      overflow-y: auto;
-      text-align: center;
-    }
-    canvas {
-      display: block;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      /* Use calculated viewport height */
-      height: calc(var(--vh, 1vh) * 100);
-      z-index: -1;
-    }
+  /* Basic global styles */
+body {
+  margin: 0;
+  background: #000;
+  color: #fff;
+  font-family: sans-serif;
+  overflow-x: hidden;
+  overflow-y: show;
+  text-align: center;
+}
+canvas {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
 
-    /* Container to help center and manage max width for content */
-    .container {
-      width: 100%;
-      height: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      box-sizing: border-box;
-      padding: 1rem;
-    }
+/* Container to help center and manage max width for content */
+.container {
+  width: 100%;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 1rem;
+}
 
-    .pdf-container {
-      width: calc(100% - 2rem);
-      margin: 1rem;
-      display: block;
-      overflow: hidden;
-      position: relative;
-      padding-top: 110%;
-    }
 
-    object {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
 
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 999;
-      padding: 1rem;
-      background: rgba(0,0,0,0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+.pdf-container {
+  width: calc(100% - 2rem); /* Full width minus margins */
+  margin: 1rem; /* Margin around the container */
+  display: block;
+  overflow: hidden; /* Handles overflow */
+  position: relative; /* Positioning context for pseudo-element */
+  padding-top: 110%; /* Adjusted top padding for less height */
+}
 
-    header h1 {
-      position: absolute;
-      left: 1rem;
-      margin: 0;
-      font-size: 1.4rem;
-      font-weight: 600;
-    }
+object {
+  position: absolute; /* Absolute positioning inside the container */
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width of its container */
+  height: 100%; /* Full height of the padded container */
+}
 
-    /* New narrow view buttons */
-    .narrow-btn {
-      display: none;
-      font-size: 1rem;
-      font-weight: bold;
-      color: #fff;
-      text-decoration: none;
-      margin-left: 1rem;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-    }
-    .narrow-btn:hover {
-      color: hotpink;
-    }
 
-    .hamburger {
-      position: absolute;
-      right: 1rem;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: #fff;
-      display: none;
-    }
 
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    nav a {
-      margin: 0 1rem;
-      font-size: 1rem;
-      font-weight: bold;
-      color: #fff;
-      text-decoration: none;
-    }
-    nav a:hover {
-      color: hotpink;
-    }
+/* Header */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  padding: 1rem;
+  background: rgba(0,0,0,0.9); /* Darker background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    /* Uniform spacing for main sections */
-    section {
-      padding: 6rem 2rem 2rem 2rem;
-      margin-bottom: 20rem;
-      box-sizing: border-box;
-    }
-    h2 {
-      margin-top: 0;
-      letter-spacing: 1px;
-    }
 
-    /* Reusable background block */
-    .block-bg {
-      background: rgba(0,0,0,0.5);
-      padding: 1rem 2rem;
-      border-radius: 10px;
-      margin: 1rem auto;
-      max-width: 800px;
-    }
+header h1 {
+  position: absolute;
+  left: 1rem;
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
 
-    /* Two-column section layout */
-    .columns {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 1rem;
-    }
-    .column {
-      flex: 1 1 300px;
-      max-width: 600px;
-      box-sizing: border-box;
-    }
+/* New narrow view buttons */
+.narrow-btn {
+  display: none; /* Hidden by default */
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+  margin-left: 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
 
-    /* Image placeholders with rounded corners */
-    .rounded-image {
-      width: 100%;
-      max-width: 500px;
-      height: auto;
-      border-radius: 10px;
-      display: block;
-      margin: 0 auto 1rem auto;
-    }
+.narrow-btn:hover {
+  color: hotpink;
+}
 
-    /* Lists and typography */
-    ul {
-      text-align: left;
-      margin: 0 auto 1rem auto;
-      padding-left: 1.2rem;
-    }
-    p {
-      margin: 0 auto 1rem auto;
-      line-height: 1.5;
-      color: rgba(255,255,255,0.85);
-    }
+.hamburger {
+  position: absolute;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #fff;
+  display: none; /* Hidden by default */
+}
 
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      background: rgba(0,0,0,0.3);
-    }
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    /* Fade overlay for scrolling intro effect */
-    #scroll-fade {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      pointer-events: none;
-      z-index: 998;
-      opacity: 1;
-      transition: opacity 1s ease-out;
-    }
+nav a {
+  margin: 0 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+}
 
-    /* Responsive navigation */
-    @media (max-width:768px) {
-      nav {
-        display: none;
-        flex-direction: column;
-        background: rgba(0,0,0,0.9);
-        position: absolute;
-        top: 60px;
-        right: 1rem;
-        border-radius: 5px;
-        padding: 1rem;
-      }
-      nav a {
-        margin: 0.5rem 0;
-      }
-      .hamburger {
-        display: block;
-      }
-      .narrow-btn {
-        display: inline-block;
-      }
-    }
+nav a:hover {
+  color: hotpink;
+}
 
-    nav.active {
-      display: flex;
-    }
+/* Uniform spacing for main sections */
+section {
+  padding: 6rem 2rem 2rem 2rem; /* Add more bottom padding */
+  margin-bottom: 20rem; /* Add extra margin between sections */
+  box-sizing: border-box;
+}
+h2 {
+  margin-top: 0;
+  letter-spacing: 1px;
+}
 
-    /* Contact Form */
-    #contact-form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    #contact-form input[type="email"] {
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-      border: none;
-      border-radius: 5px;
-      width: 100%;
-      max-width: 300px;
-    }
-    #contact-form button {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 5px;
-      background: hotpink;
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    #contact-form button:hover {
-      background: #ff69b4;
-    }
+/* Reusable background block */
+.block-bg {
+  background: rgba(0,0,0,0.5);
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  margin: 1rem auto;
+  max-width: 800px; /* narrower to keep text lines readable */
+}
+
+/* Two-column section layout (for specific sections that remain unchanged) */
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+.column {
+  flex: 1 1 300px;
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+/* Image placeholders with rounded corners */
+.rounded-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto 1rem auto; /* extra bottom margin for spacing */
+}
+
+/* Lists and typography */
+ul {
+  text-align: left;
+  margin: 0 auto 1rem auto;
+  padding-left: 1.2rem;
+}
+p {
+  margin: 0 auto 1rem auto;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.85);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: rgba(0,0,0,0.3);
+}
+
+/* Fade overlay for scrolling intro effect */
+#scroll-fade {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  pointer-events: none;
+  z-index: 998;
+  opacity: 1;
+  transition: opacity 1s ease-out;
+}
+
+/* Responsive navigation */
+@media (max-width:768px) {
+  nav {
+    display: none;
+    flex-direction: column;
+    background: rgba(0,0,0,0.9);
+    position: absolute;
+    top: 60px;
+    right: 1rem;
+    border-radius: 5px;
+    padding: 1rem;
+  }
+  nav a {
+    margin: 0.5rem 0;
+  }
+  .hamburger {
+    display: block; /* Show hamburger menu */
+  }
+  .narrow-btn {
+    display: inline-block; /* Show only in mobile view */
+  }
+}
+
+nav.active {
+  display: flex;
+}
+
+/* Contact Form */
+#contact-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#contact-form input[type="email"] {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 300px;
+}
+
+#contact-form button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background: hotpink;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#contact-form button:hover {
+  background: #ff69b4;
+}
+
   </style>
 </head>
 <body>
   <div id="scroll-fade"></div>
   <canvas id="webgl-bg"></canvas>
+<header>
+  <h1>Vlad Slyusar</h1>
+  <!-- New buttons for narrow view -->
+  <a href="#resume3d" id="narrow-home" class="narrow-btn">Home</a>
+  <a href="#contact" id="narrow-contact" class="narrow-btn">Contact</a>
+  <div class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</div>
+  <nav id="nav-links">
+    <a href="#resume3d">Home</a>
+    <a href="#intro">Intro</a>
+    <a href="#school">Edu</a>
+    <a href="#work">Work</a>
+    <a href="#projects">Proj</a>
+    <a href="#publications">Pub</a>
+    <a href="#leadership">Lead</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
 
-  <header>
-    <h1>Vlad Slyusar</h1>
-    <!-- New buttons for narrow view -->
-    <a href="#resume3d" id="narrow-home" class="narrow-btn">Home</a>
-    <a href="#contact" id="narrow-contact" class="narrow-btn">Contact</a>
-    <div class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</div>
-    <nav id="nav-links">
-      <a href="#resume3d">Home</a>
-      <a href="#intro">Intro</a>
-      <a href="#school">Edu</a>
-      <a href="#work">Work</a>
-      <a href="#projects">Proj</a>
-      <a href="#publications">Pub</a>
-      <a href="#leadership">Lead</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
 
   <!-- 3D Resume (One column) -->
   <section id="resume3d">
@@ -297,14 +299,13 @@
       </div>
     </div>
   </section>
-  <!-- Spacer content for scrolling -->
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
   <!-- Intro (One column) -->
   <section id="intro">
     <div class="container">
       <h2>Introduction</h2>
       <div class="block-bg">
+        
         <p>
           Highly accomplished Computer/Electrical Engineer with over 10 years experience delivering advanced connectivity, 
           high-precision positioning, RF systems, embedded software, and hardware design solutions. Demonstrated track record 
@@ -312,9 +313,9 @@
           GPA and dual B.S.E. degrees.
         </p>
       </div>
-      <br>
-      <img src="i.jpg" alt="Vlad Slyusar" class="rounded-image">
-      <br>
+<br>
+<img src="i.jpg" alt="Vlad Slyusar" class="rounded-image">
+<br>
       <div class="block-bg">
         <p>
           Possesses in-depth expertise in 5G/mmWave, RTK/NRTK GNSS, MEC, Edge AI, SDR, and DevSecOps. Adept at leading 
@@ -324,7 +325,7 @@
           solutions, and secure vehicular communications that power the next generation of mobility.
         </p>
       </div>
-    </div>
+  
   </section>
 
   <!-- Technical Skills (Remains as is: 2 columns) -->
@@ -1121,64 +1122,61 @@
       <div class="block-bg">
         <img src="i2.jpg" alt="Contact Placeholder" class="rounded-image">
         <p>Reach out if you'd like to collaborate on cutting-edge tech:</p>
-        <p>AI, Web3, Cybersec, AV, GNSS, FPGA, VLSI</p>
+		<p>AI, Web3, Cybersec, AV, GNSS, FPGA, VLSI</p>
         <form id="contact-form">
           <input type="email" id="email" name="email" placeholder="Your Email" required>
           <button type="submit">Submit</button>
         </form>
       </div>
     </div>
-    <br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br>
   </section>
 
   <footer>&copy; 2025 Vlad Slyusar — All rights reserved.</footer>
 
-  <!-- Scripts (3D functionality and interactivity) -->
+  <!-- Scripts (unchanged 3D functionality) -->
   <script>
-    // Setup THREE.js
-    const renderer = new THREE.WebGLRenderer({antialias:true}),
-          canvasContainer = document.getElementById('webgl-bg');
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    canvasContainer.replaceWith(renderer.domElement);
-    renderer.domElement.id = 'webgl-bg';
-    if (window.innerWidth > 800) {
-      renderer.shadowMap.enabled = true; 
-      renderer.shadowMap.type = THREE.PCFSoftShadowMap; 
-      renderer.shadowMap.needsUpdate = true;
+    // Setup
+    const r = new THREE.WebGLRenderer({antialias:true}), c = document.getElementById('webgl-bg');
+    r.setSize(window.innerWidth, window.innerHeight);
+    c.replaceWith(r.domElement); 
+    r.domElement.id = 'webgl-bg';
+    if(window.innerWidth > 800){
+      r.shadowMap.enabled=true; 
+      r.shadowMap.type=THREE.PCFSoftShadowMap; 
+      r.shadowMap.needsUpdate=true;
     }
-    const scene = new THREE.Scene(); 
-    scene.background = new THREE.Color(0x7B61FF);
-    scene.fog = new THREE.Fog(0x7B61FF, 10, 16);
+    const s = new THREE.Scene(); 
+    s.background = new THREE.Color(0x7B61FF); https://lh3.googleusercontent.com/sZ2UgZE7oDgWT0N3AoFDvHIGbC6YK1ySseHBklVmVwNq0qsRFiJ7UMf0B_31fhQyRy1Fi8r2dTXyODXlVE0afWCJ1h75fPP-Y9yzN8fn1qcWiXY2Ty1tj-Ol5hVmS_69zg=w1280
+    s.fog = new THREE.Fog(0x7B61FF, 10, 16);
 
-    const fogOrig = {near:10, far:60},
-          fogRed = {near:1000, far:10000},
-          fogTgt = {near:10, far:16};
-    const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 500);
-    camera.position.set(10, 15, 10); 
-    camera.lookAt(0, 0, 0);
+    const fogOrig = {near:10, far:60}, fogRed = {near:1000, far:10000}, fogTgt = {near:10, far:16};
+    const cam = new THREE.PerspectiveCamera(30, window.innerWidth/window.innerHeight,1,500);
+    cam.position.set(10,15,10); 
+    cam.lookAt(0,0,0);
 
     // City
     const city = new THREE.Object3D(); 
-    scene.add(city);
+    s.add(city);
     const smoke = new THREE.Object3D(); 
     city.add(smoke);
     const town = new THREE.Object3D(); 
     city.add(town);
     const blds = [];
-    function rand(num = 8) { return -Math.random() * num + Math.random() * num; }
-    let tintFlag = true; 
-    function tint() { tintFlag = !tintFlag; return tintFlag ? 0x111111 : 0x333333; }
-    function free(x, z, arr, md) { return !arr.some(p => (p.x - x) ** 2 + (p.z - z) ** 2 < md ** 2); }
+    function rand(num=8){ return -Math.random()*num + Math.random()*num }
+    let tintFlag=true; 
+    function tint(){ tintFlag=!tintFlag; return tintFlag?0x111111:0x333333 }
+    function free(x,z,arr,md){ return !arr.some(p=> (p.x-x)**2 + (p.z-z)**2 < md**2) }
 
     function initCity(){
-      const cnt = 80, minD = 0.8, seg = 2; 
-      const placed = [];
-      for (let i = 0; i < cnt; i++){
-        const geom = new THREE.BoxGeometry(1, 1, 1, seg, seg, seg);
-        const mat = new THREE.MeshStandardMaterial({color: tint(), side: THREE.DoubleSide});
+      const cnt=80, minD=0.8, seg=2; 
+      const placed=[];
+      for(let i=0;i<cnt;i++){
+        const geom = new THREE.BoxGeometry(1,1,1,seg,seg,seg);
+        const mat = new THREE.MeshStandardMaterial({color:tint(), side:THREE.DoubleSide});
         const wmat = new THREE.MeshLambertMaterial({
-          color: 0xffffff, wireframe: true, 
-          transparent: true, opacity: 0.05, side: THREE.DoubleSide
+          color:0xffffff, wireframe:true, 
+          transparent:true, opacity:0.05, side:THREE.DoubleSide
         });
         const cube = new THREE.Mesh(geom, mat); 
         const wire = new THREE.Mesh(geom, wmat);
@@ -1186,32 +1184,32 @@
         const wf = new THREE.Mesh(geom, wmat);
         cube.add(wire); 
         cube.add(wf); 
-        cube.castShadow = true; 
-        cube.receiveShadow = true;
+        cube.castShadow=true; 
+        cube.receiveShadow=true;
         const h = 0.1 + Math.abs(rand(8)); 
         cube.scale.y = h; 
         cube.userData.h = h;
         blds.push(cube);
-        cube.scale.x = cube.scale.z = 0.9 + rand(1 - 0.9);
-        let placedFlag = false, a = 0;
-        while (!placedFlag && a++ < 1000) {
-          const rx = Math.round(rand(15)), rz = Math.round(rand(15));
-          if (free(rx, rz, placed, minD)) {
-            cube.position.set(rx, h / 2, rz); 
-            floor.position.set(rx, 0, rz); 
-            placed.push({x: rx, z: rz}); 
-            placedFlag = true;
+        cube.scale.x = cube.scale.z = 0.9 + rand(1-0.9);
+        let placedFlag=false, a=0;
+        while(!placedFlag && a++ <1000){
+          const rx=Math.round(rand(15)), rz=Math.round(rand(15));
+          if(free(rx,rz,placed,minD)){
+            cube.position.set(rx,h/2,rz); 
+            floor.position.set(rx,0,rz); 
+            placed.push({x:rx,z:rz}); 
+            placedFlag=true;
           }
         }
-        floor.scale.y = 0.05; 
+        floor.scale.y=0.05; 
         town.add(floor); 
         town.add(cube);
       }
       // Smoke
-      const gmat = new THREE.MeshToonMaterial({color: 0xffff00, side: THREE.DoubleSide});
-      const ggeo = new THREE.CircleGeometry(0.01, 3); 
-      const apart = 5;
-      for (let h = 1; h < 300; h++){
+      const gmat = new THREE.MeshToonMaterial({color:0xffff00, side:THREE.DoubleSide});
+      const ggeo = new THREE.CircleGeometry(0.01,3); 
+      const apart=5;
+      for(let h=1; h<300; h++){
         const p = new THREE.Mesh(ggeo, gmat);
         p.position.set(rand(apart), Math.abs(rand(2)), rand(apart));
         p.rotation.set(rand(), rand(), rand());
@@ -1219,46 +1217,46 @@
       }
       // Ground
       const pmat = new THREE.MeshPhongMaterial({
-        color: 0x000000, side: THREE.DoubleSide, roughness: 10, 
-        metalness: 0.6, opacity: 0.9, transparent: true
+        color:0x000000, side:THREE.DoubleSide, roughness:10, 
+        metalness:0.6, opacity:0.9, transparent:true
       });
-      const pgeo = new THREE.PlaneGeometry(60, 60);
+      const pgeo = new THREE.PlaneGeometry(60,60);
       const pe = new THREE.Mesh(pgeo, pmat);
-      pe.rotation.x = -Math.PI / 2; 
-      pe.position.y = -0.001; 
-      pe.receiveShadow = true; 
+      pe.rotation.x=-Math.PI/2; 
+      pe.position.y=-0.001; 
+      pe.receiveShadow=true; 
       city.add(pe);
     }
     initCity();
 
     // Lights
-    const aLight = new THREE.AmbientLight(0xffffff, 4);
-    const lFront = new THREE.SpotLight(0xffffff, 20, 10);
-    lFront.rotation.x = 45 * Math.PI / 180; 
-    lFront.rotation.z = -45 * Math.PI / 180;
-    lFront.position.set(5, 5, 5); 
-    lFront.castShadow = true;
-    lFront.shadow.mapSize.width = 6000; 
-    lFront.shadow.mapSize.height = 6000; 
-    lFront.penumbra = 0.1;
-    const lBack = new THREE.PointLight(0xffffff, 0.5); 
-    lBack.position.set(0, 6, 0);
-    scene.add(aLight); 
+    const aLight = new THREE.AmbientLight(0xffffff,4);
+    const lFront = new THREE.SpotLight(0xffffff,20,10);
+    lFront.rotation.x=45*Math.PI/180; 
+    lFront.rotation.z=-45*Math.PI/180;
+    lFront.position.set(5,5,5); 
+    lFront.castShadow=true;
+    lFront.shadow.mapSize.width=6000; 
+    lFront.shadow.mapSize.height=6000; 
+    lFront.penumbra=0.1;
+    const lBack = new THREE.PointLight(0xffffff,0.5); 
+    lBack.position.set(0,6,0);
+    s.add(aLight); 
     city.add(lFront); 
-    scene.add(lBack);
+    s.add(lBack);
 
     // Fast Lines
-    const fl = []; 
-    const dirs = ["z+", "z-", "x+", "x-"]; 
-    const lc = 25, rng = 20;
+    const fl=[]; 
+    const dirs=["z+","z-","x+","x-"]; 
+    const lc=25, rng=20;
     function createLines(){
-      for (let i = 0; i < lc; i++){
-        const g = new THREE.BoxGeometry(0.02, 0.02, Math.random() * 1 + 0.4);
-        const m = new THREE.MeshToonMaterial({color: 0xffff00, side: THREE.DoubleSide});
-        const mesh = new THREE.Mesh(g, m); 
-        mesh.castShadow = true; 
-        mesh.receiveShadow = true;
-        mesh.userData.dir = dirs[Math.floor(Math.random() * dirs.length)];
+      for(let i=0;i<lc;i++){
+        const g = new THREE.BoxGeometry(0.02,0.02,Math.random()*1+0.4);
+        const m = new THREE.MeshToonMaterial({color:0xffff00, side:THREE.DoubleSide});
+        const mesh = new THREE.Mesh(g,m); 
+        mesh.castShadow=true; 
+        mesh.receiveShadow=true;
+        mesh.userData.dir = dirs[Math.floor(Math.random()*dirs.length)];
         switch(mesh.userData.dir){
           case "z+":
             mesh.position.set(rand(3), Math.abs(rand(2)), -rng);
@@ -1267,11 +1265,11 @@
             mesh.position.set(rand(3), Math.abs(rand(2)), rng);
             break;
           case "x+":
-            mesh.rotation.y = Math.PI * 0.5;
+            mesh.rotation.y=Math.PI*0.5;
             mesh.position.set(-rng, Math.abs(rand(2)), rand(3));
             break;
           case "x-":
-            mesh.rotation.y = Math.PI * 0.5;
+            mesh.rotation.y=Math.PI*0.5;
             mesh.position.set(rng, Math.abs(rand(2)), rand(3));
             break;
         }
@@ -1282,59 +1280,59 @@
     createLines();
 
     // Camera Movement
-    const sections = ["#resume3d", "#intro", "#school", "#work", "#projects", "#publications", "#leadership", "#contact"];
+    const sections = ["#resume3d","#intro","#school","#work","#projects","#publications","#leadership","#contact"];
     const vps = [
-      { pos: new THREE.Vector3(0, 60, 0), la: new THREE.Vector3(0, 0, 0) },
-      { pos: new THREE.Vector3(10, 15, 10), la: new THREE.Vector3(0, 0, 0) },
-      { pos: new THREE.Vector3(-5, 10, 12), la: new THREE.Vector3(-1, 0, 2) },
-      { pos: new THREE.Vector3(8, 8, -2), la: new THREE.Vector3(5, 0, -2) },
-      { pos: new THREE.Vector3(-8, 8, -8), la: new THREE.Vector3(-4, 0, -3) },
-      { pos: new THREE.Vector3(10, 6, -10), la: new THREE.Vector3(6, 0, -7) },
-      { pos: new THREE.Vector3(15, 12, 15), la: new THREE.Vector3(0, 0, 0) },
-      { pos: new THREE.Vector3(25, 22, 25), la: new THREE.Vector3(0, 0, 0) }
+      {pos:new THREE.Vector3(0,60,0), la:new THREE.Vector3(0,0,0)},
+      {pos:new THREE.Vector3(10,15,10), la:new THREE.Vector3(0,0,0)},
+      {pos:new THREE.Vector3(-5,10,12), la:new THREE.Vector3(-1,0,2)},
+      {pos:new THREE.Vector3(8,8,-2), la:new THREE.Vector3(5,0,-2)},
+      {pos:new THREE.Vector3(-8,8,-8), la:new THREE.Vector3(-4,0,-3)},
+      {pos:new THREE.Vector3(10,6,-10), la:new THREE.Vector3(6,0,-7)},
+      {pos:new THREE.Vector3(15,12,15), la:new THREE.Vector3(0,0,0)},
+      {pos:new THREE.Vector3(25,22,25), la:new THREE.Vector3(0,0,0)}
     ];
     let offsets = [];
-    function calcOffsets() { offsets = sections.map(s => document.querySelector(s).offsetTop); }
+    function calcOffsets(){ offsets = sections.map(s=>document.querySelector(s).offsetTop) }
     calcOffsets(); 
     window.addEventListener('resize', calcOffsets);
 
     function scrollFrac(){
-      return window.scrollY / (document.body.scrollHeight - window.innerHeight) || 0;
+      return (window.scrollY)/(document.body.scrollHeight - window.innerHeight) || 0
     }
     function camTarget(){
-      const n = vps.length, fr = scrollFrac() * (n - 1);
-      const i = Math.floor(fr), lf = fr - i;
-      if(i >= n - 1) return vps[n - 1];
-      const v1 = vps[i], v2 = vps[i + 1];
+      const n = vps.length, fr = scrollFrac()*(n-1);
+      const i = Math.floor(fr), lf = fr-i;
+      if(i >= n-1) return vps[n-1];
+      const v1 = vps[i], v2 = vps[i+1];
       return {
-        pos: v1.pos.clone().lerp(v2.pos, lf),
-        la: v1.la.clone().lerp(v2.la, lf)
-      };
+        pos:v1.pos.clone().lerp(v2.pos, lf),
+        la:v1.la.clone().lerp(v2.la, lf)
+      }
     }
 
     // Event Listeners
-    window.addEventListener('resize', () => {
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      camera.aspect = window.innerWidth / window.innerHeight; 
-      camera.updateProjectionMatrix();
+    window.addEventListener('resize', ()=>{
+      r.setSize(window.innerWidth, window.innerHeight);
+      cam.aspect = window.innerWidth/window.innerHeight; 
+      cam.updateProjectionMatrix();
       calcOffsets();
     });
 
     const mousePos = new THREE.Vector2();
-    window.addEventListener('mousemove', e => {
-      mousePos.x = (e.clientX / window.innerWidth) * 2 - 1; 
-      mousePos.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    window.addEventListener('mousemove', e=>{
+      mousePos.x=(e.clientX/window.innerWidth)*2-1; 
+      mousePos.y=-(e.clientY/window.innerHeight)*2+1;
     }, false);
 
     const fade = document.getElementById("scroll-fade");
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', ()=>{
       const sy = window.scrollY;
-      fade.style.opacity = sy > 200 ? "0" : String(1 - sy / 200);
+      fade.style.opacity = sy > 200 ? "0" : String(1 - sy/200);
       fogTgt.near = fogOrig.near;
       fogTgt.far = fogOrig.far;
     });
 
-    document.getElementById('email').addEventListener('focus', () => {
+    document.getElementById('email').addEventListener('focus', ()=>{
       fogTgt.near = fogRed.near;
       fogTgt.far = fogRed.far;
     });
@@ -1346,109 +1344,122 @@
       const scrollFraction = sy / (document.body.scrollHeight - window.innerHeight);
 
       if (sy <= introY) {
+        // Preserve intro effect for top
         const prog = sy / introY;
         fogTgt.near = THREE.MathUtils.lerp(50, fogOrig.near, prog);
         fogTgt.far = THREE.MathUtils.lerp(80, fogOrig.far, prog);
       } else {
+        // Adjust fog after intro
         fogTgt.near = fogOrig.near;
         fogTgt.far = THREE.MathUtils.lerp(fogOrig.far, 35, scrollFraction);
       }
     });
 
-    // Animation loop
+    // Animation
     function animate(){
       requestAnimationFrame(animate);
-      if (!isScroll) {
-        const speed = 0.001;
-        city.rotation.y -= ((mousePos.x * 8) - camera.rotation.y) * speed;
-        city.rotation.x = 0;
+      if(!isScroll){
+        const speed=0.001;
+        city.rotation.y -= ((mousePos.x*8) - cam.rotation.y)*speed;
+        city.rotation.x=0;
       }
-      const sp = 0.2;
-      fl.forEach(l => {
+      const sp=0.2;
+      fl.forEach(l=>{
         switch(l.userData.dir){
           case 'z+':
             l.position.z += sp; 
             if(l.position.z > rng){ 
-              l.position.z = -rng; 
-              l.position.y = Math.abs(rand(2)); 
+              l.position.z=-rng; 
+              l.position.y=Math.abs(rand(2)); 
             }
             break;
           case 'z-':
             l.position.z -= sp; 
             if(l.position.z < -rng){ 
-              l.position.z = rng; 
-              l.position.y = Math.abs(rand(2)); 
+              l.position.z=rng; 
+              l.position.y=Math.abs(rand(2)); 
             }
             break;
           case 'x+':
             l.position.x += sp; 
             if(l.position.x > rng){ 
-              l.position.x = -rng; 
-              l.position.y = Math.abs(rand(2)); 
+              l.position.x=-rng; 
+              l.position.y=Math.abs(rand(2)); 
             }
             break;
           case 'x-':
             l.position.x -= sp; 
             if(l.position.x < -rng){ 
-              l.position.x = rng; 
-              l.position.y = Math.abs(rand(2)); 
+              l.position.x=rng; 
+              l.position.y=Math.abs(rand(2)); 
             }
             break;
         }
       });
 
       const ct = camTarget();
-      camera.position.lerp(ct.pos, 0.08);
-      const dir = new THREE.Vector3().subVectors(ct.la, camera.position).normalize();
-      camera.lookAt(camera.position.clone().add(dir));
+      cam.position.lerp(ct.pos, 0.08);
+      const dir = new THREE.Vector3().subVectors(ct.la, cam.position).normalize();
+      cam.lookAt(cam.position.clone().add(dir));
 
-      const sf = 0.5 + scrollFrac() * 1.0;
-      blds.forEach(b => {
+      const sf = 0.5 + scrollFrac()*1.0;
+      blds.forEach(b=>{
         b.scale.y = b.userData.h * sf;
-        b.position.y = (b.userData.h * sf) / 2;
+        b.position.y = (b.userData.h * sf)/2;
       });
 
-      scene.fog.near = THREE.MathUtils.lerp(scene.fog.near, fogTgt.near, 0.05);
-      scene.fog.far = THREE.MathUtils.lerp(scene.fog.far, fogTgt.far, 0.05);
-      renderer.render(scene, camera);
+      s.fog.near = THREE.MathUtils.lerp(s.fog.near, fogTgt.near, 0.05);
+      s.fog.far = THREE.MathUtils.lerp(s.fog.far, fogTgt.far, 0.05);
+      r.render(s, cam);
     }
     animate();
 
-    // Menu toggle for mobile
-    document.getElementById('hamburger').addEventListener('click', () => {
+    // Menu
+    document.getElementById('hamburger').addEventListener('click', ()=>{
       const navC = document.getElementById('nav-links');
       navC.classList.toggle('active');
       const act = navC.classList.contains('active'); 
       document.getElementById('hamburger').setAttribute('aria-expanded', act);
     });
 
-    // Scroll to Intro on initial load
-    document.addEventListener('DOMContentLoaded', () => {
+    // Initial Scroll
+    document.addEventListener('DOMContentLoaded', ()=>{
       document.querySelector('#intro').scrollIntoView();
     });
+	
+	document.addEventListener("DOMContentLoaded", () => {
+  const buttons = document.querySelectorAll(".load-pdf");
 
-    // PDF loader
-    document.addEventListener("DOMContentLoaded", () => {
-      const buttons = document.querySelectorAll(".load-pdf");
-      buttons.forEach(button => {
-        button.addEventListener("click", () => {
-          const pdfUrl = button.getAttribute("data-pdf");
-          const pdfContainer = button.nextElementSibling;
-          const objectElement = document.createElement("object");
-          objectElement.setAttribute("data", pdfUrl);
-          objectElement.setAttribute("type", "application/pdf");
-          const fallbackLink = document.createElement("a");
-          fallbackLink.setAttribute("href", pdfUrl);
-          fallbackLink.setAttribute("target", "_blank");
-          fallbackLink.textContent = "Download PDF";
-          objectElement.appendChild(fallbackLink);
-          pdfContainer.style.display = "block";
-          pdfContainer.innerHTML = "";
-          pdfContainer.appendChild(objectElement);
-          button.style.display = "none";
-        });
-      });
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      const pdfUrl = button.getAttribute("data-pdf");
+      const pdfContainer = button.nextElementSibling;
+
+      // Create the <object> element dynamically
+      const objectElement = document.createElement("object");
+      objectElement.setAttribute("data", pdfUrl);
+      objectElement.setAttribute("type", "application/pdf");
+      //objectElement.setAttribute("width", "600");
+      //objectElement.setAttribute("height", "700");
+
+      // Add fallback link
+      const fallbackLink = document.createElement("a");
+      fallbackLink.setAttribute("href", pdfUrl);
+      fallbackLink.setAttribute("target", "_blank");
+      fallbackLink.textContent = "Download PDF";
+
+      objectElement.appendChild(fallbackLink);
+
+      // Show the PDF container and append the object
+      pdfContainer.style.display = "block";
+      pdfContainer.innerHTML = ""; // Clear any existing content
+      pdfContainer.appendChild(objectElement);
+
+      // Hide the button after the PDF is loaded
+      button.style.display = "none";
     });
+  });
+});
   </script>
 </body>
 </html>
