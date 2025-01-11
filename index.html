@@ -11,18 +11,17 @@
   <!-- THREE.JS -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.min.js"></script>
   <style>
-   /* Basic global styles */
-/* Basic global styles */
-/* Basic global styles */
+    /* Basic global styles */
+  /* Basic global styles */
 body {
   margin: 0;
   background: #000;
   color: #fff;
   font-family: sans-serif;
-  overflow-x: hidden; /* No horizontal scrolling */
+  overflow-x: hidden;
+  overflow-y: show;
   text-align: center;
 }
-
 canvas {
   display: block;
   position: fixed;
@@ -36,42 +35,83 @@ canvas {
 /* Container to help center and manage max width for content */
 .container {
   width: 100%;
+  height: 100%;
   max-width: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
   padding: 1rem;
 }
 
-/* Header (Navigation Bar) */
+
+
+.pdf-container {
+  width: calc(100% - 2rem); /* Full width minus margins */
+  margin: 1rem; /* Margin around the container */
+  display: block;
+  overflow: hidden; /* Handles overflow */
+  position: relative; /* Positioning context for pseudo-element */
+  padding-top: 110%; /* Adjusted top padding for less height */
+}
+
+object {
+  position: absolute; /* Absolute positioning inside the container */
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width of its container */
+  height: 100%; /* Full height of the padded container */
+}
+
+
+
+/* Header */
 header {
-  position: fixed; /* Keeps it pinned to the top */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 999;
   padding: 1rem;
-  background: rgba(0, 0, 0, 0.9); /* Darker background */
+  background: rgba(0,0,0,0.9); /* Darker background */
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Aligns content inside header */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional shadow for better visibility */
+  justify-content: center;
 }
 
+
 header h1 {
+  position: absolute;
+  left: 1rem;
   margin: 0;
   font-size: 1.4rem;
   font-weight: 600;
 }
 
-/* Hamburger menu (for mobile) */
+/* New narrow view buttons */
+.narrow-btn {
+  display: none; /* Hidden by default */
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+  margin-left: 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+.narrow-btn:hover {
+  color: hotpink;
+}
+
 .hamburger {
+  position: absolute;
+  right: 1rem;
   font-size: 1.5rem;
   cursor: pointer;
   color: #fff;
-  display: none; /* Only show on smaller screens */
+  display: none; /* Hidden by default */
 }
 
-/* Navigation */
 nav {
   display: flex;
   align-items: center;
@@ -90,26 +130,27 @@ nav a:hover {
   color: hotpink;
 }
 
-/* Section Styles (Scrollable Content) */
+/* Uniform spacing for main sections */
 section {
-  padding: 6rem 2rem 2rem; /* Add padding to clear fixed header */
-  margin-bottom: 20rem; /* Space between sections */
+  padding: 6rem 2rem 2rem 2rem; /* Add more bottom padding */
+  margin-bottom: 20rem; /* Add extra margin between sections */
   box-sizing: border-box;
 }
-
 h2 {
   margin-top: 0;
   letter-spacing: 1px;
 }
 
+/* Reusable background block */
 .block-bg {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0,0,0,0.5);
   padding: 1rem 2rem;
   border-radius: 10px;
   margin: 1rem auto;
-  max-width: 800px;
+  max-width: 800px; /* narrower to keep text lines readable */
 }
 
+/* Two-column section layout (for specific sections that remain unchanged) */
 .columns {
   display: flex;
   flex-wrap: wrap;
@@ -118,64 +159,80 @@ h2 {
   gap: 2rem;
   margin-top: 1rem;
 }
-
 .column {
   flex: 1 1 300px;
   max-width: 600px;
   box-sizing: border-box;
 }
 
+/* Image placeholders with rounded corners */
 .rounded-image {
   width: 100%;
   max-width: 500px;
   height: auto;
   border-radius: 10px;
   display: block;
-  margin: 0 auto 1rem;
+  margin: 0 auto 1rem auto; /* extra bottom margin for spacing */
 }
 
+/* Lists and typography */
 ul {
   text-align: left;
-  margin: 0 auto 1rem;
+  margin: 0 auto 1rem auto;
   padding-left: 1.2rem;
 }
-
 p {
-  margin: 0 auto 1rem;
+  margin: 0 auto 1rem auto;
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255,255,255,0.85);
 }
 
+/* Footer */
 footer {
   text-align: center;
   padding: 2rem 1rem;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0,0,0,0.3);
 }
 
-/* Responsive Navigation for Mobile */
-@media (max-width: 768px) {
+/* Fade overlay for scrolling intro effect */
+#scroll-fade {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  pointer-events: none;
+  z-index: 998;
+  opacity: 1;
+  transition: opacity 1s ease-out;
+}
+
+/* Responsive navigation */
+@media (max-width:768px) {
   nav {
     display: none;
     flex-direction: column;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0,0,0,0.9);
     position: absolute;
-    top: 60px; /* Adjust for header height */
+    top: 60px;
     right: 1rem;
     border-radius: 5px;
     padding: 1rem;
   }
-
   nav a {
     margin: 0.5rem 0;
   }
-
   .hamburger {
-    display: block; /* Show hamburger menu on mobile */
+    display: block; /* Show hamburger menu */
+  }
+  .narrow-btn {
+    display: inline-block; /* Show only in mobile view */
   }
 }
 
 nav.active {
-  display: flex; /* Show nav when activated */
+  display: flex;
 }
 
 /* Contact Form */
@@ -208,8 +265,6 @@ nav.active {
 #contact-form button:hover {
   background: #ff69b4;
 }
-
-
 
   </style>
 </head>
