@@ -37,6 +37,25 @@ canvas {
   padding: 1rem;
 }
 
+.pdf-container {
+  width: calc(100% - 2rem); /* Full width minus margins */
+  margin: 1rem; /* Margin around the container */
+  display: block;
+  overflow: hidden; /* Handles overflow */
+  position: relative; /* Positioning context for pseudo-element */
+  padding-top: 110%; /* Adjusted top padding for less height */
+}
+
+object {
+  position: absolute; /* Absolute positioning inside the container */
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width of its container */
+  height: 100%; /* Full height of the padded container */
+}
+
+
+
 /* Header */
 header {
   position: fixed;
@@ -1409,8 +1428,8 @@ nav.active {
       const objectElement = document.createElement("object");
       objectElement.setAttribute("data", pdfUrl);
       objectElement.setAttribute("type", "application/pdf");
-      objectElement.setAttribute("width", "600");
-      objectElement.setAttribute("height", "700");
+      //objectElement.setAttribute("width", "600");
+      //objectElement.setAttribute("height", "700");
 
       // Add fallback link
       const fallbackLink = document.createElement("a");
