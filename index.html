@@ -8,15 +8,6 @@
   <!-- THREE.JS -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.min.js"></script>
   <style>
-    /* -------------------------------
-       Update CSS variable for real vh
-       (This helps solve the mobile browser URL bar issue)
-    ------------------------------- */
-    :root {
-      /* This default will be updated by JavaScript below */
-      --vh: 1vh;
-    }
-
     /* Global Styles */
     body {
       margin: 0;
@@ -27,16 +18,18 @@
       overflow-y: auto;
       text-align: center;
     }
-    /* For elements we want to fill the viewport, use calc(var(--vh)*100) */
-    canvas {
+    
+    /* The canvas now extends beyond the viewport by EXTRA_HEIGHT (set in JS below) */
+    canvas#webgl-bg {
       display: block;
       position: fixed;
-      top: 0;
+      top: -100px; /* shift up half of the extra height */
       left: 0;
       width: 100vw;
-      height: calc(var(--vh, 1vh) * 100);
+      height: calc(100vh + 200px); /* 200px extra height */
       z-index: -1;
     }
+
     /* Create a scrollable container for all page content */
     .scrollable-content {
       position: absolute;
@@ -47,6 +40,7 @@
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
+
     /* Container to help center and manage max width for content */
     .container {
       width: 100%;
@@ -56,6 +50,7 @@
       box-sizing: border-box;
       padding: 1rem;
     }
+
     .pdf-container {
       width: calc(100% - 2rem);
       margin: 1rem;
@@ -64,6 +59,7 @@
       position: relative;
       padding-top: 110%;
     }
+
     object {
       position: absolute;
       top: 0;
@@ -71,6 +67,7 @@
       width: 100%;
       height: 100%;
     }
+
     /* Header */
     header {
       position: fixed;
@@ -190,10 +187,10 @@
     /* Fade overlay for scrolling intro effect */
     #scroll-fade {
       position: fixed;
-      top: 0;
+      top: -100px; /* same upward shift */
       left: 0;
       width: 100%;
-      height: calc(var(--vh, 1vh) * 100);
+      height: calc(100vh + 200px);
       background: #000;
       pointer-events: none;
       z-index: 998;
@@ -255,23 +252,10 @@
   </style>
 </head>
 <body>
-  <!-- The following script recalculates the --vh unit on load and resize -->
-  <script>
-    function setVh() {
-      // Get the viewport height and multiply it by 1% to get a value for --vh
-      let vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
-    // Set on load
-    setVh();
-    // Re-calc on resize and orientation change.
-    window.addEventListener('resize', setVh);
-    window.addEventListener('orientationchange', setVh);
-  </script>
-
+  <!-- We now use a fixed extra height value for the background -->
   <div id="scroll-fade"></div>
   <canvas id="webgl-bg"></canvas>
-
+  
   <header>
     <h1>Vlad Slyusar</h1>
     <a href="#resume3d" id="narrow-home" class="narrow-btn">Home</a>
@@ -402,15 +386,20 @@
 
   <!-- Scripts -->
   <script>
-    // Setup THREE.js renderer by replacing the existing canvas element.
+    // Define the extra height amount (in pixels)
+    const EXTRA_HEIGHT = 200; // total extra height (will extend canvas 200px beyond viewport)
+    const HALF_EXTRA = EXTRA_HEIGHT / 2;
+
+    // Setup the THREE.js renderer.
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    const oldCanvas = document.getElementById('webgl-bg');
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    oldCanvas.replaceWith(renderer.domElement);
+    const canvasOld = document.getElementById('webgl-bg');
+    // Set the size including extra height.
+    renderer.setSize(window.innerWidth, window.innerHeight + EXTRA_HEIGHT);
+    canvasOld.replaceWith(renderer.domElement);
     renderer.domElement.id = 'webgl-bg';
 
     // Enable shadow mapping for larger viewports
-    if(window.innerWidth > 800){
+    if (window.innerWidth > 800) {
       renderer.shadowMap.enabled = true;
       renderer.shadowMap.type = THREE.PCFSoftShadowMap;
       renderer.shadowMap.needsUpdate = true;
@@ -420,16 +409,17 @@
     scene.background = new THREE.Color(0x7B61FF);
     scene.fog = new THREE.Fog(0x7B61FF, 10, 16);
 
-    const fogOrig = {near:10, far:16},
-          fogRed = {near:1000, far:10000},
-          fogTgt = {near:10, far:16};
-    let disableFog = false; // Flag to disable fog updates after email input
+    const fogOrig = { near: 10, far: 16 },
+          fogRed  = { near: 1000, far: 10000 },
+          fogTgt  = { near: 10, far: 16 };
+    let disableFog = false;
 
-    const camera = new THREE.PerspectiveCamera(30, window.innerWidth/window.innerHeight, 1, 500);
-    camera.position.set(10,15,10);
-    camera.lookAt(0,0,0);
+    // Update camera aspect ratio according to extended height.
+    const camera = new THREE.PerspectiveCamera(30, window.innerWidth / (window.innerHeight + EXTRA_HEIGHT), 1, 500);
+    camera.position.set(10, 15, 10);
+    camera.lookAt(0, 0, 0);
 
-    // City group
+    // City (scene setup)
     const city = new THREE.Object3D();
     scene.add(city);
     const smoke = new THREE.Object3D();
@@ -449,14 +439,14 @@
       return !arr.some(p => (p.x - x) ** 2 + (p.z - z) ** 2 < md ** 2);
     }
 
-    function initCity(){
+    function initCity() {
       const cnt = 80,
             minD = 0.8,
             seg = 2;
       const placed = [];
-      for(let i = 0; i < cnt; i++){
+      for (let i = 0; i < cnt; i++) {
         const geom = new THREE.BoxGeometry(1, 1, 1, seg, seg, seg);
-        const mat = new THREE.MeshStandardMaterial({color: tint(), side: THREE.DoubleSide});
+        const mat = new THREE.MeshStandardMaterial({ color: tint(), side: THREE.DoubleSide });
         const wireMat = new THREE.MeshLambertMaterial({
           color: 0xffffff,
           wireframe: true,
@@ -472,20 +462,20 @@
         cube.add(wireFloor);
         cube.castShadow = true;
         cube.receiveShadow = true;
-        // Building height is reduced initially by dividing by 2
+        // Reduce initial building height by dividing by 2
         const h = (0.1 + Math.abs(rand(8))) / 2;
         cube.scale.y = h;
         cube.userData.h = h;
         buildings.push(cube);
         cube.scale.x = cube.scale.z = 0.9 + rand(1 - 0.9);
         let placedFlag = false, attempts = 0;
-        while(!placedFlag && attempts++ < 1000){
+        while (!placedFlag && attempts++ < 1000) {
           const rx = Math.round(rand(15)),
                 rz = Math.round(rand(15));
-          if(free(rx, rz, placed, minD)){
+          if (free(rx, rz, placed, minD)) {
             cube.position.set(rx, h / 2, rz);
             floor.position.set(rx, 0, rz);
-            placed.push({x: rx, z: rz});
+            placed.push({ x: rx, z: rz });
             placedFlag = true;
           }
         }
@@ -495,10 +485,10 @@
       }
 
       // Smoke particles
-      const smokeMat = new THREE.MeshToonMaterial({color: 0xffff00, side: THREE.DoubleSide});
+      const smokeMat = new THREE.MeshToonMaterial({ color: 0xffff00, side: THREE.DoubleSide });
       const smokeGeo = new THREE.CircleGeometry(0.01, 3);
       const apart = 5;
-      for(let h = 1; h < 300; h++){
+      for (let h = 1; h < 300; h++) {
         const p = new THREE.Mesh(smokeGeo, smokeMat);
         p.position.set(rand(apart), Math.abs(rand(2)), rand(apart));
         p.rotation.set(rand(), rand(), rand());
@@ -539,13 +529,12 @@
     city.add(frontLight);
     scene.add(backLight);
 
-    // Fast Moving Lines
+    // Fast moving lines
     const fastLines = [];
     const directions = ["z+", "z-", "x+", "x-"];
     const lineCount = 25, rangeLimit = 20;
     function createLines() {
       for (let i = 0; i < lineCount; i++) {
-        // Randomize creation delay
         setTimeout(() => {
           const geo = new THREE.BoxGeometry(0.02, 0.02, Math.random() * 1 + 0.4);
           const mat = new THREE.MeshToonMaterial({ color: 0xffff00, side: THREE.DoubleSide });
@@ -576,17 +565,17 @@
     }
     createLines();
 
-    // Camera Movement and scroll-based section interpolation
+    // Camera Movement based on page scroll.
     const sections = ["#resume3d", "#intro", "#school", "#work", "#projects", "#publications", "#leadership", "#contact"];
     const viewports = [
-      {pos: new THREE.Vector3(0,60,0), la: new THREE.Vector3(0,0,0)},
-      {pos: new THREE.Vector3(10,15,10), la: new THREE.Vector3(0,0,0)},
-      {pos: new THREE.Vector3(-5,10,12), la: new THREE.Vector3(-1,0,2)},
-      {pos: new THREE.Vector3(8,8,-2), la: new THREE.Vector3(5,0,-2)},
-      {pos: new THREE.Vector3(-8,8,-8), la: new THREE.Vector3(-4,0,-3)},
-      {pos: new THREE.Vector3(10,6,-10), la: new THREE.Vector3(6,0,-7)},
-      {pos: new THREE.Vector3(15,12,15), la: new THREE.Vector3(0,0,0)},
-      {pos: new THREE.Vector3(15,30,15), la: new THREE.Vector3(0,0,0)}
+      { pos: new THREE.Vector3(0, 60, 0), la: new THREE.Vector3(0, 0, 0) },
+      { pos: new THREE.Vector3(10, 15, 10), la: new THREE.Vector3(0, 0, 0) },
+      { pos: new THREE.Vector3(-5, 10, 12), la: new THREE.Vector3(-1, 0, 2) },
+      { pos: new THREE.Vector3(8, 8, -2), la: new THREE.Vector3(5, 0, -2) },
+      { pos: new THREE.Vector3(-8, 8, -8), la: new THREE.Vector3(-4, 0, -3) },
+      { pos: new THREE.Vector3(10, 6, -10), la: new THREE.Vector3(6, 0, -7) },
+      { pos: new THREE.Vector3(15, 12, 15), la: new THREE.Vector3(0, 0, 0) },
+      { pos: new THREE.Vector3(15, 30, 15), la: new THREE.Vector3(0, 0, 0) }
     ];
     let offsets = [];
     function calcOffsets() {
@@ -595,15 +584,15 @@
     calcOffsets();
     window.addEventListener('resize', calcOffsets);
 
-    function scrollFrac(){
-      return (window.scrollY) / (document.body.scrollHeight - window.innerHeight) || 0;
+    function scrollFrac() {
+      return window.scrollY / (document.body.scrollHeight - window.innerHeight) || 0;
     }
-    function camTarget(){
+    function camTarget() {
       const n = viewports.length,
             frac = scrollFrac() * (n - 1);
       const i = Math.floor(frac),
             lerpF = frac - i;
-      if(i >= n - 1) return viewports[n - 1];
+      if (i >= n - 1) return viewports[n - 1];
       const v1 = viewports[i],
             v2 = viewports[i + 1];
       return {
@@ -612,10 +601,10 @@
       };
     }
 
-    // Event Listeners
+    // Update renderer and camera on resize.
     window.addEventListener('resize', () => {
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      camera.aspect = window.innerWidth/window.innerHeight;
+      renderer.setSize(window.innerWidth, window.innerHeight + EXTRA_HEIGHT);
+      camera.aspect = window.innerWidth / (window.innerHeight + EXTRA_HEIGHT);
       camera.updateProjectionMatrix();
       calcOffsets();
     });
@@ -630,7 +619,7 @@
     window.addEventListener('scroll', () => {
       const sy = window.scrollY;
       fadeOverlay.style.opacity = sy > 200 ? "0" : String(1 - sy / 200);
-      if(!disableFog){
+      if (!disableFog) {
         fogTgt.near = fogOrig.near;
         fogTgt.far = fogOrig.far;
       }
@@ -658,41 +647,41 @@
       }
     });
 
-    // Animation Loop
-    function animate(){
+    // Animation loop.
+    function animate() {
       requestAnimationFrame(animate);
-      if(!isScroll){
+      if (!isScroll) {
         const speed = 0.001;
         city.rotation.y -= ((mousePos.x * 8) - camera.rotation.y) * speed;
         city.rotation.x = 0;
       }
       const sp = 0.2;
       fastLines.forEach(line => {
-        switch(line.userData.dir){
+        switch (line.userData.dir) {
           case 'z+':
             line.position.z += sp;
-            if(line.position.z > rangeLimit){
+            if (line.position.z > rangeLimit) {
               line.position.z = -rangeLimit;
               line.position.y = Math.abs(rand(2));
             }
             break;
           case 'z-':
             line.position.z -= sp;
-            if(line.position.z < -rangeLimit){
+            if (line.position.z < -rangeLimit) {
               line.position.z = rangeLimit;
               line.position.y = Math.abs(rand(2));
             }
             break;
           case 'x+':
             line.position.x += sp;
-            if(line.position.x > rangeLimit){
+            if (line.position.x > rangeLimit) {
               line.position.x = -rangeLimit;
               line.position.y = Math.abs(rand(2));
             }
             break;
           case 'x-':
             line.position.x -= sp;
-            if(line.position.x < -rangeLimit){
+            if (line.position.x < -rangeLimit) {
               line.position.x = rangeLimit;
               line.position.y = Math.abs(rand(2));
             }
@@ -700,13 +689,13 @@
         }
       });
 
-      // Update camera position
+      // Update camera position.
       const ct = camTarget();
       camera.position.lerp(ct.pos, 0.08);
       const dir = new THREE.Vector3().subVectors(ct.la, camera.position).normalize();
       camera.lookAt(camera.position.clone().add(dir));
 
-      // Update building heights based on scroll
+      // Update building heights based on scroll.
       const sf = 0.5 + scrollFrac() * 3;
       buildings.forEach(b => {
         b.scale.y = b.userData.h * sf;
@@ -719,7 +708,7 @@
     }
     animate();
 
-    // Menu functionality for small screens
+    // Menu functionality for small screens.
     document.getElementById('hamburger').addEventListener('click', () => {
       const navContainer = document.getElementById('nav-links');
       navContainer.classList.toggle('active');
@@ -727,12 +716,12 @@
       document.getElementById('hamburger').setAttribute('aria-expanded', active);
     });
 
-    // Initial Scroll: scroll to #intro on page load
+    // Initial scroll on page load.
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelector('#intro').scrollIntoView();
     });
 
-    // PDF Loader Script
+    // PDF Loader Script.
     document.addEventListener("DOMContentLoaded", () => {
       const buttons = document.querySelectorAll(".load-pdf");
       buttons.forEach(button => {
