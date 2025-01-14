@@ -273,8 +273,14 @@
   </style>
 </head>
 <body>
+
+<div id="globe-container" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999;"></div>
+
+
   <div id="scroll-fade"></div>
   <canvas id="webgl-bg"></canvas>
+  
+
   
   <header>
     <h1>Vlad Slyusar</h1>
@@ -296,95 +302,1034 @@
   <!-- Scrollable Content Wrapper -->
   <div class="scrollable-content" id="scrollable-content">
     <!-- 3D Resume (One column) -->
-    <section id="resume3d">
-      <div class="container">
-        <h2>3D Resume</h2>
-        <div hidden class="block-bg">
-          <p>Welcome to my interactive 3D resume. Scroll down to explore more!</p>
-        </div>
+  <section id="resume3d">
+    <div class="container">
+      <h2>3D Resume</h2>
+      <div hidden class="block-bg">
+        <p>Welcome to my interactive 3D resume. Scroll down to explore more!</p>
       </div>
-    </section>
-    <!-- Spacer -->
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    
-    <!-- Intro (One column) -->
-    <section id="intro">
-      <div class="container">
-        <h2>Intro</h2>
-        <div class="block-bg">
-          <p>This is the introduction section.</p>
-        </div>
+    </div>
+  </section>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <!-- Intro (One column) -->
+  <section id="intro">
+    <div class="container">
+      <h2>Introduction</h2>
+      <div class="block-bg">
+        
+        <p>
+          Highly accomplished Computer/Electrical Engineer with over 10 years experience delivering advanced connectivity, 
+          high-precision positioning, RF systems, embedded software, and hardware design solutions. Demonstrated track record 
+          in autonomous vehicle (AV) technology, cybersecurity, network security, and IoT integration, backed by a 4.0 M.S.E. 
+          GPA and dual B.S.E. degrees.
+        </p>
       </div>
-    </section>
-    
-    <!-- Technical Skills (Remains as is: 2 columns) -->
-    <section>
-      <div class="container">
-        <h2>Technical Skills</h2>
-        <div class="columns">
-          <div class="column">
-            <p>Skill Set 1</p>
+<br>
+<img src="i.jpg" alt="Vlad Slyusar" class="rounded-image">
+<br>
+      <div class="block-bg">
+        <p>
+          Possesses in-depth expertise in 5G/mmWave, RTK/NRTK GNSS, MEC, Edge AI, SDR, and DevSecOps. Adept at leading 
+          complex R&amp;D projects, optimizing embedded systems, and managing multiple large-scale deployments in fast-paced, 
+          deadline-driven environments. Excellent communication, analytical, and leadership abilities, reinforced by hands-on 
+          experience in machine learning, blockchain, and cloud technologies. Passionate about driving innovation, scalable 
+          solutions, and secure vehicular communications that power the next generation of mobility.
+        </p>
+      </div>
+  
+  </section>
+
+
+
+
+
+  <!-- Technical Skills (Remains as is: 2 columns) -->
+  <section>
+    <div class="container">
+      <h2>Technical Skills</h2>
+      <div class="columns">
+        <div class="column">
+          <div class="block-bg">
+            <h3>Software &amp; Tools</h3>
+            <p>Docker, Kubernetes, AWS, Git, TensorFlow, PyTorch, Qt, QNX, Altium Designer, Cadence Allegro, MATLAB, GNU Radio / SDR (Software-Defined Radio), Wireshark, OpenGL, Eagle CAD, Jenkins, SolidWorks, Simulink</p>
           </div>
-          <div class="column">
-            <p>Skill Set 2</p>
+          <div class="block-bg">
+            <h3>Hardware</h3>
+            <p>FPGA (Spartan 3E), ARM Cortex-M3, SoC Integration, IoT Devices, Raspberry Pi, Arduino, PCB Design (2-8 layers, blind/buried vias), Power Management, Signal Integrity Analysis, Thermal Management, SDR Devices, MPC57xx Calypso/Bolero</p>
           </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Education (One column) -->
-    <section id="school">
-      <div class="container">
-        <h2>Education</h2>
-        <div class="block-bg">
-          <p>School details go here.</p>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Work Experience -->
-    <section id="work">
-      <div class="container">
-        <h2>Work Experience</h2>
-        <div class="block-bg">
-          <p>Work experience details.</p>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Projects (Remains as is: 2 columns) -->
-    <section id="projects">
-      <div class="container">
-        <h2>Projects</h2>
-        <div class="columns">
-          <div class="column">
-            <p>Project 1</p>
-          </div>
-          <div class="column">
-            <p>Project 2</p>
+          <div class="block-bg">
+            <h3>Embedded Systems</h3>
+            <p>Real-Time Operating Systems (RTOS), Embedded Linux, IoT Protocols (MQTT, CoAP), Cross-Platform Development, Low-Level Coding, SoC Testing, Firmware Development, Board Support Level (BSL) Integration, CAN Bus, Device Drivers</p>
           </div>
         </div>
-      </div>
-    </section>
-    
-    <!-- Publications & Patents -->
-    <section id="publications">
-      <div class="container">
-        <h2>Publications &amp; Patents</h2>
-        <h3>United States Patents</h3>
-        <p>Patent details go here.</p>
-      </div>
-    </section>
-    
-    <!-- Leadership (One column) -->
-    <section id="leadership">
-      <div class="container">
-        <h2>Leadership</h2>
-        <div class="block-bg">
-          <p>Leadership details here.</p>
+        <div class="column">
+          <div class="block-bg">
+            <h3>Programming Languages</h3>
+            <p>Python, C, C++, VHDL, Rust, JavaScript, TypeScript, SQL, Assembly, MATLAB, PHP, Swift</p>
+          </div>
+          <div class="block-bg">
+            <h3>Networking</h3>
+            <p>5G/mmWave, SDN (Software-Defined Networking), Network Virtualization, Network Security Protocols (TLS, SSL), TCP/IP, IPv4, IPv6, Cellular/Wi-Fi/Bluetooth/RF Connectivity, VPN, Advanced Routing Techniques, MEC (Mobile Edge Computing), NTRIP/RTCM, Network Automation</p>
+          </div>
+          <div class="block-bg">
+            <h3>Other Skills</h3>
+            <p>Machine Learning, Artificial Intelligence, DevSecOps, High-Level Software Development, ASIC Design, VLSI CAD, Relative GNSS (Network-RTK, PPP-RTK, DGNSS, Sapcorda), Signal Processing, EMC Testing, Cyber-Physical Systems, Blockchain, Agile/Scrum Methodologies</p>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
+
+  <!-- Education (One column) -->
+  <section id="school">
+    <div class="container">
+      <h2>Education</h2>
+      <div class="block-bg">
+        <h3>Master of Science in Computer Engineering</h3>
+        <p>
+          Rackham Graduate School, University of Michigan<br>
+          September 2016 – December 2017 | GPA: 4.0
+        </p>
+      </div>
+      <div class="block-bg">
+        <h3>Bachelor of Science in Electrical Engineering</h3>
+        <h3>Bachelor of Science in Computer Engineering</h3>
+        <h3>Minor in Computer Science</h3>
+        <p>
+          University of Michigan – Dearborn, MI<br>
+          September 2012 – April 2016 | GPA: 3.94
+        </p>
+      </div>
+      <div class="block-bg">
+        <h3>Relevant Courses</h3>
+        <ul>
+          Advanced Embedded Systems,
+          Digital Signal Processing,
+          Wireless Communication,
+          Analog &amp; Digital Communication Systems,
+          Assembly Programming,
+          Automatic Control Systems,
+          Computer Hardware Organization &amp; Design,
+          Embedded System Design,
+          Electromagnetic Compatibility,
+          Microelectronics,
+          Circuit Design,
+          Control Systems,
+          Data Structures &amp; Algorithms,
+          Database Management Systems,
+          Electrical Materials &amp; Devices,
+          Introduction to VLSI,
+          Operating Systems,
+          Power Electronics,
+          System Design &amp; Microcontrollers,
+        </ul>
+      </div>
+      <div class="block-bg">
+        <h3>Awards</h3>
+        <ul>
+          <li><strong>James B. Angell Scholar:</strong> Earned exclusively A grades over 8 terms (covering two Engineering Degrees + a CIS minor).</li>
+          <li><strong>Chancellor’s Scholarship Recipient:</strong> Awarded full tuition for exceptional academic performance (High School GPA &gt; 4.0).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work Experience -->
+  <section id="work">
+    <div class="container">
+      <h2>Work Experience</h2>
+      
+	  
+	  
+	  <!-- Ford Motor Company -->
+<div class="block-bg">
+  <h3>Ford Motor Company</h3>
+  <p>
+    <strong>Senior Computer/Electrical Engineer</strong><br>
+    Dearborn, MI &amp; Palo Alto, CA<br>
+    May 2014 – June 2023
+  </p>
+</div>
+<br>
+<div class="columns">
+    <!-- Advanced Connectivity Research -->
+    <div class="block-bg">
+      <h4>Advanced Connectivity Research</h4>
+      <ul>
+        <li>
+          Spearheaded multiple high-impact Proof-of-Concept (POC) initiatives for Cellular, WiFi, Bluetooth, RF connectivity, and IoT integration, elevating Ford’s autonomous vehicle (AV) communication infrastructure and ensuring robust, secure data transmission.
+        </li>
+        <!-- Group 1: Adaptive Network Access for Vehicle Applications -->
+        <li>
+          Developed proprietary methods for adaptive network access by dynamically selecting the optimal APN for remote computing demands, ensuring proper resource allocation <a href="https://patents.google.com/patent/US12192868B2" target="_blank" style="color: white; text-decoration: none;"><strong><u>(US12192868B2)</u></strong>.
+        </li>
+        <li>
+          Conducted comprehensive testing on 5G/mmWave performance—including 28GHz frequencies and 5G NSA mode—to optimize advanced networking and routing protocols, thereby significantly enhancing network reliability and speed.
+        </li>
+        <!-- Group 2: Remote Driving and Platoon/Group Vehicular Guidance (updated reference) -->
+        <li>
+          Managed and operated a dedicated private 5G mmWave cell network integrated with cutting-edge Mobile Edge Computing (MEC) and Edge AI, enabling seamless teleoperation and real-time control of autonomous vehicles [<a href="https://patents.google.com/patent/US12181869B2" target="_blank">US12181869B2</a>].
+        </li>
+        <!-- Group 3: Edge Computing for Vehicle Alerts and Radio Congestion Mitigation -->
+        <li>
+          Implemented MEC-based alert processing algorithms to rapidly generate traffic alerts and mitigate radio congestion by pausing low-priority messaging [<a href="https://patents.google.com/patent/US11210943B2" target="_blank">US11210943B2</a>].
+        </li>
+        <li>
+          Collaborated with top cell tower equipment vendors to refine 4G/5G handover processes by meticulously optimizing RF thresholds and hysteresis parameters using QXDM diagnostic tools.
+        </li>
+        <li>
+          Developed and deployed a proprietary VPN server to secure modem-to-modem communication, facilitating controlled and secure connectivity for autonomous vehicles over public cellular networks.
+        </li>
+      </ul>
+    </div>
+ 
+
+   
+    <!-- High Precision Positioning Research -->
+    <div class="block-bg">
+      <h4>High Precision Positioning Research</h4>
+      <ul>
+        <!-- Group 4: Enhanced Vehicle Positioning and Infrastructure-Based Sensing (updated reference) -->
+        <li>
+          Conducted rigorous testing of multi-constellation, multi-frequency GNSS solutions to substantially enhance AV positioning and integrate infrastructure-assisted sensing for precise geolocation [<a href="https://patents.google.com/patent/US11551456B2" target="_blank">US11551456B2</a>].
+        </li>
+        <li>
+          Researched and implemented advanced Single State Real-Time Kinematic (SSR) and Observed State RTK (OSR) correction protocols over NTRIP/RTCM, significantly improving real-time positioning precision.
+        </li>
+        <li>
+          Led a University Alliance project focused on partial integer ambiguity resolution for moving-base RTK in collaboration with Ohio State University (OSU), advancing GNSS reliability.
+        </li>
+        <li>
+          Developed innovative urban canyon multipath mitigation techniques using non-directional, non-geodetic receivers with multi-frequency supercorrelation, enhancing positional reliability in complex urban settings.
+        </li>
+        <li>
+          Executed sophisticated GPS simulation, jamming, spoofing, and detection strategies using dual USRP X310 SDRs and proprietary third-party solutions to fortify AV positioning against malicious interference.
+        </li>
+        <li>
+          Integrated SLAM (Simultaneous Localization and Mapping) and sensor fusion techniques to further enhance the precision and robustness of autonomous navigation systems.
+        </li>
+      </ul>
+    </div>
+	
+	
+	   <!-- Deployment & Modification -->
+    <div class="block-bg">
+  <h4>AV Fleet - Network Connectivity (Ford + ArgoAI)</h4>
+  <ul>
+    <li>
+      Personally designed and managed the complete end-to-end network infrastructure pipeline for Ford's first autonomous vehicle fleet, integrating over 100 advanced Telematics Control Units (TCU—phone/modem) and 100 Enhanced Central Gateways (ECG—security gateways).
+    </li>
+    <li>
+      Discovered and implemented SW/HW/BSP-level hacks for CAN + Ethernet to integrate both modules (TCU+ECG designed in-house for future F150) as the primary pipeline for ArgoAI's AV hardware (Ford Fusion).
+    </li>
+    <li>
+      Personally conducted full-cycle hardware modifications, including precision soldering of 0201 components and rigorous component-level rework for CAN, Ethernet, and power subsystems on Ford TCU and ECG.
+    </li>
+    <li>
+      Delivered scalable, high-speed connectivity solutions that bolstered network performance and security, setting the foundation for Ford’s next-generation autonomous operations achieving >99% network reliability across deployments in five major U.S. cities
+    </li>
+  </ul>
+</div>
+	
+    <!-- RF Systems & Advanced Antenna Research -->
+    <div class="block-bg">
+      <h4>RF Systems &amp; Advanced Antenna Research</h4>
+      <ul>
+        <li>
+          Directed multi-institutional research collaborations in advanced antenna design, RF channel modeling, and printed antenna development with Ohio State University (OSU) and Michigan State University (MSU), yielding innovative connectivity solutions.
+        </li>
+        <li>
+          Integrated experimental flat antenna technology with future TCUs on live vehicles for high-impact demonstrations at the IDT Expo, showcasing enhanced Cellular and WiFi performance.
+        </li>
+        <li>
+          Implemented MIMO (Multiple Input Multiple Output) and beamforming techniques to substantially improve antenna performance, signal quality, and overall network capacity.
+        </li>
+      </ul>
+    </div>
+
+    <!-- Embedded Software Development -->
+    <div class="block-bg">
+      <h4>Embedded Software Development</h4>
+      <ul>
+        <li>
+          Engineered robust cross-platform Qt applications for embedded devices running on QNX and Embedded Linux, delivering intuitive user interfaces and reliable functionality.
+        </li>
+        <li>
+          Developed low-level firmware for VMCU hardware—including MPC57xx Calypso/Bolero microcontrollers—using C and Assembly to ensure seamless hardware-software integration.
+        </li>
+        <li>
+          Created comprehensive testing software for SoC and peripheral boards, interfacing with protocols such as GPIO, I2C, UART, JTAG, SPI, CAN, and Ethernet to rigorously validate system performance.
+        </li>
+        <li>
+          Integrated Board Support Level (BSL) software for multi-vendor SoCs (NXP, Renesas, Qualcomm), streamlining development cycles and enhancing cross-platform compatibility.
+        </li>
+        <li>
+          Implemented advanced CI/CD pipelines and automated testing frameworks to enhance software reliability, reduce development time, and accelerate deployment cycles.
+        </li>
+        <!-- Group 10: In-Vehicle Communications Management and Device Connectivity -->
+        <li>
+          Implemented dynamic in-vehicle communications management systems that wake primary modems from low-power states and seamlessly couple mobile devices to the vehicle’s wireless network [<a href="https://patents.google.com/patent/US10542493B2" target="_blank">US10542493B2</a>].
+        </li>
+      </ul>
+    </div>
+    <!-- Hardware Design & Development -->
+    <div class="block-bg">
+      <h4>Hardware Design &amp; Development</h4>
+      <ul>
+        <li>
+          Designed and fabricated next-generation VMCU and Ethernet boards for Ford Sync SoC platforms using Altium Designer, collaborating with Flextronics Ltd to optimize manufacturing and assembly processes.
+        </li>
+        <li>
+          Engineered custom breakout boards for ultra-high-density connectors by managing complete block diagrams, schematic layouts, and component lifecycles using Altium Vault and Eagle CAD.
+        </li>
+        <li>
+          Executed complex PCB designs (2-8 layers with blind/buried vias) and implemented advanced soldering techniques—including 0201 SMD soldering and precise BGA rework/reflow—to ensure high-quality hardware performance.
+        </li>
+        <li>
+          Successfully completed Masters-level EMC courses and WCCA training from AEi Systems, performing rigorous EMC lab testing to guarantee compliance with industry standards.
+        </li>
+        <li>
+          Conducted meticulous signal integrity analyses and implemented state-of-the-art thermal management strategies to maximize hardware reliability and longevity.
+        </li>
+      </ul>
+    </div>
+    <!-- High-Level Software Engineering -->
+    <div class="block-bg">
+      <h4>High-Level Software Engineering</h4>
+      <ul>
+        <li>
+          Developed and maintained sophisticated text parser systems for detailed log file analysis with advanced graphical user interfaces (GUIs) in C++, significantly enhancing data analytics and real-time visualization.
+        </li>
+        <li>
+          Created cross-platform GPU/CPU benchmark applications leveraging OpenGL to deliver critical performance metrics and optimize embedded system functionality.
+        </li>
+        <li>
+          Engineered and rigorously tested Telematics Control Unit (TCU) software with AT command integration using C/C++, thereby improving vehicle connectivity and diagnostic capabilities.
+        </li>
+        <li>
+          Designed and implemented advanced data analytics tools and visualization frameworks to support high-level debugging, performance monitoring, and strategic decision-making.
+        </li>
+        <!-- Group 6: Video Streaming Anomaly Detection -->
+        <li>
+          Engineered advanced video streaming anomaly detection systems that analyze sequential frame data to identify missing or delayed frames and provide real-time diagnostic feedback [<a href="https://patents.google.com/patent/US11991346B2" target="_blank">US11991346B2</a>].
+        </li>
+        <!-- Group 7: Targeted Content Delivery Based on Sensor and Location Data -->
+        <li>
+          Implemented targeted content delivery mechanisms leveraging sensor and geolocation data to deliver personalized vehicle infotainment and context-aware information [<a href="https://patents.google.com/patent/US11880867B2" target="_blank">US11880867B2</a>].
+        </li>
+      </ul>
+    </div>
+    <!-- RF Diagnostics -->
+    <div class="block-bg">
+      <h4>RF Diagnostics</h4>
+      <ul>
+        <li>
+          Utilized advanced Software-Defined Radio (SDR) systems and WiFi Pineapple diagnostic tools to isolate, analyze, and resolve RF interference issues in trailer backup camera systems, employing Wireshark and PCAP analysis to optimize network performance.
+        </li>
+      </ul>
+    </div>
+    <!-- Ideation & Innovation -->
+    <div class="block-bg">
+      <h4>Ideation &amp; Innovation</h4>
+      <ul>
+        <!-- Group 5: Electric Autonomous Vehicle Ride Service Assistance -->
+        <li>
+          Pioneered diagnostic strategies enabling autonomous vehicles to detect power shortages and coordinate ride service assistance through rendezvous protocols [<a href="https://patents.google.com/patent/US12037021B2" target="_blank">US12037021B2</a>].
+        </li>
+		<!-- Group 8: Drone-Based Vehicle Connectivity -->
+        <li>
+          Developed drone-based connectivity solutions that deploy airborne relays to re-establish network access during emergencies [<a href="https://patents.google.com/patent/US11812355B2" target="_blank">US11812355B2</a>].
+        </li>
+        <!-- Group 9: Secure Broadcast Delivery and Verification -->
+        <li>
+          Pioneered secure broadcast delivery and verification techniques using randomized nonce generation and hash validation to ensure content integrity [<a href="https://patents.google.com/patent/US11750393B2" target="_blank">US11750393B2</a>].
+        </li>
+        <!-- Group 11: Parking Lot Management via Multicast Communications -->
+        <li>
+          Developed multicast-assisted parking lot management systems that dynamically switch between point-to-multipoint and unicast messaging to optimize data delivery and manage network load [<a href="https://patents.google.com/patent/US11395107B1" target="_blank">US11395107B1</a>].
+        </li>
+        <li>
+          Pioneered breakthrough initiatives including Secure Broadcast Delivery and Verification, Drone-based Vehicle Connectivity Systems, and Edge Computing Aided Radio Congestion Mitigation, driving next-generation connectivity and cybersecurity advancements.
+        </li>
+      </ul>
+    </div>
+
+</div>
+
+	  
+	  
+	  
+	  
+
+      <!-- Valeo Inc. -->
+      <br><br><br><br>
+      <div class="block-bg">
+        <h3>Valeo Inc.</h3>
+        <p>
+          <strong>Network Management Intern</strong><br>
+          Troy, MI<br>
+          April 2013 – September 2013
+        </p>
+      </div>
+      <div class="block-bg">
+        <ul>
+          <li>
+            Managed comprehensive server backup protocols and swiftly resolved complex technical issues on both Windows and Linux platforms, ensuring robust data integrity and operational continuity.
+          </li>
+          <li>
+            Delivered exceptional 2nd and 3rd level technical support for escalated issues beyond the standard IT call center scope, significantly improving overall IT support efficiency.
+          </li>
+          <li>
+            Administered Active Directory and WSUS, and executed critical company-wide software updates—including a successful migration from Windows XP to Windows 7—thereby enhancing network security and performance.
+          </li>
+          <li>
+            Developed detailed procedural documentation and conducted training for new employees, streamlining IT operations and optimizing onboarding processes.
+          </li>
+        </ul>
+      </div>
+      <br><br><br><br>
+      <div class="block-bg">
+        <h3>Vector CANtech</h3>
+        <p>
+          <strong>Computer Engineering Intern</strong><br>
+          Novi, MI<br>
+          March 2012 – June 2012
+        </p>
+      </div>
+      <div class="block-bg">
+        <ul>
+          <li>
+            Conducted in-depth analysis of embedded devices and interface boards in strict adherence to customer specifications, ensuring precise product alignment and regulatory compliance.
+          </li>
+          <li>
+            Collaborated effectively with cross-functional teams to define detailed hardware requirements for OEMs and Tier 1 suppliers, facilitating seamless project execution.
+          </li>
+          <li>
+            Organized and rigorously tested embedded hardware and debugging equipment, significantly enhancing inventory management through custom scripting and comprehensive documentation.
+          </li>
+        </ul>
+      </div>
+	  <br><br><br><br>
+	  <div class="block-bg">
+         <h3>Freelance</h3>
+              <p><strong>Software/Web Developer</strong><br>Northville, MI | Nov 2010 – Mar 2013</p>
+      </div>
+	  <div class="block-bg">
+                <li>Developed full-stack solutions (HTML/CSS/JS, PHP, SQL/NoSQL)</li>
+                <li>Used Angular, Node.js, Google Cloud, mobile (Android/iOS)</li>
+                <li>Applied Agile/Scrum for client deliverables</li>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects (Remains as is: 2 columns) -->
+  <section id="projects">
+    <div class="container">
+      <h2>Projects</h2>
+      <div class="columns">
+
+          <div class="block-bg">
+            <h3>Human Heart Rate Extraction from Video</h3>
+            <p>
+              <strong>Description:</strong> Developed an innovative MATLAB‑based system employing the Viola‑Jones algorithm, KLT tracking, and Eulerian Magnification to detect and amplify subtle heart rate signals in real time.<br>
+              <strong>Technologies:</strong> MATLAB, Computer Vision, Deep Learning, Real‑Time Processing, Viola‑Jones Algorithm, KLT Tracker.<br>
+              <strong>Achievements:</strong> Achieved high-fidelity BPM extraction under challenging low-light and noisy conditions by integrating advanced signal processing techniques.
+            </p>
+            <div class="patent-image">
+              <button class="load-pdf" data-pdf="5831-Heartrate.pdf">Click to View PDF</button>
+              <div class="pdf-container" style="display: none;"></div>
+            </div>
+          </div>
+          <div class="block-bg">
+            <h3>Vehicle Keyfob Security Bypass</h3>
+            <p>
+              <strong>Description:</strong> Demonstrated critical cybersecurity vulnerabilities by exploiting rolling code encryption through innovative HackRF SDR and GNU Radio replay attack techniques.<br>
+              <strong>Technologies:</strong> HackRF SDR, RTL‑SDR, GNU Radio (GRC), DVB‑T USB Dongle, Signal Filtering, Cryptanalysis.<br>
+              <strong>Achievements:</strong> Successfully unlocked a 2011 Sequoia and a 2016 Fusion, highlighting the pressing need for enhanced vehicular security measures.
+            </p>
+            <div class="patent-image">
+              <button class="load-pdf" data-pdf="544.pdf">Click to View PDF</button>
+              <div class="pdf-container" style="display: none;"></div>
+            </div>
+          </div>
+          <div class="block-bg">
+            <h3>One-Time-Pad Secure Communication</h3>
+            <p>
+              <strong>Description:</strong> Engineered a mathematically unbreakable Vernam Cipher system using an ARM M3 Teensy and Spartan 3E FPGA for hardware-accelerated encryption, featuring a custom messaging protocol for secure data transmission.<br>
+              <strong>Technologies:</strong> ARM M3 Teensy, Spartan 3E FPGA, VHDL, Cryptography, Secure Protocol Design.<br>
+              <strong>Achievements:</strong> Delivered a robust encryption solution that ensures secure communication across diverse hardware architectures.
+            </p>
+            <div class="patent-image">
+              <button class="load-pdf" data-pdf="404.pdf">Click to View PDF</button>
+              <div class="pdf-container" style="display: none;"></div>
+            </div>
+          </div>
+          <div class="block-bg">
+            <h3>Custom 8-Bit ALU ASIC Design</h3>
+            <p>
+              <strong>Description:</strong> Designed, fabricated, and rigorously tested an 8‑bit ALU using advanced VLSI CAD and a 50‑micron photolithography process in the Lurie Nanofabrication Lab, successfully validating eight distinct ALU functions on dual 8‑bit operands.<br>
+              <strong>Technologies:</strong> VLSI CAD, ASIC Design, Photolithography, Spartan 3E FPGA, Digital Design.<br>
+              <strong>Achievements:</strong> Demonstrated superior expertise in digital circuit design and ASIC development, ensuring efficient hardware implementation.
+            </p>
+            <div class="patent-image">
+              <button class="load-pdf" data-pdf="test1.pdf">Click to View PDF</button>
+              <div class="pdf-container" style="display: none;"></div>
+            </div>
+          </div>
+        
+          <div class="block-bg">
+            <h3>Hidden Markov Models for Speech Recognition</h3>
+            <p>
+              <strong>Description:</strong> Developed a robust HMM‑based speech recognition system in MATLAB, utilizing the Baum‑Welch algorithm and advanced feature extraction techniques to achieve high classification accuracy in low-resource environments.<br>
+              <strong>Technologies:</strong> MATLAB, Hidden Markov Models, Natural Language Processing (NLP), Feature Engineering.<br>
+              <strong>Achievements:</strong> Reinforced machine learning capabilities and signal processing expertise to deliver a highly accurate speech recognition solution.
+            </p>
+            <div class="patent-image">
+              <button class="load-pdf" data-pdf="5831-HMM.pdf">Click to View PDF</button>
+              <div class="pdf-container" style="display: none;"></div>
+            </div>
+          </div>
+          <div class="block-bg">
+            <h3>Laser Harp DMX Light Controller</h3>
+            <p>
+              <strong>Description:</strong> Constructed a cutting-edge digital synthesizer/MIDI controller utilizing laser diodes and the DMX512 protocol to deliver professional DJ lighting effects with real-time audio-visual integration.<br>
+              <strong>Technologies:</strong> Laser Diodes, DMX512, MIDI Protocol, Digital Signal Processing, Real‑Time Control.<br>
+              <strong>Achievements:</strong> Showcased multifaceted expertise in electronics and creative system design while ensuring seamless integration of audio and visual controls.
+            </p>
+            <div class="patent-image">
+              <button class="load-pdf" data-pdf="test1.pdf">Click to View PDF</button>
+              <div class="pdf-container" style="display: none;"></div>
+            </div>
+          </div>
+          <div class="block-bg">
+            <h3>VHDL-Based Graphics Card &amp; Elevator Controller</h3>
+            <p>
+              <strong>Description:</strong> Programmed an 8‑bit graphics card and developed an interactive elevator simulation on a Spartan 3E FPGA using VHDL; incorporated VGA output and hardware switches for real-time animation and control.<br>
+              <strong>Technologies:</strong> VHDL, Spartan 3E FPGA, VGA Interface, Real‑Time Processing.<br>
+              <strong>Achievements:</strong> Demonstrated advanced hardware/software integration and real-time system design, extending expertise in FPGA development.
+            </p>
+            <div class="patent-image">
+              <button class="load-pdf" data-pdf="test1.pdf">Click to View PDF</button>
+              <div class="pdf-container" style="display: none;"></div>
+            </div>
+          </div>
+          <div class="block-bg">
+            <h3>Custom Xv6 Unix Kernel Scheduler</h3>
+            <p>
+              <strong>Description:</strong> Enhanced the Xv6 Unix kernel by integrating a sophisticated Multilevel Feedback Queue (MLFQ) scheduler to optimize system performance, concurrency, and resource management.<br>
+              <strong>Technologies:</strong> C, Xv6 Kernel, QEMU, MLFQ Scheduling.<br>
+              <strong>Achievements:</strong> Demonstrated in-depth kernel-level programming skills and substantial improvements to OS scheduling efficiency.
+            </p>
+            <div class="patent-image">
+              <button class="load-pdf" data-pdf="test1.pdf">Click to View PDF</button>
+              <div class="pdf-container" style="display: none;"></div>
+            </div>
+          </div>
+
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  <!-- Publications & Patents -->
+ <section id="publications">
+  <div class="container">
+    <h2>Publications &amp; Patents</h2>
+
+    <!-- United States Patents -->
+    <h3>United States Patents</h3>
+
+    <!-- Patent Entry 1 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US12192868B2" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-12192868-B2]</strong>
+      </a> - Adaptively selecting network APN for vehicle application remote computing demand</h4>
+   <div class="patent-image">
+    <button class="load-pdf" data-pdf="12192868.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> January 7, 2025</p>
+    <p><strong>Summary:</strong> Managing vehicle application usage of computing resources is provided. A request for computing resources of a communications network is received from a vehicle application installed to a vehicle. An access point name (APN) is assigned to the vehicle application based on an application identifier corresponding to the vehicle application by accessing stored APN information including a mapping of application identifiers to corresponding APNs. The computing resources are accessed by the vehicle application connecting to the communications network using the APN.</p>
+  </div>
+</div>
+
+
+<br>
+
+<!-- Patent Entry 2 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US12181869B2" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-12181869-B2]</strong>
+      </a> - Method and apparatus for remote driving a plurality of vehicles in a platoon</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="12181869.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> December 31, 2024</p>
+    <p><strong>Summary:</strong> A system includes a plurality of vehicles and at least one first processor in a first vehicle and at least one second processor in each other of the plurality of vehicles. The first vehicle wirelessly receives remote driving commands, from a remote computing system, instructing control of the first vehicle and executes the remote driving commands to control the first vehicle in accordance with the remote driving commands. The first vehicle wirelessly broadcasts the remote driving commands, including a location of the first vehicle where a given of the driving commands was executed. The second vehicle wirelessly receives the broadcast remote driving commands, stores the received remote driving commands in sequence, and executes the given of the driving commands when a location of the second vehicle corresponds to the location of the first vehicle where the given of the driving commands was executed.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 3 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US20240412630A1" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-20240412630-A1]</strong>
+      </a> - EDGE COMPUTING ASSISTED VEHICLE ALERTING SYSTEM AND METHODS</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="20240412630.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> December 12, 2024</p>
+    <p><strong>Summary:</strong> Systems and methods for implementing edge computing assisted vehicle alerts. A multi-access edge computing (MEC) server may be configured to obtain a plurality of messages from one or more vehicles, determine formation of a traffic queue based on the plurality of messages, determine a plurality of zone-based speed limits, determine when a vehicle approaching the traffic queue may be traveling faster than desired based on its location relative to an applicable zone-based speed limit, and generate one or more alerts.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 4 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US20240329184A1" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-20240329184-A1]</strong>
+      </a> - High-Accuracy Device Positioning</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="20240329184.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> October 3, 2024</p>
+    <p><strong>Summary:</strong> An ego user equipment (UE) receives absolute position and relative distance information for m other UEs at a timestamp and a fingerprint location based on signal strength information between the UE and n different femtocells. The ego UE determines, using round trip time between the ego UE and the other UEs, first distances of the ego UE from each of the other UEs. The ego UE determines, using the absolute position of the ego UE via fingerprinting information and absolute position of other UEs received through device-to-device (D2D) communication, second distances of the ego UE to each of the other UEs. The ego UE utilizes the fingerprint location as a current location of the UE responsive to a predefined threshold subset of discrepancies between the first distances and the second distances being within a predefined distance tolerance threshold.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 5 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US12037021B2" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-12037021-B2]</strong>
+      </a> - Electric autonomous vehicle ride service assistance</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="12037021.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> July 16, 2024</p>
+    <p><strong>Summary:</strong> An autonomous vehicle may determine that it has an amount of power remaining projected to be needed to reach a recharging point by autonomously traveling with predefined systems disabled. The vehicle may disable the predefined systems and travel towards the recharging point. Subsequent to the disabling, the autonomous vehicle may determine that it no longer has the amount of power remaining projected to be needed to reach the recharging point. The vehicle may then communicate with a server and request assistance. The vehicle may then travel to an instructed rendezvous point with a second autonomous vehicle, the rendezvous received from the server. The two vehicles may then communicate to allow the first vehicle to leverage a capability of the second autonomous vehicle, responsive to the first and second autonomous vehicles being within communication range, allowing the first vehicle to reach the recharging point via the leveraging.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 6 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US11991346B2" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-11991346-B2]</strong>
+      </a> - Video streaming anomaly detection</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="11991346.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> May 21, 2024</p>
+    <p><strong>Summary:</strong> Monitoring of a vehicle is provided. A plurality of video feeds captured from cameras of the vehicle are received, over a network from a vehicle, each of the plurality of video feeds including a plurality frames, each of the frames of each of the video feeds being assigned a sequence number that increases for each successive frame. The sequence numbers are analyzed to identify missing frames, delayed frames, or stale frames. The plurality of video feeds is displayed, to one or more monitors, the sequence numbers corresponding to the displayed frames, and for each of the plurality of video feeds, indications of whether any missed frames, delayed frames, or stale frames were identified.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 7 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US11880867B2" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-11880867-B2]</strong>
+      </a> - Systems and methods for providing targeted content to users</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="11880867.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> January 23, 2024</p>
+    <p><strong>Summary:</strong> The disclosure generally pertains to systems and methods for providing targeted content to users. In an example method, audio data can be received from a device. Sensor data associated with the device may also be received, and the sensor data may include location data. Upon receiving the audio data, an intent associated with the audio data can be determined. At least one of a product, service, or entity may be determined based on the intent. Content may then be determined based on the sensor data and at least one of the product, service, or entity. The content may be associated with a vehicle. An indication of the content can then be sent to the device.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 8 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US20230370822A1" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-20230370822-A1]</strong>
+      </a> - ADAPTIVELY SELECTING NETWORK APN FOR VEHICLE APPLICATION REMOTE COMPUTING DEMAND</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="20230370822.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> November 16, 2023</p>
+    <p><strong>Summary:</strong> Managing vehicle application usage of computing resources is provided. A request for computing resources of a communications network is received from a vehicle application installed to a vehicle. An access point name (APN) is assigned to the vehicle application based on an application identifier corresponding to the vehicle application by accessing stored APN information including a mapping of application identifiers to corresponding APNs. The computing resources are accessed by the vehicle application connecting to the communications network using the APN.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 9 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US11812355B2" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-11812355-B2]</strong>
+      </a> - Drone-based vehicle connectivity systems and methods</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="11812355.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> November 7, 2023</p>
+    <p><strong>Summary:</strong> Drone-based vehicle connectivity systems and methods are disclosed herein. A method can include determining a loss of network connectivity by any of a vehicle and/or a drone associated with the vehicle, receiving an emergency message from the vehicle, launching the drone to navigate to a location where network connectivity exists, and transmitting the emergency message to a service provider when a connection to a network is established.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 10 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US11750393B2" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-11750393-B2]</strong>
+      </a> - Secure broadcast delivery and verification</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="11750393.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> September 5, 2023</p>
+    <p><strong>Summary:</strong> A vehicle receives a first portion of content via ATSC broadcast, generates a random nonce, responsive to receiving the content, and sends the nonce and a request for content verification to a remote server. The vehicle receives a message from the remote server indicating whether the first portion of content is likely valid, the message including a second portion of content and a hash value when the content is likely valid. The vehicle then calculates a second hash value, using the random nonce and the first portion of content. The vehicle compares the second hash value to the first hash value, and responsive to the second hash value matching the first hash value, combines the second portion of content and the first portion of content to create combined content. The vehicle then uses a security strategy to convert the combined content into utilizable content, and utilizes the content.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 11 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US20230237529A1" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-20230237529-A1]</strong>
+      </a> - Systems for Providing Targeted Content</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="20230237529.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> July 27, 2023</p>
+    <p><strong>Summary:</strong> Location-aware content recommendations.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 12 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US20230195105A1" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-20230195105-A1]</strong>
+      </a> - Remote Driving a Plurality of Vehicles</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="20230195105.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> June 22, 2023</p>
+    <p><strong>Summary:</strong> Broadcasts remote-driving commands.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 13 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US20230156179A1" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-20230156179-A1]</strong>
+      </a> - Video Streaming Anomaly Detection</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="20230156179.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> May 18, 2023</p>
+    <p><strong>Summary:</strong> Detects dropped/stale frames.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 14 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US20230110300A1" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-20230110300-A1]</strong>
+      </a> - Electric Autonomous Vehicle Ride</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="20230110300.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> April 13, 2023</p>
+    <p><strong>Summary:</strong> AVs share capabilities for recharging.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 15 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US11551456B2" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-11551456-B2]</strong>
+      </a> - Enhanced Infrastructure</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="11551456.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> January 10, 2023</p>
+    <p><strong>Summary:</strong> A system includes a stationary infrastructure element including a camera mounted to the infrastructure element and an infrastructure server. The infrastructure server includes a processor and a memory, the memory storing instructions executable by the processor to receive a request from a movable vehicle, the request identifying a data anomaly including at least one of (1) a sensor of the vehicle collecting data below a confidence threshold or (2) a geographic location outside a geographic database of the vehicle, to actuate the camera to collect image data of one of the vehicle or the geographic location, to identify geo-coordinates of the vehicle or the geographic location based on identified pixels in the image data including the vehicle or the geographic location, and to provide the geo-coordinates to the vehicle to address the data anomaly.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 16 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US20220377519A1" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-20220377519-A1]</strong>
+      </a> - Drone-based Vehicle Connectivity</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="20220377519.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> November 24, 2022</p>
+    <p><strong>Summary:</strong> Launches drones for emergency communications.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 17 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US20220321352A1" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-20220321352-A1]</strong>
+      </a> - Secure Broadcast Delivery</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="20220321352.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> October 6, 2022</p>
+    <p><strong>Summary:</strong> Random-nonce-based broadcast verification.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 18 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US11395107B1" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-11395107-B1]</strong>
+      </a> - Multicast assisted parking lot management</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="11395107.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> July 19, 2022</p>
+    <p><strong>Summary:</strong> A point-to-multipoint retransmit of the parking availability data is performed with a predefined update period. A quantity of unicast requests for parking availability is received via one or more cellular towers. If the quantity of unicast requests received within the predefined update period exceeds a ratio of point-to-multipoint bandwidth to unicast messaging bandwidth of the one or more cellular towers, a transition is made to use of the point-to-multipoint messaging for sending the parking availability data via the one or more cellular towers; and otherwise, a transition is made to use of the unicast messaging for sending the parking availability data via the one or more cellular towers.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 19 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US20220176986A1" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-20220176986-A1]</strong>
+      </a> - ADAPTIVE GUIDANCE FOR GROUP VEHICULAR TRAVEL</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="20220176986.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> June 9, 2022</p>
+    <p><strong>Summary:</strong> A system determines at least one driving style, reflecting driving behavior for a driver of a vehicle and based on inputs from a plurality of vehicle systems. The system receives a plurality of wireless signals from elements within a wireless communication range, each signal indicating the behavior of one or more drivers of other vehicles within a predefined distance of the vehicle. Further, the system determines, based on the wireless signals, whether one or more drivers are exhibiting behavior comparable to the driver of the vehicle based on predefined comparison thresholds and, responsive to determining that one or more drivers are exhibiting comparable behavior, provides guidance as to how to maneuver the vehicle to reach the vehicles driven by the one or more drivers exhibiting comparable behavior.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 20 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US11210943B2" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-11210943-B2]</strong>
+      </a> - Edge computing aided radio congestion mitigation</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="11210943.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> December 28, 2021</p>
+    <p><strong>Summary:</strong> A computing device includes a camera configured to capture images of an area of a road, the area defining a geofence; and a processor, configured to responsive to detecting a traffic density within the geofence exceeding a predefined threshold, wirelessly broadcast a directional message within the geofence to request vehicles located within the geofence to temporarily disable individual messaging services having low priorities identified in the directional message, analyze vehicle traffic using images captured by the camera to detect a predefined traffic situation, responsive to detecting the predefined traffic situation initiated by one of the vehicles, generate a safety message reflecting the traffic situation, and broadcast the safety message to vehicles within the geofence.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 21 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US20210397853A1" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-20210397853-A1]</strong>
+      </a> - Enhanced Infrastructure</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="20210397853.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> December 23, 2021</p>
+    <p><strong>Summary:</strong> Infrastructure cameras assist AV geopositioning.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 22 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US20210272454A1" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-20210272454-A1]</strong>
+      </a> - Edge Computing Aided Radio Congestion</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="20210272454.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> September 2, 2021</p>
+    <p><strong>Summary:</strong> Instructs low-priority services to pause.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 23 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US10542493B2" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-10542493-B2]</strong>
+      </a> - Vehicle communications management</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="10542493.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> January 21, 2020</p>
+    <p><strong>Summary:</strong> Systems and methods for managing communications equipment of a vehicle. The vehicle includes a first modem and a second modem coupled to the first modem. Responsive to the second modem wireless receiving first data for the first modem when the vehicle is in an inactive state, the first modem is in an off state, and the second modem is in a low power state, the vehicle is configured to wake the first modem from the off state, and process the first data via the first modem.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 24 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US10305527B2" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-10305527-B2]</strong>
+      </a> - Communicatively coupling mobile devices to wireless local area networks of vehicles</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="10305527.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> May 28, 2019</p>
+    <p><strong>Summary:</strong> Method and apparatus are disclosed for communicatively coupling mobile devices to wireless local area networks of vehicles. An example vehicle includes a communication module for a wireless local area network including an internal antenna and an external antenna. The example vehicle also includes an antenna adjuster to communicatively couple, in response to determining a mobile device is inside a vehicle cabin, the internal antenna to the mobile device and to communicatively couple, in response to determining the mobile device is outside of the vehicle cabin, the external antenna to the mobile device.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 25 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US20190007900A1" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-20190007900-A1]</strong>
+      </a> - Vehicle Communications Management</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="20190007900.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> January 3, 2019</p>
+    <p><strong>Summary:</strong> Wakes primary modem from low-power state.</p>
+  </div>
+</div>
+<br>
+
+<!-- Patent Entry 26 -->
+<div class="patent-entry block-bg">
+  <h4><a href="https://patents.google.com/patent/US20180213414A1" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[US-20180213414-A1]</strong>
+      </a> - Communicatively Coupling Mobile Devices</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="20180213414.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> July 26, 2018</p>
+    <p><strong>Summary:</strong> Optimizes connectivity via internal/external antennas.</p>
+  </div>
+</div>
+<br>
+
+	
+	<br><br><br><br>
+    <!-- International Patents -->
+    <h3>International Patents</h3>
+
+    <!-- International Patent Entry -->
+	<div class="patent-entry block-bg">
+  <h4><a href="https://sis.nipo.gov.ua/en/search/detail/375394/" target="_blank" style="color: white; text-decoration: none;">
+        <strong>[UA-64952]</strong>
+      </a> - Trap for Rodents</h4>
+  <div class="patent-image">
+    <button class="load-pdf" data-pdf="test1.pdf">Click to View PDF</button>
+    <div class="pdf-container" style="display: none;"></div>
+  </div>
+  <div class="patent-content">
+    <p><strong>Date Issued:</strong> March 15, 2004</p>
+    <p><strong>Summary:</strong> Uses a swiveling base and fulcrum in a hollow container to safely capture rodents. Recognized as the youngest patent holder in Ukraine for early innovation at age 9.</p>
+  </div>
+</div>
+
+ 
+	
+
+  </div>
+</section>
+
+
+  <!-- Leadership (One column) -->
+  <section id="leadership">
+    <div class="container">
+      <h2>Volunteer Experience</h2>
+      <div class="block-bg">
+        <ul>
+          <li><strong>MATHCOUNTS Foundation:</strong> Organized math competitions, mentored students, handled scoring.</li>
+          <li><strong>Northville Civic Concern:</strong> Sorted/organized donations for local families in need.</li>
+        </ul>
+      </div>
+	  <br><br><br><br>
+	  <h2>Organizations</h2>
+      <div class="block-bg">
+        <h4>Tau Beta Pi – Engineering Honor Society</h4>
+        <p>President, Secretary, Advisor (2014 – 2016). Led workshops, mentorships, service projects.</p>
+        <h4>Theta Tau – Professional Engineering Fraternity</h4>
+        <p>Vice President, Pledge Educator (2012 – 2016). Oversaw operations, events, leadership training.</p>
+        <h4>DCE – Dearborn Campus Engineers</h4>
+        <p>Vice President, Treasurer, Trustee (2012 – 2016). Managed finances and events for engineering community.</p>
+      </div>
+	  <br><br><br><br>
+	  <h2>Additional Information</h2>
+      <div class="block-bg" style="margin-top:2rem;">
+        <p>
+          <strong>Languages:</strong> English (Fluent), Ukrainian (Fluent), Russian (Fluent), German (5 years of study)<br>
+          <strong>Volunteer Work:</strong> MATHCOUNTS Foundation, Northville Civic Concern, CYM USA (Ukrainian American Youth Association)<br>
+          <strong>Interests:</strong> AI, Blockchain, Cyber-Physical Systems, GNSS Augmentation, High-Frequency RF Systems, 
+          Advanced Robotics, Edge Compute, Smart City Infrastructure
+        </p>
+      </div>
+    </div>
+  </section>
     
     <!-- Contact (One column, image above input) -->
     <section id="contact">
@@ -429,7 +1374,7 @@
     s.background = new THREE.Color(0x7B61FF);
     s.fog = new THREE.Fog(0x7B61FF, 10, 16);
 
-    const fogOrig = {near:10, far:16},
+    const fogOrig = {near:10, far:60},
           fogRed = {near:1000, far:10000},
           fogTgt = {near:10, far:16};
     let disableFog = false; // Flag to disable fog updates after email input
@@ -645,13 +1590,22 @@
   
     const fade = document.getElementById("scroll-fade");
     scrollableContent.addEventListener('scroll', () => {
-      const sy = scrollableContent.scrollTop;
-      fade.style.opacity = sy > 200 ? "0" : String(1 - sy / 200);
-      if(!disableFog){
-        fogTgt.near = fogOrig.near;
-        fogTgt.far = fogOrig.far;
-      }
-    });
+  const sy = scrollableContent.scrollTop;
+  fade.style.opacity = sy > 200 ? "0" : String(1 - sy / 200);
+
+  // Check if fade is fully visible
+  if (fade.style.opacity === "1") {
+    globeContainer.style.display = "block"; // Show globe
+  } else {
+    globeContainer.style.display = "none"; // Hide globe
+  }
+
+  if (!disableFog) {
+    fogTgt.near = fogOrig.near;
+    fogTgt.far = fogOrig.far;
+  }
+});
+
   
     let isScroll = false;
     document.getElementById('email').addEventListener('focus', () => {
@@ -776,6 +1730,29 @@
         });
       });
     });
+	
+	const globeContainer = document.getElementById("globe-container");
+
+// Initialize the globe
+const globe = new Globe(globeContainer)
+  .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
+  .heatmapPointLat('lat')
+  .heatmapPointLng('lng')
+  .heatmapPointWeight('pop')
+  .heatmapBandwidth(0.9)
+  .heatmapColorSaturation(2.8)
+  .enablePointerInteraction(false);
+
+// Fetch data for the globe
+fetch('https://raw.githubusercontent.com/down2chill/globe/refs/heads/main/world_population.csv')
+  .then(res => res.text())
+  .then(csv => {
+    const { csvParse } = d3;
+    const data = csvParse(csv, ({ lat, lng, pop }) => ({ lat: +lat, lng: +lng, pop: +pop }));
+    globe.heatmapsData([data]);
+  });
+	
   </script>
+
 </body>
 </html>
