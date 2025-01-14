@@ -3,34 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="description" content="Vlad Slyusar's Digital Resume + 3D City Demo">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Vlad Slyusar | Digital Resume 3D</title>
   <!-- THREE.JS -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.min.js"></script>
   <style>
-    /* Global Styles */
-    body {
+    /* Prevent scroll on the browser window */
+    html, body {
       margin: 0;
+      padding: 0;
+      overflow: hidden;
       background: #000;
-      color: #fff;
       font-family: sans-serif;
-      overflow-x: hidden;
-      overflow-y: auto;
-      text-align: center;
     }
     
-    /* The canvas now extends beyond the viewport by EXTRA_HEIGHT (set in JS below) */
-    canvas#webgl-bg {
-      display: block;
+    /* Fixed background canvas and fade overlay */
+    canvas#webgl-bg, #scroll-fade {
       position: fixed;
-      top: -100px; /* shift up half of the extra height */
+      top: 0;
       left: 0;
       width: 100vw;
-      height: calc(100vh + 200px); /* 200px extra height */
+      height: 100vh;
       z-index: -1;
     }
-
-    /* Create a scrollable container for all page content */
+    
+    #scroll-fade {
+      background: #000;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 1s ease-out;
+      z-index: -0.5;
+    }
+    
+    /* Internal scrolling container for page content */
     .scrollable-content {
       position: absolute;
       top: 0;
@@ -40,43 +45,24 @@
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
-
-    /* Container to help center and manage max width for content */
+    
+    /* Content styling – same as before */
     .container {
       width: 100%;
-      height: 100%;
       max-width: 1200px;
       margin: 0 auto;
       box-sizing: border-box;
       padding: 1rem;
     }
-
-    .pdf-container {
-      width: calc(100% - 2rem);
-      margin: 1rem;
-      display: block;
-      overflow: hidden;
-      position: relative;
-      padding-top: 110%;
-    }
-
-    object {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    /* Header */
+    
     header {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
+      right: 0;
       z-index: 999;
       padding: 1rem;
-      background: rgba(0,0,0,0.9);
+      background: rgba(0, 0, 0, 0.9);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -88,7 +74,6 @@
       font-size: 1.4rem;
       font-weight: 600;
     }
-    /* New narrow view buttons */
     .narrow-btn {
       display: none;
       font-size: 1rem;
@@ -126,78 +111,6 @@
     nav a:hover {
       color: hotpink;
     }
-    /* Uniform spacing for main sections */
-    section {
-      padding: 6rem 2rem 2rem 2rem;
-      margin-bottom: 20rem;
-      box-sizing: border-box;
-    }
-    h2 {
-      margin-top: 0;
-      letter-spacing: 1px;
-    }
-    /* Reusable background block */
-    .block-bg {
-      background: rgba(0,0,0,0.5);
-      padding: 1rem 2rem;
-      border-radius: 10px;
-      margin: 1rem auto;
-      max-width: 800px;
-    }
-    /* Two-column section layout */
-    .columns {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 1rem;
-    }
-    .column {
-      flex: 1 1 300px;
-      max-width: 600px;
-      box-sizing: border-box;
-    }
-    /* Image placeholders with rounded corners */
-    .rounded-image {
-      width: 100%;
-      max-width: 500px;
-      height: auto;
-      border-radius: 10px;
-      display: block;
-      margin: 0 auto 1rem auto;
-    }
-    /* Lists and typography */
-    ul {
-      text-align: left;
-      margin: 0 auto 1rem auto;
-      padding-left: 1.2rem;
-    }
-    p {
-      margin: 0 auto 1rem auto;
-      line-height: 1.5;
-      color: rgba(255,255,255,0.85);
-    }
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 2rem 1rem;
-      background: rgba(0,0,0,0.3);
-    }
-    /* Fade overlay for scrolling intro effect */
-    #scroll-fade {
-      position: fixed;
-      top: -100px; /* same upward shift */
-      left: 0;
-      width: 100%;
-      height: calc(100vh + 200px);
-      background: #000;
-      pointer-events: none;
-      z-index: 998;
-      opacity: 1;
-      transition: opacity 1s ease-out;
-    }
-    /* Responsive navigation */
     @media (max-width:768px) {
       nav {
         display: none;
@@ -222,6 +135,61 @@
     nav.active {
       display: flex;
     }
+    
+    /* Main sections */
+    section {
+      padding: 6rem 2rem 2rem 2rem;
+      margin-bottom: 20rem;
+      box-sizing: border-box;
+    }
+    h2 {
+      margin-top: 0;
+      letter-spacing: 1px;
+    }
+    .block-bg {
+      background: rgba(0,0,0,0.5);
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      margin: 1rem auto;
+      max-width: 800px;
+    }
+    .columns {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+    .column {
+      flex: 1 1 300px;
+      max-width: 600px;
+      box-sizing: border-box;
+    }
+    .rounded-image {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      border-radius: 10px;
+      display: block;
+      margin: 0 auto 1rem auto;
+    }
+    ul {
+      text-align: left;
+      margin: 0 auto 1rem auto;
+      padding-left: 1.2rem;
+    }
+    p {
+      margin: 0 auto 1rem auto;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.85);
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: rgba(0,0,0,0.3);
+    }
+    
     /* Contact Form */
     #contact-form {
       display: flex;
@@ -252,174 +220,177 @@
   </style>
 </head>
 <body>
-  <!-- We now use a fixed extra height value for the background -->
+  <!-- Fixed background canvas and fade overlay -->
   <div id="scroll-fade"></div>
   <canvas id="webgl-bg"></canvas>
   
-  <header>
-    <h1>Vlad Slyusar</h1>
-    <a href="#resume3d" id="narrow-home" class="narrow-btn">Home</a>
-    <a href="#contact" id="narrow-contact" class="narrow-btn">Contact</a>
-    <div class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</div>
-    <nav id="nav-links">
-      <a href="#resume3d">Home</a>
-      <a href="#intro">Intro</a>
-      <a href="#school">School</a>
-      <a href="#work">Work</a>
-      <a href="#projects">Projects</a>
-      <a href="#publications">Patents</a>
-      <a href="#leadership">Leadership</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-
-  <!-- 3D Resume (One column) -->
-  <section id="resume3d">
-    <div class="container">
-      <h2>3D Resume</h2>
-      <div hidden class="block-bg">
-        <p>Welcome to my interactive 3D resume. Scroll down to explore more!</p>
-      </div>
-    </div>
-  </section>
-  <!-- Spacer -->
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-  <!-- Intro (One column) -->
-  <section id="intro">
-    <div class="container">
-      <h2>Intro</h2>
-      <div class="block-bg">
-        <p>This is the introduction section.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Technical Skills (2 columns) -->
-  <section>
-    <div class="container">
-      <h2>Technical Skills</h2>
-      <div class="columns">
-        <div class="column">
-          <p>Skill Set 1</p>
+  <!-- Internal scrollable container -->
+  <div class="scrollable-content" id="scrollable-content">
+  
+    <!-- Fixed header remains at top -->
+    <header>
+      <h1>Vlad Slyusar</h1>
+      <a href="#resume3d" id="narrow-home" class="narrow-btn">Home</a>
+      <a href="#contact" id="narrow-contact" class="narrow-btn">Contact</a>
+      <div class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</div>
+      <nav id="nav-links">
+        <a href="#resume3d">Home</a>
+        <a href="#intro">Intro</a>
+        <a href="#school">School</a>
+        <a href="#work">Work</a>
+        <a href="#projects">Projects</a>
+        <a href="#publications">Patents</a>
+        <a href="#leadership">Leadership</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+    
+    <!-- All page content placed inside this container -->
+    <main>
+      <!-- 3D Resume -->
+      <section id="resume3d">
+        <div class="container">
+          <h2>3D Resume</h2>
+          <div hidden class="block-bg">
+            <p>Welcome to my interactive 3D resume. Scroll down to explore more!</p>
+          </div>
         </div>
-        <div class="column">
-          <p>Skill Set 2</p>
+      </section>
+      <!-- Spacer -->
+      <div style="height: 800px;"></div>
+      
+      <!-- Intro -->
+      <section id="intro">
+        <div class="container">
+          <h2>Intro</h2>
+          <div class="block-bg">
+            <p>This is the introduction section.</p>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Education (One column) -->
-  <section id="school">
-    <div class="container">
-      <h2>Education</h2>
-      <div class="block-bg">
-        <p>School details go here.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Work Experience -->
-  <section id="work">
-    <div class="container">
-      <h2>Work Experience</h2>
-      <div class="block-bg">
-        <p>Work experience details.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects (2 columns) -->
-  <section id="projects">
-    <div class="container">
-      <h2>Projects</h2>
-      <div class="columns">
-        <div class="column">
-          <p>Project 1</p>
+      </section>
+      
+      <!-- Technical Skills -->
+      <section>
+        <div class="container">
+          <h2>Technical Skills</h2>
+          <div class="columns">
+            <div class="column">
+              <p>Skill Set 1</p>
+            </div>
+            <div class="column">
+              <p>Skill Set 2</p>
+            </div>
+          </div>
         </div>
-        <div class="column">
-          <p>Project 2</p>
+      </section>
+      
+      <!-- Education -->
+      <section id="school">
+        <div class="container">
+          <h2>Education</h2>
+          <div class="block-bg">
+            <p>School details go here.</p>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Publications & Patents -->
-  <section id="publications">
-    <div class="container">
-      <h2>Publications &amp; Patents</h2>
-      <h3>United States Patents</h3>
-      <p>Patent details go here.</p>
-    </div>
-  </section>
-
-  <!-- Leadership (One column) -->
-  <section id="leadership">
-    <div class="container">
-      <h2>Leadership</h2>
-      <div class="block-bg">
-        <p>Leadership details here.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact (One column, image above input) -->
-  <section id="contact">
-    <div class="container">
-      <h2>Contact</h2>
-      <div class="block-bg">
-        <img src="i2.jpg" alt="Contact Placeholder" class="rounded-image">
-        <p>Reach out if you'd like to collaborate on cutting-edge tech:</p>
-        <p>AI, Web3, Cybersec, AV, 5G NR, GNSS, FPGA</p>
-        <form id="contact-form">
-          <input type="email" id="email" name="email" placeholder="Your Email" required>
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-    </div>
-    <!-- Extra spacing -->
-    <br><br><br><br><br><br><br><br><br><br>
-  </section>
-
-  <footer>&copy; 2025 Vlad Slyusar — All rights reserved.</footer>
-
+      </section>
+      
+      <!-- Work Experience -->
+      <section id="work">
+        <div class="container">
+          <h2>Work Experience</h2>
+          <div class="block-bg">
+            <p>Work experience details.</p>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Projects -->
+      <section id="projects">
+        <div class="container">
+          <h2>Projects</h2>
+          <div class="columns">
+            <div class="column">
+              <p>Project 1</p>
+            </div>
+            <div class="column">
+              <p>Project 2</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Publications & Patents -->
+      <section id="publications">
+        <div class="container">
+          <h2>Publications &amp; Patents</h2>
+          <h3>United States Patents</h3>
+          <p>Patent details go here.</p>
+        </div>
+      </section>
+      
+      <!-- Leadership -->
+      <section id="leadership">
+        <div class="container">
+          <h2>Leadership</h2>
+          <div class="block-bg">
+            <p>Leadership details here.</p>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Contact -->
+      <section id="contact">
+        <div class="container">
+          <h2>Contact</h2>
+          <div class="block-bg">
+            <img src="i2.jpg" alt="Contact Placeholder" class="rounded-image">
+            <p>Reach out if you'd like to collaborate on cutting-edge tech:</p>
+            <p>AI, Web3, Cybersec, AV, 5G NR, GNSS, FPGA</p>
+            <form id="contact-form">
+              <input type="email" id="email" name="email" placeholder="Your Email" required>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+        <!-- Extra spacing -->
+        <div style="height: 400px;"></div>
+      </section>
+      
+      <footer>&copy; 2025 Vlad Slyusar — All rights reserved.</footer>
+    </main>
+    
+  </div><!-- End of scrollable-content -->
+  
   <!-- Scripts -->
   <script>
-    // Define the extra height amount (in pixels)
-    const EXTRA_HEIGHT = 200; // total extra height (will extend canvas 200px beyond viewport)
-    const HALF_EXTRA = EXTRA_HEIGHT / 2;
-
-    // Setup the THREE.js renderer.
+    /***********************
+     * THREE.js Setup
+     ***********************/
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    const canvasOld = document.getElementById('webgl-bg');
-    // Set the size including extra height.
-    renderer.setSize(window.innerWidth, window.innerHeight + EXTRA_HEIGHT);
-    canvasOld.replaceWith(renderer.domElement);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    const oldCanvas = document.getElementById('webgl-bg');
+    oldCanvas.replaceWith(renderer.domElement);
     renderer.domElement.id = 'webgl-bg';
-
-    // Enable shadow mapping for larger viewports
-    if (window.innerWidth > 800) {
+    if(window.innerWidth > 800){
       renderer.shadowMap.enabled = true;
       renderer.shadowMap.type = THREE.PCFSoftShadowMap;
       renderer.shadowMap.needsUpdate = true;
     }
-
+    
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x7B61FF);
     scene.fog = new THREE.Fog(0x7B61FF, 10, 16);
-
+    
     const fogOrig = { near: 10, far: 16 },
           fogRed  = { near: 1000, far: 10000 },
           fogTgt  = { near: 10, far: 16 };
     let disableFog = false;
-
-    // Update camera aspect ratio according to extended height.
-    const camera = new THREE.PerspectiveCamera(30, window.innerWidth / (window.innerHeight + EXTRA_HEIGHT), 1, 500);
+    
+    const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 500);
     camera.position.set(10, 15, 10);
     camera.lookAt(0, 0, 0);
-
-    // City (scene setup)
+    
+    // City groups
     const city = new THREE.Object3D();
     scene.add(city);
     const smoke = new THREE.Object3D();
@@ -438,15 +409,15 @@
     function free(x, z, arr, md) {
       return !arr.some(p => (p.x - x) ** 2 + (p.z - z) ** 2 < md ** 2);
     }
-
-    function initCity() {
+    
+    function initCity(){
       const cnt = 80,
             minD = 0.8,
             seg = 2;
       const placed = [];
-      for (let i = 0; i < cnt; i++) {
+      for(let i = 0; i < cnt; i++){
         const geom = new THREE.BoxGeometry(1, 1, 1, seg, seg, seg);
-        const mat = new THREE.MeshStandardMaterial({ color: tint(), side: THREE.DoubleSide });
+        const mat = new THREE.MeshStandardMaterial({color: tint(), side: THREE.DoubleSide});
         const wireMat = new THREE.MeshLambertMaterial({
           color: 0xffffff,
           wireframe: true,
@@ -462,18 +433,17 @@
         cube.add(wireFloor);
         cube.castShadow = true;
         cube.receiveShadow = true;
-        // Reduce initial building height by dividing by 2
         const h = (0.1 + Math.abs(rand(8))) / 2;
         cube.scale.y = h;
         cube.userData.h = h;
         buildings.push(cube);
         cube.scale.x = cube.scale.z = 0.9 + rand(1 - 0.9);
         let placedFlag = false, attempts = 0;
-        while (!placedFlag && attempts++ < 1000) {
+        while(!placedFlag && attempts++ < 1000){
           const rx = Math.round(rand(15)),
                 rz = Math.round(rand(15));
-          if (free(rx, rz, placed, minD)) {
-            cube.position.set(rx, h / 2, rz);
+          if(free(rx,rz,placed,minD)){
+            cube.position.set(rx, h/2, rz);
             floor.position.set(rx, 0, rz);
             placed.push({ x: rx, z: rz });
             placedFlag = true;
@@ -483,18 +453,18 @@
         town.add(floor);
         town.add(cube);
       }
-
-      // Smoke particles
+      
+      // Smoke
       const smokeMat = new THREE.MeshToonMaterial({ color: 0xffff00, side: THREE.DoubleSide });
       const smokeGeo = new THREE.CircleGeometry(0.01, 3);
       const apart = 5;
-      for (let h = 1; h < 300; h++) {
+      for(let h = 1; h < 300; h++){
         const p = new THREE.Mesh(smokeGeo, smokeMat);
         p.position.set(rand(apart), Math.abs(rand(2)), rand(apart));
-        p.rotation.set(rand(), rand(), rand());
+        p.rotation.set(rand(),rand(),rand());
         smoke.add(p);
       }
-
+      
       // Ground Plane
       const groundMat = new THREE.MeshPhongMaterial({
         color: 0x000000,
@@ -504,224 +474,228 @@
         opacity: 0.9,
         transparent: true
       });
-      const groundGeo = new THREE.PlaneGeometry(60, 60);
+      const groundGeo = new THREE.PlaneGeometry(60,60);
       const ground = new THREE.Mesh(groundGeo, groundMat);
-      ground.rotation.x = -Math.PI / 2;
+      ground.rotation.x = -Math.PI/2;
       ground.position.y = -0.001;
       ground.receiveShadow = true;
       city.add(ground);
     }
     initCity();
-
+    
     // Lights
     const ambientLight = new THREE.AmbientLight(0xffffff, 4);
     const frontLight = new THREE.SpotLight(0xffffff, 20, 10);
-    frontLight.rotation.x = (45 * Math.PI) / 180;
-    frontLight.rotation.z = (-45 * Math.PI) / 180;
-    frontLight.position.set(5, 5, 5);
+    frontLight.rotation.x = Math.PI/4;
+    frontLight.rotation.z = -Math.PI/4;
+    frontLight.position.set(5,5,5);
     frontLight.castShadow = true;
     frontLight.shadow.mapSize.width = 6000;
     frontLight.shadow.mapSize.height = 6000;
     frontLight.penumbra = 0.1;
     const backLight = new THREE.PointLight(0xffffff, 0.5);
-    backLight.position.set(0, 6, 0);
+    backLight.position.set(0,6,0);
     scene.add(ambientLight);
     city.add(frontLight);
     scene.add(backLight);
-
-    // Fast moving lines
+    
+    // Fast Lines
     const fastLines = [];
-    const directions = ["z+", "z-", "x+", "x-"];
+    const directions = ["z+","z-","x+","x-"];
     const lineCount = 25, rangeLimit = 20;
-    function createLines() {
-      for (let i = 0; i < lineCount; i++) {
-        setTimeout(() => {
-          const geo = new THREE.BoxGeometry(0.02, 0.02, Math.random() * 1 + 0.4);
+    function createLines(){
+      for(let i=0;i<lineCount;i++){
+        setTimeout(()=>{
+          const geo = new THREE.BoxGeometry(0.02,0.02,Math.random()*1+0.4);
           const mat = new THREE.MeshToonMaterial({ color: 0xffff00, side: THREE.DoubleSide });
           const mesh = new THREE.Mesh(geo, mat);
           mesh.castShadow = true;
           mesh.receiveShadow = true;
-          mesh.userData.dir = directions[Math.floor(Math.random() * directions.length)];
-          switch (mesh.userData.dir) {
+          mesh.userData.dir = directions[Math.floor(Math.random()*directions.length)];
+          switch(mesh.userData.dir){
             case "z+":
-              mesh.position.set(rand(3), Math.abs(rand(2)), -rangeLimit + Math.random() * 2 * rangeLimit);
+              mesh.position.set(rand(3),Math.abs(rand(2)),-rangeLimit+Math.random()*2*rangeLimit);
               break;
             case "z-":
-              mesh.position.set(rand(3), Math.abs(rand(2)), rangeLimit - Math.random() * 2 * rangeLimit);
+              mesh.position.set(rand(3),Math.abs(rand(2)),rangeLimit-Math.random()*2*rangeLimit);
               break;
             case "x+":
-              mesh.rotation.y = Math.PI * 0.5;
-              mesh.position.set(-rangeLimit + Math.random() * 2 * rangeLimit, Math.abs(rand(2)), rand(3));
+              mesh.rotation.y=Math.PI*0.5;
+              mesh.position.set(-rangeLimit+Math.random()*2*rangeLimit,Math.abs(rand(2)),rand(3));
               break;
             case "x-":
-              mesh.rotation.y = Math.PI * 0.5;
-              mesh.position.set(rangeLimit - Math.random() * 2 * rangeLimit, Math.abs(rand(2)), rand(3));
+              mesh.rotation.y=Math.PI*0.5;
+              mesh.position.set(rangeLimit-Math.random()*2*rangeLimit,Math.abs(rand(2)),rand(3));
               break;
           }
           fastLines.push(mesh);
           city.add(mesh);
-        }, Math.random() * 2000);
+        }, Math.random()*2000);
       }
     }
     createLines();
-
-    // Camera Movement based on page scroll.
+    
+    /*************************************
+     * Scroll & Camera Motion (Internal)
+     *************************************/
+    // Grab the internal scroll container
+    const scrollContainer = document.getElementById('scrollable-content');
+    
+    // Get all section elements to calculate offsets (within the scroll container)
     const sections = ["#resume3d", "#intro", "#school", "#work", "#projects", "#publications", "#leadership", "#contact"];
     const viewports = [
-      { pos: new THREE.Vector3(0, 60, 0), la: new THREE.Vector3(0, 0, 0) },
-      { pos: new THREE.Vector3(10, 15, 10), la: new THREE.Vector3(0, 0, 0) },
-      { pos: new THREE.Vector3(-5, 10, 12), la: new THREE.Vector3(-1, 0, 2) },
-      { pos: new THREE.Vector3(8, 8, -2), la: new THREE.Vector3(5, 0, -2) },
-      { pos: new THREE.Vector3(-8, 8, -8), la: new THREE.Vector3(-4, 0, -3) },
-      { pos: new THREE.Vector3(10, 6, -10), la: new THREE.Vector3(6, 0, -7) },
-      { pos: new THREE.Vector3(15, 12, 15), la: new THREE.Vector3(0, 0, 0) },
-      { pos: new THREE.Vector3(15, 30, 15), la: new THREE.Vector3(0, 0, 0) }
+      { pos: new THREE.Vector3(0,60,0), la: new THREE.Vector3(0,0,0) },
+      { pos: new THREE.Vector3(10,15,10), la: new THREE.Vector3(0,0,0) },
+      { pos: new THREE.Vector3(-5,10,12), la: new THREE.Vector3(-1,0,2) },
+      { pos: new THREE.Vector3(8,8,-2), la: new THREE.Vector3(5,0,-2) },
+      { pos: new THREE.Vector3(-8,8,-8), la: new THREE.Vector3(-4,0,-3) },
+      { pos: new THREE.Vector3(10,6,-10), la: new THREE.Vector3(6,0,-7) },
+      { pos: new THREE.Vector3(15,12,15), la: new THREE.Vector3(0,0,0) },
+      { pos: new THREE.Vector3(15,30,15), la: new THREE.Vector3(0,0,0) }
     ];
-    let offsets = [];
-    function calcOffsets() {
-      offsets = sections.map(s => document.querySelector(s).offsetTop);
+    let sectionOffsets = [];
+    function calcOffsets(){
+      sectionOffsets = sections.map(s=> {
+        const el = document.querySelector(s);
+        return el ? el.offsetTop : 0;
+      });
     }
     calcOffsets();
-    window.addEventListener('resize', calcOffsets);
-
-    function scrollFrac() {
-      return window.scrollY / (document.body.scrollHeight - window.innerHeight) || 0;
+    // Recalculate when container size changes.
+    scrollContainer.addEventListener('resize', calcOffsets);
+    
+    // Helper functions using the scroll container's scrollTop
+    function scrollFrac(){
+      return scrollContainer.scrollTop / (scrollContainer.scrollHeight - scrollContainer.clientHeight) || 0;
     }
-    function camTarget() {
-      const n = viewports.length,
-            frac = scrollFrac() * (n - 1);
-      const i = Math.floor(frac),
-            lerpF = frac - i;
-      if (i >= n - 1) return viewports[n - 1];
-      const v1 = viewports[i],
-            v2 = viewports[i + 1];
+    function camTarget(){
+      const n = viewports.length;
+      const frac = scrollFrac()*(n-1);
+      const i = Math.floor(frac);
+      const lerpF = frac - i;
+      if(i >= n-1) return viewports[n-1];
+      const v1 = viewports[i];
+      const v2 = viewports[i+1];
       return {
         pos: v1.pos.clone().lerp(v2.pos, lerpF),
         la: v1.la.clone().lerp(v2.la, lerpF)
       };
     }
-
-    // Update renderer and camera on resize.
-    window.addEventListener('resize', () => {
-      renderer.setSize(window.innerWidth, window.innerHeight + EXTRA_HEIGHT);
-      camera.aspect = window.innerWidth / (window.innerHeight + EXTRA_HEIGHT);
-      camera.updateProjectionMatrix();
-      calcOffsets();
-    });
-
-    const mousePos = new THREE.Vector2();
-    window.addEventListener('mousemove', e => {
-      mousePos.x = (e.clientX / window.innerWidth) * 2 - 1;
-      mousePos.y = -(e.clientY / window.innerHeight) * 2 + 1;
-    }, false);
-
-    const fadeOverlay = document.getElementById("scroll-fade");
-    window.addEventListener('scroll', () => {
-      const sy = window.scrollY;
-      fadeOverlay.style.opacity = sy > 200 ? "0" : String(1 - sy / 200);
-      if (!disableFog) {
+    
+    // Listen to scroll events on the internal container.
+    scrollContainer.addEventListener('scroll', () => {
+      const sy = scrollContainer.scrollTop;
+      // Update fade overlay opacity (using 200px threshold)
+      document.getElementById('scroll-fade').style.opacity = sy > 200 ? "0" : String(1 - sy/200);
+      if(!disableFog){
         fogTgt.near = fogOrig.near;
         fogTgt.far = fogOrig.far;
       }
+      
+      // Example: if within the Intro section, update fog target gradually.
+      const introEl = document.querySelector("#intro");
+      if(introEl && sy <= introEl.offsetTop){
+        disableFog = false;
+        const prog = sy/introEl.offsetTop;
+        fogTgt.near = THREE.MathUtils.lerp(50, fogOrig.near, prog);
+        fogTgt.far = THREE.MathUtils.lerp(80, fogOrig.far, prog);
+      }
+      else if(!disableFog){
+        const sf = sy/(scrollContainer.scrollHeight - scrollContainer.clientHeight);
+        fogTgt.near = fogOrig.near;
+        fogTgt.far = THREE.MathUtils.lerp(fogOrig.far,35, sf);
+      }
     });
-
-    let isScroll = false;
+    
     document.getElementById('email').addEventListener('focus', () => {
       fogTgt.near = fogRed.near;
       fogTgt.far = fogRed.far;
       disableFog = true;
     });
-
-    window.addEventListener('scroll', () => {
-      const sy = window.scrollY;
-      const introY = document.querySelector("#intro").offsetTop;
-      if (sy <= introY) {
-        disableFog = false;
-        const prog = sy / introY;
-        fogTgt.near = THREE.MathUtils.lerp(50, fogOrig.near, prog);
-        fogTgt.far = THREE.MathUtils.lerp(80, fogOrig.far, prog);
-      } else if (!disableFog) {
-        const scrollFraction = sy / (document.body.scrollHeight - window.innerHeight);
-        fogTgt.near = fogOrig.near;
-        fogTgt.far = THREE.MathUtils.lerp(fogOrig.far, 35, scrollFraction);
-      }
-    });
-
-    // Animation loop.
-    function animate() {
+    
+    /***********************
+     * Animation Loop
+     ***********************/
+    const mousePos = new THREE.Vector2();
+    window.addEventListener('mousemove', e => {
+      mousePos.x = (e.clientX / window.innerWidth)*2 - 1;
+      mousePos.y = -(e.clientY / window.innerHeight)*2 + 1;
+    }, false);
+    
+    function animate(){
       requestAnimationFrame(animate);
-      if (!isScroll) {
-        const speed = 0.001;
-        city.rotation.y -= ((mousePos.x * 8) - camera.rotation.y) * speed;
-        city.rotation.x = 0;
-      }
+      // Rotate city slowly if not scrolling
+      const speed = 0.001;
+      city.rotation.y -= ((mousePos.x*8)-camera.rotation.y)*speed;
+      city.rotation.x = 0;
+      
+      // Update fast lines motion
       const sp = 0.2;
-      fastLines.forEach(line => {
-        switch (line.userData.dir) {
+      fastLines.forEach(line=>{
+        switch(line.userData.dir){
           case 'z+':
             line.position.z += sp;
-            if (line.position.z > rangeLimit) {
+            if(line.position.z > rangeLimit){
               line.position.z = -rangeLimit;
               line.position.y = Math.abs(rand(2));
             }
             break;
           case 'z-':
             line.position.z -= sp;
-            if (line.position.z < -rangeLimit) {
+            if(line.position.z < -rangeLimit){
               line.position.z = rangeLimit;
               line.position.y = Math.abs(rand(2));
             }
             break;
           case 'x+':
             line.position.x += sp;
-            if (line.position.x > rangeLimit) {
+            if(line.position.x > rangeLimit){
               line.position.x = -rangeLimit;
               line.position.y = Math.abs(rand(2));
             }
             break;
           case 'x-':
             line.position.x -= sp;
-            if (line.position.x < -rangeLimit) {
+            if(line.position.x < -rangeLimit){
               line.position.x = rangeLimit;
               line.position.y = Math.abs(rand(2));
             }
             break;
         }
       });
-
-      // Update camera position.
+      
+      // Update camera by interpolating toward the target based on internal scroll
       const ct = camTarget();
       camera.position.lerp(ct.pos, 0.08);
       const dir = new THREE.Vector3().subVectors(ct.la, camera.position).normalize();
       camera.lookAt(camera.position.clone().add(dir));
-
-      // Update building heights based on scroll.
-      const sf = 0.5 + scrollFrac() * 3;
-      buildings.forEach(b => {
-        b.scale.y = b.userData.h * sf;
-        b.position.y = (b.userData.h * sf) / 2;
+      
+      // Update building heights based on scroll fraction
+      const sf = 0.5 + scrollFrac()*3;
+      buildings.forEach(b=>{
+        b.scale.y = b.userData.h*sf;
+        b.position.y = (b.userData.h*sf)/2;
       });
-
+      
       scene.fog.near = THREE.MathUtils.lerp(scene.fog.near, fogTgt.near, 0.05);
       scene.fog.far = THREE.MathUtils.lerp(scene.fog.far, fogTgt.far, 0.05);
       renderer.render(scene, camera);
     }
     animate();
-
-    // Menu functionality for small screens.
+    
+    /***********************
+     * Menu Toggle
+     ***********************/
     document.getElementById('hamburger').addEventListener('click', () => {
       const navContainer = document.getElementById('nav-links');
       navContainer.classList.toggle('active');
       const active = navContainer.classList.contains('active');
       document.getElementById('hamburger').setAttribute('aria-expanded', active);
     });
-
-    // Initial scroll on page load.
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelector('#intro').scrollIntoView();
-    });
-
-    // PDF Loader Script.
+    
+    /***********************
+     * Additional: PDF Loader
+     ***********************/
     document.addEventListener("DOMContentLoaded", () => {
       const buttons = document.querySelectorAll(".load-pdf");
       buttons.forEach(button => {
@@ -742,6 +716,16 @@
           button.style.display = "none";
         });
       });
+    });
+    
+    /***********************
+     * Optional: On content load, scroll to Intro section inside container.
+     ***********************/
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const introEl = document.querySelector('#intro');
+      if(introEl){
+        scrollContainer.scrollTop = introEl.offsetTop;
+      }
     });
   </script>
 </body>
