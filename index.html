@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="description" content="Vlad Slyusar's Digital Resume + 3D City Demo">
-  <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi">
+  <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Vlad Slyusar | Digital Resume 3D</title>
   
   <!-- THREE.JS -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.min.js"></script>
-  <!-- Globe.GL (for the interactive globe) -->
+  <!-- Globe.GL for the interactive globe -->
   <script src="//unpkg.com/globe.gl"></script>
   
   <style>
@@ -18,39 +18,25 @@
       background: #000;
       color: #fff;
       font-family: sans-serif;
-      overflow: hidden; /* Prevent window scrolling directly */
+      overflow: hidden; /* All scrolling is done by the scrollable container */
       text-align: center;
     }
     
-    /* Full viewport container for the globe */
+    /* The interactive Globe container is fixed on top with the highest z-index */
     #globeViz {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: 997; /* Below header and scroll overlay */
-      pointer-events: none;
-      /* Its opacity will be controlled by scroll */
-      opacity: 1;
-      transition: opacity 0.5s ease-out;
-    }
-    
-    /* Scroll fade overlay (now inverted: transparent at top, black when scrolled) */
-    #scroll-fade {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      pointer-events: none;
-      z-index: 998;
+      z-index: 1001;  /* on top of everything */
+      /* Initially invisible; will fade in as you scroll */
       opacity: 0;
-      transition: opacity 1s ease-out;
+      transition: opacity 0.5s ease-out;
+      cursor: grab;
     }
     
-    /* Create a scrollable container for all page content */
+    /* Scrollable content container (for all resume sections) */
     .scrollable-content {
       position: fixed;
       top: 0;
@@ -60,9 +46,15 @@
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       scroll-behavior: smooth;
-      z-index: 999; /* Content is above the globe */
+      z-index: 900;  /* Under the globe */
     }
     
+    /* This is the top section (introduction) whose opacity we control */
+    #intro {
+      transition: opacity 0.5s ease-out;
+    }
+    
+    /* THREE.js canvas used by existing 3D city code */
     canvas {
       display: block;
       position: fixed;
@@ -73,7 +65,7 @@
       z-index: -1;
     }
     
-    /* Container to help center and manage max width for content */
+    /* Container to center and constrain content */
     .container {
       width: 100%;
       max-width: 1200px;
@@ -99,13 +91,13 @@
       height: 100%;
     }
     
-    /* Header */
+    /* Header styling */
     header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      z-index: 1000;
+      z-index: 1010;
       padding: 1rem;
       background: rgba(0,0,0,0.9);
       display: flex;
@@ -121,7 +113,7 @@
       font-weight: 600;
     }
     
-    /* New narrow view buttons */
+    /* Navigation buttons */
     .narrow-btn {
       display: none;
       font-size: 1rem;
@@ -129,11 +121,10 @@
       color: #fff;
       text-decoration: none;
       margin-left: 1rem;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0,0,0,0.7);
       padding: 0.5rem 1rem;
       border-radius: 5px;
     }
-    
     .narrow-btn:hover {
       color: hotpink;
     }
@@ -152,7 +143,6 @@
       align-items: center;
       justify-content: center;
     }
-    
     nav a {
       margin: 0 1rem;
       font-size: 1rem;
@@ -160,12 +150,11 @@
       color: #fff;
       text-decoration: none;
     }
-    
     nav a:hover {
       color: hotpink;
     }
     
-    /* Uniform spacing for main sections */
+    /* Generic section styling */
     section {
       padding: 6rem 2rem 2rem 2rem;
       margin-bottom: 20rem;
@@ -176,7 +165,7 @@
       letter-spacing: 1px;
     }
     
-    /* Reusable background block */
+    /* Content block styling */
     .block-bg {
       background: rgba(0,0,0,0.5);
       padding: 1rem 2rem;
@@ -185,7 +174,7 @@
       max-width: 800px;
     }
     
-    /* Two-column section layout */
+    /* Two-column layout */
     .columns {
       display: flex;
       flex-wrap: wrap;
@@ -200,7 +189,7 @@
       box-sizing: border-box;
     }
     
-    /* Image placeholders with rounded corners */
+    /* Rounded images */
     .rounded-image {
       width: 100%;
       max-width: 500px;
@@ -210,7 +199,6 @@
       margin: 0 auto 1rem auto;
     }
     
-    /* Lists and typography */
     ul {
       text-align: left;
       margin: 0 auto 1rem auto;
@@ -222,14 +210,13 @@
       color: rgba(255,255,255,0.85);
     }
     
-    /* Footer */
     footer {
       text-align: center;
       padding: 2rem 1rem;
       background: rgba(0,0,0,0.3);
     }
     
-    /* Responsive navigation */
+    /* Responsive adjustments */
     @media (max-width:768px) {
       nav {
         display: none;
@@ -256,13 +243,12 @@
       display: flex;
     }
     
-    /* Contact Form */
+    /* Contact form */
     #contact-form {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-    
     #contact-form input[type="email"] {
       padding: 0.5rem;
       margin-bottom: 1rem;
@@ -271,7 +257,6 @@
       width: 100%;
       max-width: 300px;
     }
-    
     #contact-form button {
       padding: 0.5rem 1rem;
       border: none;
@@ -282,54 +267,36 @@
       cursor: pointer;
       transition: background-color 0.3s;
     }
-    
     #contact-form button:hover {
       background: #ff69b4;
     }
   </style>
 </head>
-
 <body>
-  <!-- Globe container (full screen at the top) -->
+  <!-- Globe container: positioned on top; it will fade in as you scroll -->
   <div id="globeViz"></div>
   
-  <!-- Scroll fade overlay (transparent at top, becomes black as you scroll) -->
-  <div id="scroll-fade"></div>
-  
-  <!-- THREE.js canvas (for existing 3D city background) -->
-  <canvas id="webgl-bg"></canvas>
-  
-  <!-- Header -->
-  <header>
-    <h1>Vlad Slyusar</h1>
-    <a href="#resume3d" id="narrow-home" class="narrow-btn">Home</a>
-    <a href="#contact" id="narrow-contact" class="narrow-btn">Contact</a>
-    <div class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</div>
-    <nav id="nav-links">
-      <a href="#resume3d">Home</a>
-      <a href="#intro">Intro</a>
-      <a href="#school">School</a>
-      <a href="#work">Work</a>
-      <a href="#projects">Projects</a>
-      <a href="#publications">Patents</a>
-      <a href="#leadership">Leadership</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-  
-  <!-- Scrollable Content Wrapper -->
+  <!-- Scrollable content container (below globe in z-index) -->
   <div class="scrollable-content" id="scrollable-content">
-    <!-- 3D Resume (One column) -->
-    <section id="resume3d">
-      <div class="container">
-        <h2>3D Resume</h2>
-        <div hidden class="block-bg">
-          <p>Welcome to my interactive 3D resume. Scroll down to explore more!</p>
-        </div>
-      </div>
-    </section>
+    <!-- Header -->
+    <header>
+      <h1>Vlad Slyusar</h1>
+      <a href="#resume3d" id="narrow-home" class="narrow-btn">Home</a>
+      <a href="#contact" id="narrow-contact" class="narrow-btn">Contact</a>
+      <div class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</div>
+      <nav id="nav-links">
+        <a href="#resume3d">Home</a>
+        <a href="#intro">Intro</a>
+        <a href="#school">School</a>
+        <a href="#work">Work</a>
+        <a href="#projects">Projects</a>
+        <a href="#publications">Patents</a>
+        <a href="#leadership">Leadership</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
     
-    <!-- Example: Intro Section -->
+    <!-- Top Introduction Section -->
     <section id="intro">
       <div class="container">
         <h2>Introduction</h2>
@@ -349,10 +316,8 @@
       </div>
     </section>
     
-    <!-- Other sections (Technical Skills, Education, Work, Projects, Publications, Leadership, Contact, etc.) go here -->
-    <!-- Make sure all your sections (including the contact section with the email input) are inside #scrollable-content -->
-    
-    <!-- Example Contact Section -->
+    <!-- Other content sections go here (Technical Skills, Education, Work, Projects, etc.) -->
+    <!-- For brevity, only a sample Contact section is included below. -->
     <section id="contact">
       <div class="container">
         <h2>Contact</h2>
@@ -372,13 +337,15 @@
     <footer>&copy; 2025 Vlad Slyusar — All rights reserved.</footer>
   </div>
   
-  <!-- Module script for Globe initialization and scroll-controlled fade -->
+  <!-- (Optional) THREE.js canvas for your existing 3D city background -->
+  <canvas id="webgl-bg"></canvas>
+  
+  <!-- Module script for Globe initialization and scroll-based crossfade -->
   <script type="module">
     import { csvParse } from 'https://esm.sh/d3-dsv';
-
     const globeElem = document.getElementById('globeViz');
-
-    // Initialize the Globe using Globe.GL
+    
+    // Initialize the Globe using Globe.GL.
     const world = new Globe(globeElem)
       .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
       .heatmapPointLat('lat')
@@ -386,32 +353,40 @@
       .heatmapPointWeight('pop')
       .heatmapBandwidth(0.9)
       .heatmapColorSaturation(2.8)
-      .enablePointerInteraction(false);
-
-    // Load CSV data and configure the heatmap
+      .enablePointerInteraction(true);  // allow mouse dragging
+    
+    // Load CSV data and configure the heatmap.
     fetch('https://raw.githubusercontent.com/down2chill/globe/refs/heads/main/world_population.csv')
       .then(res => res.text())
       .then(csv => csvParse(csv, ({ lat, lng, pop }) => ({ lat: +lat, lng: +lng, pop: +pop })))
       .then(data => world.heatmapsData([data]));
-
-    // Update fade overlay and globe opacity as you scroll.
-    // Now the fade overlay is 0 (transparent) at the very top and becomes fully opaque (1) at fadeThreshold.
-    // The globe opacity is the inverse (1 at top, 0 when fade is complete).
-    const fade = document.getElementById("scroll-fade");
-    const fadeThreshold = 200; // Adjust threshold (in pixels) as desired
+    
+    // --- Crossfade setup ---
+    // We fade the #intro section (and any other top content) out as you scroll.
+    // Simultaneously, we crossfade the globe in.
+    const threshold = 200;
     const scrollableContent = document.getElementById('scrollable-content');
-
     scrollableContent.addEventListener('scroll', () => {
       const sy = scrollableContent.scrollTop;
-      const fadeOpacity = sy < fadeThreshold ? sy / fadeThreshold : 1;
-      fade.style.opacity = fadeOpacity;
-      globeElem.style.opacity = 1 - fadeOpacity;
+      const factor = Math.min(sy / threshold, 1);
+      // Fade the introduction content: 1 at top, 0 when scrolled threshold.
+      document.getElementById('intro').style.opacity = 1 - factor;
+      // Crossfade the globe: 0 at top, 1 when scrolled threshold.
+      globeElem.style.opacity = factor;
     });
+    
+    // --- Forward wheel events on the globe ---
+    // When the mouse is over the globe, re‑apply the wheel delta to the parent scrollable container.
+    globeElem.addEventListener('wheel', e => {
+      scrollableContent.scrollTop += e.deltaY;
+      // Prevent default to avoid any internal handling by Globe.GL.
+      e.preventDefault();
+    }, { passive: false });
   </script>
   
-  <!-- Existing Three.js and page scripts -->
+  <!-- Existing Three.js and page scripts for your 3D city, etc. -->
   <script>
-    // Setup renderer and Three.js scene for the city background
+    // Set up the Three.js renderer and scene for the city background.
     const scrollableContent = document.getElementById('scrollable-content');
     const r = new THREE.WebGLRenderer({ antialias: true });
     const c = document.getElementById('webgl-bg');
@@ -422,23 +397,22 @@
     if(window.innerWidth > 800){
       r.shadowMap.enabled = true;
       r.shadowMap.type = THREE.PCFSoftShadowMap;
-      r.shadowMap.needsUpdate = true;
     }
-
+    
     const s = new THREE.Scene();
     s.background = new THREE.Color(0x7B61FF);
     s.fog = new THREE.Fog(0x7B61FF, 10, 16);
-
+    
     const fogOrig = { near: 10, far: 60 },
           fogRed = { near: 1000, far: 10000 },
           fogTgt = { near: 10, far: 16 };
     let disableFog = false;
-
-    const cam = new THREE.PerspectiveCamera(30, window.innerWidth/window.innerHeight, 1, 500);
+    
+    const cam = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 500);
     cam.position.set(10,15,10);
     cam.lookAt(0,0,0);
-
-    // Create City
+    
+    // Create a city for demonstration.
     const city = new THREE.Object3D();
     s.add(city);
     const smoke = new THREE.Object3D();
@@ -457,7 +431,7 @@
     function free(x, z, arr, md) {
       return !arr.some(p => (p.x - x) ** 2 + (p.z - z) ** 2 < md ** 2);
     }
-
+    
     function initCity(){
       const cnt = 80,
             minD = 0.8,
@@ -474,8 +448,7 @@
           side: THREE.DoubleSide
         });
         const cube = new THREE.Mesh(geom, mat);
-        const wire = new THREE.Mesh(geom, wmat);
-        cube.add(wire);
+        cube.add(new THREE.Mesh(geom, wmat));
         cube.castShadow = true;
         cube.receiveShadow = true;
         const h = (0.1 + Math.abs(rand(8))) / 2;
@@ -495,8 +468,8 @@
         }
         town.add(cube);
       }
-
-      // Smoke
+      
+      // Smoke particles
       const gmat = new THREE.MeshToonMaterial({color: 0xffff00, side: THREE.DoubleSide});
       const ggeo = new THREE.CircleGeometry(0.01, 3);
       const apart = 5;
@@ -505,8 +478,8 @@
         p.position.set(rand(apart), Math.abs(rand(2)), rand(apart));
         smoke.add(p);
       }
-
-      // Ground
+      
+      // Ground plane
       const pmat = new THREE.MeshPhongMaterial({
         color: 0x000000,
         side: THREE.DoubleSide,
@@ -523,8 +496,8 @@
       city.add(pe);
     }
     initCity();
-
-    // Lights
+    
+    // Add lights
     const aLight = new THREE.AmbientLight(0xffffff, 4);
     const lFront = new THREE.SpotLight(0xffffff, 20, 10);
     lFront.rotation.x = 45 * Math.PI / 180;
@@ -539,8 +512,8 @@
     s.add(aLight);
     city.add(lFront);
     s.add(lBack);
-
-    // Fast Lines
+    
+    // Fast moving lines for visual effect.
     const fl = [];
     const dirs = ["z+", "z-", "x+", "x-"];
     const lc = 25, rng = 20;
@@ -553,21 +526,11 @@
           mesh.castShadow = true;
           mesh.receiveShadow = true;
           mesh.userData.dir = dirs[Math.floor(Math.random() * dirs.length)];
-          switch (mesh.userData.dir) {
-            case "z+":
-              mesh.position.set(rand(3), Math.abs(rand(2)), -rng + Math.random() * 2 * rng);
-              break;
-            case "z-":
-              mesh.position.set(rand(3), Math.abs(rand(2)), rng - Math.random() * 2 * rng);
-              break;
-            case "x+":
-              mesh.rotation.y = Math.PI * 0.5;
-              mesh.position.set(-rng + Math.random() * 2 * rng, Math.abs(rand(2)), rand(3));
-              break;
-            case "x-":
-              mesh.rotation.y = Math.PI * 0.5;
-              mesh.position.set(rng - Math.random() * 2 * rng, Math.abs(rand(2)), rand(3));
-              break;
+          switch (mesh.userData.dir){
+            case "z+": mesh.position.set(rand(3), Math.abs(rand(2)), -rng + Math.random() * 2 * rng); break;
+            case "z-": mesh.position.set(rand(3), Math.abs(rand(2)), rng - Math.random() * 2 * rng); break;
+            case "x+": mesh.rotation.y = Math.PI * 0.5; mesh.position.set(-rng + Math.random() * 2 * rng, Math.abs(rand(2)), rand(3)); break;
+            case "x-": mesh.rotation.y = Math.PI * 0.5; mesh.position.set(rng - Math.random() * 2 * rng, Math.abs(rand(2)), rand(3)); break;
           }
           fl.push(mesh);
           city.add(mesh);
@@ -575,8 +538,8 @@
       }
     }
     createLines();
-
-    // Camera Movement based on scroll and predefined section viewports
+    
+    // Camera movement based on scroll.
     const sections = ["#resume3d","#intro","#school","#work","#projects","#publications","#leadership","#contact"];
     const vps = [
       {pos: new THREE.Vector3(0,60,0), la: new THREE.Vector3(0,0,0)},
@@ -624,22 +587,15 @@
       mousePos.x = (e.clientX / window.innerWidth) * 2 - 1;
       mousePos.y = -(e.clientY / window.innerHeight) * 2 + 1;
     }, false);
-    const fade = document.getElementById("scroll-fade");
+    
     scrollableContent.addEventListener('scroll', () => {
       const sy = scrollableContent.scrollTop;
-      // Here we use the inverted fade: 0 (transparent) at top, 1 (black) at fadeThreshold
-      const prog = sy < fadeThreshold ? sy / fadeThreshold : 1;
-      fade.style.opacity = prog;
-      // Globe opacity is the inverse, so it is fully visible only when prog is 0
-      // (i.e. when the fade overlay is transparent)
-      globeElem.style.opacity = 1 - prog;
       if(!disableFog){
         fogTgt.near = fogOrig.near;
         fogTgt.far = fogOrig.far;
       }
     });
     let isScroll = false;
-    // Safely add the email focus event if the element exists:
     const emailEl = document.getElementById('email');
     if(emailEl) {
       emailEl.addEventListener('focus', () => {
@@ -654,9 +610,9 @@
       const introY = introEl ? introEl.offsetTop : 0;
       if (sy <= introY) {
         disableFog = false;
-        const p = sy / introY;
-        fogTgt.near = THREE.MathUtils.lerp(50, fogOrig.near, p);
-        fogTgt.far = THREE.MathUtils.lerp(80, fogOrig.far, p);
+        const prog = sy / introY;
+        fogTgt.near = THREE.MathUtils.lerp(50, fogOrig.near, prog);
+        fogTgt.far = THREE.MathUtils.lerp(80, fogOrig.far, prog);
       } else if (!disableFog) {
         const scrollFraction = sy / (scrollableContent.scrollHeight - scrollableContent.clientHeight);
         fogTgt.near = fogOrig.near;
@@ -717,21 +673,21 @@
       r.render(s, cam);
     }
     animate();
-
+    
     document.getElementById('hamburger').addEventListener('click', () => {
       const navC = document.getElementById('nav-links');
       navC.classList.toggle('active');
       const act = navC.classList.contains('active');
       document.getElementById('hamburger').setAttribute('aria-expanded', act);
     });
-
+    
     document.addEventListener('DOMContentLoaded', () => {
       const introSection = document.querySelector('#intro');
       if(introSection){
         introSection.scrollIntoView();
       }
     });
-
+    
     document.addEventListener("DOMContentLoaded", () => {
       const buttons = document.querySelectorAll(".load-pdf");
       buttons.forEach(button => {
