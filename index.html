@@ -17,26 +17,31 @@
   <script src="three.min.js"></script>
   <style>
     /* Basic global styles */
-    body {
-      margin: 0;
-      background: #000;
-      color: #fff;
-      font-family: sans-serif;
-      overflow: hidden; /* Prevent window scrolling */
-      text-align: center;
-    }
-    
-    /* Create a scrollable container for all page content */
-    .scrollable-content {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      scroll-behavior: smooth;
-    }
+    html, body {
+    height: 100%; /* Ensure the full height is explicitly defined */
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Ensure no scroll bars on the whole page */
+}
+
+body {
+    background: #000;
+    color: #fff;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.scrollable-content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto; /* Only this element should scroll */
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+}
+
     
     canvas {
       display: block;
@@ -341,7 +346,7 @@
           solutions, and secure vehicular communications that power the next generation of mobility.
         </p>
       </div>
-  
+  </div>
   </section>
 
 
