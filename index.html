@@ -12,7 +12,6 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.min.js"></script>
   <style>
     /* Basic global styles */
-  /* Basic global styles */
 body {
   margin: 0;
   background: #000;
@@ -22,6 +21,18 @@ body {
   overflow-y: show;
   text-align: center;
 }
+
+/* Create a scrollable container for all page content */
+.scrollable-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 canvas {
   display: block;
   position: fixed;
@@ -42,26 +53,22 @@ canvas {
   padding: 1rem;
 }
 
-
-
 .pdf-container {
-  width: calc(100% - 2rem); /* Full width minus margins */
-  margin: 1rem; /* Margin around the container */
+  width: calc(100% - 2rem);
+  margin: 1rem;
   display: block;
-  overflow: hidden; /* Handles overflow */
-  position: relative; /* Positioning context for pseudo-element */
-  padding-top: 110%; /* Adjusted top padding for less height */
+  overflow: hidden;
+  position: relative;
+  padding-top: 110%;
 }
 
 object {
-  position: absolute; /* Absolute positioning inside the container */
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100%; /* Full width of its container */
-  height: 100%; /* Full height of the padded container */
+  width: 100%;
+  height: 100%;
 }
-
-
 
 /* Header */
 header {
@@ -71,12 +78,11 @@ header {
   width: 100%;
   z-index: 999;
   padding: 1rem;
-  background: rgba(0,0,0,0.9); /* Darker background */
+  background: rgba(0,0,0,0.9);
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 
 header h1 {
   position: absolute;
@@ -88,7 +94,7 @@ header h1 {
 
 /* New narrow view buttons */
 .narrow-btn {
-  display: none; /* Hidden by default */
+  display: none;
   font-size: 1rem;
   font-weight: bold;
   color: #fff;
@@ -109,7 +115,7 @@ header h1 {
   font-size: 1.5rem;
   cursor: pointer;
   color: #fff;
-  display: none; /* Hidden by default */
+  display: none;
 }
 
 nav {
@@ -132,8 +138,8 @@ nav a:hover {
 
 /* Uniform spacing for main sections */
 section {
-  padding: 6rem 2rem 2rem 2rem; /* Add more bottom padding */
-  margin-bottom: 20rem; /* Add extra margin between sections */
+  padding: 6rem 2rem 2rem 2rem;
+  margin-bottom: 20rem;
   box-sizing: border-box;
 }
 h2 {
@@ -147,7 +153,7 @@ h2 {
   padding: 1rem 2rem;
   border-radius: 10px;
   margin: 1rem auto;
-  max-width: 800px; /* narrower to keep text lines readable */
+  max-width: 800px;
 }
 
 /* Two-column section layout (for specific sections that remain unchanged) */
@@ -172,7 +178,7 @@ h2 {
   height: auto;
   border-radius: 10px;
   display: block;
-  margin: 0 auto 1rem auto; /* extra bottom margin for spacing */
+  margin: 0 auto 1rem auto;
 }
 
 /* Lists and typography */
@@ -224,10 +230,10 @@ footer {
     margin: 0.5rem 0;
   }
   .hamburger {
-    display: block; /* Show hamburger menu */
+    display: block;
   }
   .narrow-btn {
-    display: inline-block; /* Show only in mobile view */
+    display: inline-block;
   }
 }
 
@@ -265,7 +271,6 @@ nav.active {
 #contact-form button:hover {
   background: #ff69b4;
 }
-
   </style>
 </head>
 <body>
@@ -273,1193 +278,492 @@ nav.active {
   <canvas id="webgl-bg"></canvas>
 <header>
   <h1>Vlad Slyusar</h1>
-  <!-- New buttons for narrow view -->
   <a href="#resume3d" id="narrow-home" class="narrow-btn">Home</a>
   <a href="#contact" id="narrow-contact" class="narrow-btn">Contact</a>
   <div class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</div>
   <nav id="nav-links">
     <a href="#resume3d">Home</a>
     <a href="#intro">Intro</a>
-    <a href="#school">Edu</a>
+    <a href="#school">School</a>
     <a href="#work">Work</a>
-    <a href="#projects">Proj</a>
-    <a href="#publications">Pub</a>
-    <a href="#leadership">Lead</a>
+    <a href="#projects">Projects</a>
+    <a href="#publications">Patents</a>
+    <a href="#leadership">Leadership</a>
     <a href="#contact">Contact</a>
   </nav>
 </header>
 
-
-  <!-- 3D Resume (One column) -->
-  <section id="resume3d">
-    <div class="container">
-      <h2>3D Resume</h2>
-      <div hidden class="block-bg">
-        <p>Welcome to my interactive 3D resume. Scroll down to explore more!</p>
-      </div>
-    </div>
-  </section>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  <!-- Intro (One column) -->
-  <section id="intro">
-    <div class="container">
-      <h2>Introduction</h2>
-      <div class="block-bg">
-        
-        <p>
-          Highly accomplished Computer/Electrical Engineer with over 10 years experience delivering advanced connectivity, 
-          high-precision positioning, RF systems, embedded software, and hardware design solutions. Demonstrated track record 
-          in autonomous vehicle (AV) technology, cybersecurity, network security, and IoT integration, backed by a 4.0 M.S.E. 
-          GPA and dual B.S.E. degrees.
-        </p>
-      </div>
-<br>
-<img src="i.jpg" alt="Vlad Slyusar" class="rounded-image">
-<br>
-      <div class="block-bg">
-        <p>
-          Possesses in-depth expertise in 5G/mmWave, RTK/NRTK GNSS, MEC, Edge AI, SDR, and DevSecOps. Adept at leading 
-          complex R&amp;D projects, optimizing embedded systems, and managing multiple large-scale deployments in fast-paced, 
-          deadline-driven environments. Excellent communication, analytical, and leadership abilities, reinforced by hands-on 
-          experience in machine learning, blockchain, and cloud technologies. Passionate about driving innovation, scalable 
-          solutions, and secure vehicular communications that power the next generation of mobility.
-        </p>
-      </div>
-  
-  </section>
-
-  <!-- Technical Skills (Remains as is: 2 columns) -->
-  <section>
-    <div class="container">
-      <h2>Technical Skills</h2>
-      <div class="columns">
-        <div class="column">
-          
-          <div class="block-bg">
-            <h3>Software &amp; Tools</h3>
-            <p>Docker, Kubernetes, AWS, Git, TensorFlow, PyTorch, Qt, QNX, Altium Designer, Cadence Allegro, MATLAB, GNU Radio /  
-              SDR (Software-Defined Radio), Wireshark, OpenGL, Eagle CAD, Jenkins, SolidWorks, Simulink</p>
-          </div>
-          <div class="block-bg">
-            <h3>Hardware</h3>
-            <p>FPGA (Spartan 3E), ARM Cortex-M3, SoC Integration, IoT Devices, Raspberry Pi, Arduino, PCB Design (2-8 layers, 
-              blind/buried vias), Power Management, Signal Integrity Analysis, Thermal Management, SDR Devices, MPC57xx Calypso/Bolero</p>
-          </div>
-		  <div class="block-bg">
-            <h3>Embedded Systems</h3>
-            <p>Real-Time Operating Systems (RTOS), Embedded Linux, IoT Protocols (MQTT, CoAP), Cross-Platform Development, 
-              Low-Level Coding, SoC Testing, Firmware Development, Board Support Level (BSL) Integration, CAN Bus, Device Drivers</p>
-          </div>
-        </div>
-        <div class="column">
-		<div class="block-bg">
-            <h3>Programming Languages</h3>
-            <p>Python, C, C++, VHDL, Rust, JavaScript, TypeScript, SQL, Assembly, VHDL, MATLAB, PHP, Swift</p>
-          </div>
-          <div class="block-bg">
-            <h3>Networking</h3>
-            <p>5G/mmWave, SDN (Software-Defined Networking), Network Virtualization, Network Security Protocols (TLS, SSL), TCP/IP, IPv4, IPv6, 
-              Cellular/Wi-Fi/Bluetooth/RF Connectivity, VPN, Advanced Routing Techniques, MEC (Mobile Edge Computing), NTRIP/RTCM, 
-              Network Automation</p>
-          </div>
-          
-          <div class="block-bg">
-            <h3>Other Skills</h3>
-            <p>Machine Learning, Artificial Intelligence, DevSecOps, High-Level Software Development, ASIC Design, VLSI CAD, Relative GNSS 
-              (Network-RTK, PPP-RTK, DGNSS, Sapcorda), Signal Processing, EMC Testing, Cyber-Physical Systems, Blockchain, Agile/Scrum Methodologies</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- School (One column) -->
-  <section id="school">
-    <div class="container">
-      <h2>Education</h2>
-      <div class="block-bg">
-        <h3>Master of Science in Computer Engineering</h3>
-        <p>
-          Rackham Graduate School, University of Michigan<br>
-          September 2016 – December 2017 | GPA: 4.0
-        </p>
-      </div>
-      <div class="block-bg">
-        <h3>Bachelor of Science in Electrical Engineering</h3>
-		<h3>Bachelor of Science in Computer Engineering</h3>
-		<h3>Minor in Computer Science</h3>
-        <p>
-          University of Michigan – Dearborn, MI<br>
-          September 2012 – April 2016 | GPA: 3.94
-        </p>
-      </div>
-	  <br><br><br><br>
-	  <div class="block-bg">
-        <h3>Relevant Courses</h3>
-        <ul>
-          Advanced Embedded Systems, Digital Signal Processing, Wireless Communication, 
-          Analog &amp; Digital Communication Systems, Assembly Programming, Automatic Control Systems, Computer Hardware 
-          Organization &amp; Design, Embedded System Design, Electromagnetic Compatibility, Microelectronics, Circuit Design, 
-          Control Systems, Data Structures &amp; Algorithms, Database Management Systems, Electrical Materials &amp; Devices, 
-          Introduction to VLSI, Operating Systems, Power Electronics, System Design &amp; Microcontrollers
-        </ul>
-      </div>
-	  <br><br><br><br>
-      <div class="block-bg">
-        <h3>Awards</h3>
-        <ul>
-          <li><strong>James B. Angell Scholar:</strong> Earned exclusively A grades over 8 terms (covering two Eng. Degrees + CIS minor).</li>
-          <li><strong>Chancellor’s Scholarship Recipient:</strong> Awarded full tuition for exceptional academic performance (HS GPA &gt; 4.0).</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Work (Ford Motor Company remains unchanged, other items stay multi-col) -->
-  <section id="work">
-    <div class="container">
-      <h2>Work Experience</h2>
-      <!-- Ford Motor Company (unchanged layout) -->
-      <div class="block-bg">
-        <h3>Ford Motor Company</h3>
-        <p><strong>Senior Computer/Electrical Engineer</strong><br>Dearborn, MI &amp; Palo Alto, CA | May 2014 – June 2023</p>
-      </div>
-      <div class="columns">
-        <div class="column">
-          <div class="block-bg">
-            <h4>Advanced Connectivity Research</h4>
-            <ul>
-              <li>PoCs for Cellular, Wi-Fi, Bluetooth, RF, IoT (US-12192868-B2; US-20230370822-A1)</li>
-              <li>5G/mmWave testing at 28GHz (US-11210943-B2)</li>
-              <li>Private 5G mmWave network w/ MEC &amp; Edge AI (US-20240412630-A1, US-20210272454-A1)</li>
-              <li>Resolved 5G/4G/5G handover issues w/ major telecom</li>
-            </ul>
-          </div>
-		  <div class="block-bg">
-            <h4>High Precision Positioning Research</h4>
-            <ul>
-              <li>Multi-constellation GNSS for AV accuracy (US-20240329184-A1)</li>
-              <li>SSR/OSR corrections over NTRIP/RTCM; advanced RTK with OSU</li>
-              <li>GNSS jamming/spoofing detection, sensor fusion, SLAM integration</li>
-              <li>Adaptive guidance for matching driver styles (US-20220176986-A1)</li>
-            </ul>
-          </div>
-          <div class="block-bg">
-            <h4>Embedded Software &amp; Hardware</h4>
-            <ul>
-              <li>Qt apps on QNX/Linux, GUIs in Qt/C++</li>
-              <li>Firmware for MPC57xx Calypso/Bolero, SoC &amp; BSL integration</li>
-              <li>Designed VMCU, Ethernet boards, advanced PCB, EMC tests, BGA rework</li>
-              <li>OpenGL GPU/CPU benchmarks, TCU software w/ AT cmds (US-20180213414-A1)</li>
-            </ul>
-          </div>
-          
-        </div>
-        <div class="column">
-          
-          
-		  <div class="block-bg">
-            <h4>AV Connectivity/Modem Deployment &amp; Modification</h4>
-            <ul>
-              <li>Deployed 100+ TCUs &amp; ECGs for first AV fleet (US-20190007900-A1)</li>
-              <li>Supported 100 AVs across 5 major cities (US-12181869-B2; US-20230195105-A1)</li>
-            </ul>
-          </div>
-		  <div class="block-bg">
-            <h4>RF Diagnostics</h4>
-            <ul>
-              <li>Used SDR &amp; Wi-Fi Pineapple for trailer camera troubleshooting (US-11812355-B2)</li>
-              <li>Monitored video streams for anomalies (US-11991346-B2; US-20230156179-A1)</li>
-            </ul>
-          </div>
-          <div class="block-bg">
-            <h4>Ideation &amp; Innovation</h4>
-            <p>
-              Conceived and patented many additional ideas & solutions: 
-              (US-10542493-B2, US-12037021-B2, US-20220377519-A1, US-20220321352-A1, US-11395107-B1, US-11812355-B2, 
-              US-11551456-B2, US-11750393-B2, US-20180213414-A1, US-11880867-B2, US-20230237529-A1, US-10305527-B2).
-            </p>
-          </div>
-        </div>
-      </div>
-      <!-- Valeo / Vector CANtech / Freelance remain multi-col as well -->
-	  <br><br><br><br>
-	  <div class="block-bg">
-        <h3>Valeo Inc.</h3>
-            <p><strong>Network Management Intern</strong><br>Troy, MI | April 2013 – September 2013</p>
-      </div>
-	  <div class="block-bg">
-              <li>Managed server backups; resolved Windows/Linux issues</li>
-              <li>2nd/3rd level support, AD/WSUS, security hardening</li>
-              <li>Performed OS/software upgrades, trained new hires</li>
-      </div>
-	  <br><br><br><br>
-	  <div class="block-bg">
-         <h3>Vector CANtech</h3>
-            <p><strong>Computer Engineering Intern</strong><br>Novi, MI | March 2012 – June 2012</p>
-      </div>
-	  <div class="block-bg">
-              <li>Analyzed embedded devices per OEM specs</li>
-              <li>Defined hardware requirements for Tier 1 suppliers</li>
-              <li>Organized/tested embedded hardware, improved inventory mgmt</li>
-      </div>
-	  <br><br><br><br>
-	  <div class="block-bg">
-         <h3>Freelance</h3>
-              <p><strong>Software/Web Developer</strong><br>Northville, MI | Nov 2010 – Mar 2013</p>
-      </div>
-	  <div class="block-bg">
-                <li>Developed full-stack solutions (HTML/CSS/JS, PHP, SQL/NoSQL)</li>
-                <li>Used Angular, Node.js, Google Cloud, mobile (Android/iOS)</li>
-                <li>Applied Agile/Scrum for client deliverables</li>
-      </div>
-	  
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects (Remains as is: 2 columns) -->
-  <section id="projects">
-    <div class="container">
-      <h2>Projects</h2>
-      <div class="columns">
-        <div class="column">
-          <div class="block-bg">
-            <h3>Human Heart Rate Extraction from Video</h3>
-            <p>
-              <strong>Description:</strong> MATLAB system using Viola-Jones, KLT, Eulerian Magnification. <br>
-              <strong>Technologies:</strong> MATLAB, Computer Vision, Deep Learning. <br>
-              <strong>Achievements:</strong> Accurate BPM under low-light/noisy conditions.
-            </p>
-			<div class="patent-image">
-    <button class="load-pdf" data-pdf="Facial_Boundary_Recognition_and_Heart_Rate_Extraction_From_Remote_Video_Source.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-          </div>
-          <div class="block-bg">
-            <h3>Vehicle Keyfob Security Bypass</h3>
-            <p>
-              <strong>Description:</strong> Rolling code vulnerability demonstration via HackRF &amp; GNU Radio. <br>
-              <strong>Technologies:</strong> HackRF SDR, RTL-SDR, GRC, DVB-T. <br>
-              <strong>Achievements:</strong> Unlocked vehicles, highlighting cybersecurity flaws.
-            </p>
-			<div class="patent-image">
-    <button class="load-pdf" data-pdf="Breaching_Vehicle_RF_Systems_Using_Replay_Attacks.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-          </div>
-          <div class="block-bg">
-            <h3>One-Time-Pad Secure Communication</h3>
-            <p>
-              <strong>Description:</strong> Vernam Cipher with ARM M3 Teensy &amp; Spartan 3E FPGA. <br>
-              <strong>Technologies:</strong> VHDL, Cryptography, Secure Protocols. <br>
-              <strong>Achievements:</strong> Custom messaging, mathematically unbreakable encryption.
-            </p>
-			<div class="patent-image">
-    <button class="load-pdf" data-pdf="Personal_HSM_for_Secure_Communication.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-          </div>
-		  <div class="block-bg">
-            <h3>Custom 8-Bit ALU ASIC Design</h3>
-            <p>
-              <strong>Description:</strong> 8-bit ALU w/ VLSI CAD &amp; 50-micron photolithography. <br>
-              <strong>Technologies:</strong> VLSI CAD, Photolithography, Spartan 3E FPGA. <br>
-              <strong>Achievements:</strong> Verified 8 ALU functions with two 8-bit operands.
-            </p>
-			<div class="patent-image">
-    <button class="load-pdf" data-pdf="test1.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-          </div>
-        </div>
-        <div class="column">
-          
-          <div class="block-bg">
-            <h3>Hidden Markov Models for Speech Recognition</h3>
-            <p>
-              <strong>Description:</strong> HMM-based speech recognition in MATLAB with Baum-Welch. <br>
-              <strong>Technologies:</strong> MATLAB, NLP, Feature Engineering. <br>
-              <strong>Achievements:</strong> High accuracy classification in low-resource environments.
-            </p>
-			<div class="patent-image">
-    <button class="load-pdf" data-pdf="HMM_based_Speech_Recognition.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-          </div>
-          <div class="block-bg">
-            <h3>Laser Harp DMX Light Controller</h3>
-            <p>
-              <strong>Description:</strong> Digital synth/MIDI controller with laser diodes &amp; DMX512. <br>
-              <strong>Technologies:</strong> Laser Diodes, DMX512, MIDI Protocol. <br>
-              <strong>Achievements:</strong> Real-time audio-visual integration for DJ effects.
-            </p>
-			<div class="patent-image">
-    <button class="load-pdf" data-pdf="test1.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-          </div>
-          <div class="block-bg">
-            <h3>VHDL-Based Graphics Card &amp; Elevator Controller</h3>
-            <p>
-              <strong>Description:</strong> 8-bit graphics &amp; elevator simulation on Spartan 3E FPGA. <br>
-              <strong>Technologies:</strong> VHDL, VGA Output, Real-Time Logic. <br>
-              <strong>Achievements:</strong> Real-time animation &amp; control, FPGA-based design.
-            </p>
-			<div class="patent-image">
-    <button class="load-pdf" data-pdf="test1.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-          </div>
-          <div class="block-bg">
-            <h3>Custom Xv6 Unix Kernel Scheduler</h3>
-            <p>
-              <strong>Description:</strong> Enhanced Xv6 kernel with MLFQ scheduling. <br>
-              <strong>Technologies:</strong> C, Xv6 Kernel, QEMU. <br>
-              <strong>Achievements:</strong> Improved concurrency &amp; resource management.
-            </p>
-			<div class="patent-image">
-    <button class="load-pdf" data-pdf="test1.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Publications & Patents -->
- <section id="publications">
+<!-- 3D Resume (One column) -->
+<section id="resume3d">
   <div class="container">
-    <h2>Publications &amp; Patents</h2>
+    <h2>3D Resume</h2>
+    <div hidden class="block-bg">
+      <p>Welcome to my interactive 3D resume. Scroll down to explore more!</p>
+    </div>
+  </div>
+</section>
+<!-- Spacer -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-    <!-- United States Patents -->
-    <h3>United States Patents</h3>
-
-    <!-- Patent Entry 1 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US12192868B2" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-12192868-B2]</strong>
-      </a> - Adaptively selecting network APN for vehicle application remote computing demand</h4>
-   <div class="patent-image">
-    <button class="load-pdf" data-pdf="12192868.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> January 7, 2025</p>
-    <p><strong>Summary:</strong> Managing vehicle application usage of computing resources is provided. A request for computing resources of a communications network is received from a vehicle application installed to a vehicle. An access point name (APN) is assigned to the vehicle application based on an application identifier corresponding to the vehicle application by accessing stored APN information including a mapping of application identifiers to corresponding APNs. The computing resources are accessed by the vehicle application connecting to the communications network using the APN.</p>
-  </div>
-</div>
-
-
-<br>
-
-<!-- Patent Entry 2 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US12181869B2" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-12181869-B2]</strong>
-      </a> - Method and apparatus for remote driving a plurality of vehicles in a platoon</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="12181869.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> December 31, 2024</p>
-    <p><strong>Summary:</strong> A system includes a plurality of vehicles and at least one first processor in a first vehicle and at least one second processor in each other of the plurality of vehicles. The first vehicle wirelessly receives remote driving commands, from a remote computing system, instructing control of the first vehicle and executes the remote driving commands to control the first vehicle in accordance with the remote driving commands. The first vehicle wirelessly broadcasts the remote driving commands, including a location of the first vehicle where a given of the driving commands was executed. The second vehicle wirelessly receives the broadcast remote driving commands, stores the received remote driving commands in sequence, and executes the given of the driving commands when a location of the second vehicle corresponds to the location of the first vehicle where the given of the driving commands was executed.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 3 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US20240412630A1" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-20240412630-A1]</strong>
-      </a> - EDGE COMPUTING ASSISTED VEHICLE ALERTING SYSTEM AND METHODS</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="20240412630.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> December 12, 2024</p>
-    <p><strong>Summary:</strong> Systems and methods for implementing edge computing assisted vehicle alerts. A multi-access edge computing (MEC) server may be configured to obtain a plurality of messages from one or more vehicles, determine formation of a traffic queue based on the plurality of messages, determine a plurality of zone-based speed limits, determine when a vehicle approaching the traffic queue may be traveling faster than desired based on its location relative to an applicable zone-based speed limit, and generate one or more alerts.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 4 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US20240329184A1" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-20240329184-A1]</strong>
-      </a> - High-Accuracy Device Positioning</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="20240329184.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> October 3, 2024</p>
-    <p><strong>Summary:</strong> An ego user equipment (UE) receives absolute position and relative distance information for m other UEs at a timestamp and a fingerprint location based on signal strength information between the UE and n different femtocells. The ego UE determines, using round trip time between the ego UE and the other UEs, first distances of the ego UE from each of the other UEs. The ego UE determines, using the absolute position of the ego UE via fingerprinting information and absolute position of other UEs received through device-to-device (D2D) communication, second distances of the ego UE to each of the other UEs. The ego UE utilizes the fingerprint location as a current location of the UE responsive to a predefined threshold subset of discrepancies between the first distances and the second distances being within a predefined distance tolerance threshold.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 5 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US12037021B2" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-12037021-B2]</strong>
-      </a> - Electric autonomous vehicle ride service assistance</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="12037021.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> July 16, 2024</p>
-    <p><strong>Summary:</strong> An autonomous vehicle may determine that it has an amount of power remaining projected to be needed to reach a recharging point by autonomously traveling with predefined systems disabled. The vehicle may disable the predefined systems and travel towards the recharging point. Subsequent to the disabling, the autonomous vehicle may determine that it no longer has the amount of power remaining projected to be needed to reach the recharging point. The vehicle may then communicate with a server and request assistance. The vehicle may then travel to an instructed rendezvous point with a second autonomous vehicle, the rendezvous received from the server. The two vehicles may then communicate to allow the first vehicle to leverage a capability of the second autonomous vehicle, responsive to the first and second autonomous vehicles being within communication range, allowing the first vehicle to reach the recharging point via the leveraging.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 6 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US11991346B2" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-11991346-B2]</strong>
-      </a> - Video streaming anomaly detection</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="11991346.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> May 21, 2024</p>
-    <p><strong>Summary:</strong> Monitoring of a vehicle is provided. A plurality of video feeds captured from cameras of the vehicle are received, over a network from a vehicle, each of the plurality of video feeds including a plurality frames, each of the frames of each of the video feeds being assigned a sequence number that increases for each successive frame. The sequence numbers are analyzed to identify missing frames, delayed frames, or stale frames. The plurality of video feeds is displayed, to one or more monitors, the sequence numbers corresponding to the displayed frames, and for each of the plurality of video feeds, indications of whether any missed frames, delayed frames, or stale frames were identified.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 7 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US11880867B2" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-11880867-B2]</strong>
-      </a> - Systems and methods for providing targeted content to users</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="11880867.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> January 23, 2024</p>
-    <p><strong>Summary:</strong> The disclosure generally pertains to systems and methods for providing targeted content to users. In an example method, audio data can be received from a device. Sensor data associated with the device may also be received, and the sensor data may include location data. Upon receiving the audio data, an intent associated with the audio data can be determined. At least one of a product, service, or entity may be determined based on the intent. Content may then be determined based on the sensor data and at least one of the product, service, or entity. The content may be associated with a vehicle. An indication of the content can then be sent to the device.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 8 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US20230370822A1" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-20230370822-A1]</strong>
-      </a> - ADAPTIVELY SELECTING NETWORK APN FOR VEHICLE APPLICATION REMOTE COMPUTING DEMAND</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="20230370822.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> November 16, 2023</p>
-    <p><strong>Summary:</strong> Managing vehicle application usage of computing resources is provided. A request for computing resources of a communications network is received from a vehicle application installed to a vehicle. An access point name (APN) is assigned to the vehicle application based on an application identifier corresponding to the vehicle application by accessing stored APN information including a mapping of application identifiers to corresponding APNs. The computing resources are accessed by the vehicle application connecting to the communications network using the APN.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 9 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US11812355B2" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-11812355-B2]</strong>
-      </a> - Drone-based vehicle connectivity systems and methods</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="11812355.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> November 7, 2023</p>
-    <p><strong>Summary:</strong> Drone-based vehicle connectivity systems and methods are disclosed herein. A method can include determining a loss of network connectivity by any of a vehicle and/or a drone associated with the vehicle, receiving an emergency message from the vehicle, launching the drone to navigate to a location where network connectivity exists, and transmitting the emergency message to a service provider when a connection to a network is established.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 10 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US11750393B2" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-11750393-B2]</strong>
-      </a> - Secure broadcast delivery and verification</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="11750393.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> September 5, 2023</p>
-    <p><strong>Summary:</strong> A vehicle receives a first portion of content via ATSC broadcast, generates a random nonce, responsive to receiving the content, and sends the nonce and a request for content verification to a remote server. The vehicle receives a message from the remote server indicating whether the first portion of content is likely valid, the message including a second portion of content and a hash value when the content is likely valid. The vehicle then calculates a second hash value, using the random nonce and the first portion of content. The vehicle compares the second hash value to the first hash value, and responsive to the second hash value matching the first hash value, combines the second portion of content and the first portion of content to create combined content. The vehicle then uses a security strategy to convert the combined content into utilizable content, and utilizes the content.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 11 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US20230237529A1" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-20230237529-A1]</strong>
-      </a> - Systems for Providing Targeted Content</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="20230237529.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> July 27, 2023</p>
-    <p><strong>Summary:</strong> Location-aware content recommendations.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 12 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US20230195105A1" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-20230195105-A1]</strong>
-      </a> - Remote Driving a Plurality of Vehicles</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="20230195105.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> June 22, 2023</p>
-    <p><strong>Summary:</strong> Broadcasts remote-driving commands.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 13 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US20230156179A1" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-20230156179-A1]</strong>
-      </a> - Video Streaming Anomaly Detection</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="20230156179.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> May 18, 2023</p>
-    <p><strong>Summary:</strong> Detects dropped/stale frames.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 14 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US20230110300A1" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-20230110300-A1]</strong>
-      </a> - Electric Autonomous Vehicle Ride</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="20230110300.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> April 13, 2023</p>
-    <p><strong>Summary:</strong> AVs share capabilities for recharging.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 15 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US11551456B2" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-11551456-B2]</strong>
-      </a> - Enhanced Infrastructure</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="11551456.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> January 10, 2023</p>
-    <p><strong>Summary:</strong> A system includes a stationary infrastructure element including a camera mounted to the infrastructure element and an infrastructure server. The infrastructure server includes a processor and a memory, the memory storing instructions executable by the processor to receive a request from a movable vehicle, the request identifying a data anomaly including at least one of (1) a sensor of the vehicle collecting data below a confidence threshold or (2) a geographic location outside a geographic database of the vehicle, to actuate the camera to collect image data of one of the vehicle or the geographic location, to identify geo-coordinates of the vehicle or the geographic location based on identified pixels in the image data including the vehicle or the geographic location, and to provide the geo-coordinates to the vehicle to address the data anomaly.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 16 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US20220377519A1" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-20220377519-A1]</strong>
-      </a> - Drone-based Vehicle Connectivity</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="20220377519.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> November 24, 2022</p>
-    <p><strong>Summary:</strong> Launches drones for emergency communications.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 17 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US20220321352A1" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-20220321352-A1]</strong>
-      </a> - Secure Broadcast Delivery</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="20220321352.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> October 6, 2022</p>
-    <p><strong>Summary:</strong> Random-nonce-based broadcast verification.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 18 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US11395107B1" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-11395107-B1]</strong>
-      </a> - Multicast assisted parking lot management</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="11395107.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> July 19, 2022</p>
-    <p><strong>Summary:</strong> A point-to-multipoint retransmit of the parking availability data is performed with a predefined update period. A quantity of unicast requests for parking availability is received via one or more cellular towers. If the quantity of unicast requests received within the predefined update period exceeds a ratio of point-to-multipoint bandwidth to unicast messaging bandwidth of the one or more cellular towers, a transition is made to use of the point-to-multipoint messaging for sending the parking availability data via the one or more cellular towers; and otherwise, a transition is made to use of the unicast messaging for sending the parking availability data via the one or more cellular towers.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 19 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US20220176986A1" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-20220176986-A1]</strong>
-      </a> - ADAPTIVE GUIDANCE FOR GROUP VEHICULAR TRAVEL</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="20220176986.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> June 9, 2022</p>
-    <p><strong>Summary:</strong> A system determines at least one driving style, reflecting driving behavior for a driver of a vehicle and based on inputs from a plurality of vehicle systems. The system receives a plurality of wireless signals from elements within a wireless communication range, each signal indicating the behavior of one or more drivers of other vehicles within a predefined distance of the vehicle. Further, the system determines, based on the wireless signals, whether one or more drivers are exhibiting behavior comparable to the driver of the vehicle based on predefined comparison thresholds and, responsive to determining that one or more drivers are exhibiting comparable behavior, provides guidance as to how to maneuver the vehicle to reach the vehicles driven by the one or more drivers exhibiting comparable behavior.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 20 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US11210943B2" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-11210943-B2]</strong>
-      </a> - Edge computing aided radio congestion mitigation</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="11210943.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> December 28, 2021</p>
-    <p><strong>Summary:</strong> A computing device includes a camera configured to capture images of an area of a road, the area defining a geofence; and a processor, configured to responsive to detecting a traffic density within the geofence exceeding a predefined threshold, wirelessly broadcast a directional message within the geofence to request vehicles located within the geofence to temporarily disable individual messaging services having low priorities identified in the directional message, analyze vehicle traffic using images captured by the camera to detect a predefined traffic situation, responsive to detecting the predefined traffic situation initiated by one of the vehicles, generate a safety message reflecting the traffic situation, and broadcast the safety message to vehicles within the geofence.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 21 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US20210397853A1" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-20210397853-A1]</strong>
-      </a> - Enhanced Infrastructure</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="20210397853.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> December 23, 2021</p>
-    <p><strong>Summary:</strong> Infrastructure cameras assist AV geopositioning.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 22 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US20210272454A1" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-20210272454-A1]</strong>
-      </a> - Edge Computing Aided Radio Congestion</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="20210272454.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> September 2, 2021</p>
-    <p><strong>Summary:</strong> Instructs low-priority services to pause.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 23 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US10542493B2" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-10542493-B2]</strong>
-      </a> - Vehicle communications management</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="10542493.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> January 21, 2020</p>
-    <p><strong>Summary:</strong> Systems and methods for managing communications equipment of a vehicle. The vehicle includes a first modem and a second modem coupled to the first modem. Responsive to the second modem wireless receiving first data for the first modem when the vehicle is in an inactive state, the first modem is in an off state, and the second modem is in a low power state, the vehicle is configured to wake the first modem from the off state, and process the first data via the first modem.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 24 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US10305527B2" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-10305527-B2]</strong>
-      </a> - Communicatively coupling mobile devices to wireless local area networks of vehicles</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="10305527.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> May 28, 2019</p>
-    <p><strong>Summary:</strong> Method and apparatus are disclosed for communicatively coupling mobile devices to wireless local area networks of vehicles. An example vehicle includes a communication module for a wireless local area network including an internal antenna and an external antenna. The example vehicle also includes an antenna adjuster to communicatively couple, in response to determining a mobile device is inside a vehicle cabin, the internal antenna to the mobile device and to communicatively couple, in response to determining the mobile device is outside of the vehicle cabin, the external antenna to the mobile device.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 25 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US20190007900A1" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-20190007900-A1]</strong>
-      </a> - Vehicle Communications Management</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="20190007900.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> January 3, 2019</p>
-    <p><strong>Summary:</strong> Wakes primary modem from low-power state.</p>
-  </div>
-</div>
-<br>
-
-<!-- Patent Entry 26 -->
-<div class="patent-entry block-bg">
-  <h4><a href="https://patents.google.com/patent/US20180213414A1" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[US-20180213414-A1]</strong>
-      </a> - Communicatively Coupling Mobile Devices</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="20180213414.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> July 26, 2018</p>
-    <p><strong>Summary:</strong> Optimizes connectivity via internal/external antennas.</p>
-  </div>
-</div>
-<br>
-
-	
-	<br><br><br><br>
-    <!-- International Patents -->
-    <h3>International Patents</h3>
-
-    <!-- International Patent Entry -->
-	<div class="patent-entry block-bg">
-  <h4><a href="https://sis.nipo.gov.ua/en/search/detail/375394/" target="_blank" style="color: white; text-decoration: none;">
-        <strong>[UA-64952]</strong>
-      </a> - Trap for Rodents</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="test1.pdf">Click to View PDF</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
-  <div class="patent-content">
-    <p><strong>Date Issued:</strong> March 15, 2004</p>
-    <p><strong>Summary:</strong> Uses a swiveling base and fulcrum in a hollow container to safely capture rodents. Recognized as the youngest patent holder in Ukraine for early innovation at age 9.</p>
-  </div>
-</div>
-
- 
-	
-
+<!-- Intro (One column) -->
+<section id="intro">
+  <div class="container">
+    <h2>Intro</h2>
+    <div class="block-bg">
+      <p>This is the introduction section.</p>
+    </div>
   </div>
 </section>
 
-
-  <!-- Leadership (One column) -->
-  <section id="leadership">
-    <div class="container">
-      <h2>Volunteer Experience</h2>
-      <div class="block-bg">
-        <ul>
-          <li><strong>MATHCOUNTS Foundation:</strong> Organized math competitions, mentored students, handled scoring.</li>
-          <li><strong>Northville Civic Concern:</strong> Sorted/organized donations for local families in need.</li>
-        </ul>
+<!-- Technical Skills (Remains as is: 2 columns) -->
+<section>
+  <div class="container">
+    <h2>Technical Skills</h2>
+    <div class="columns">
+      <div class="column">
+        <p>Skill Set 1</p>
       </div>
-	  <br><br><br><br>
-	  <h2>Organizations</h2>
-      <div class="block-bg">
-        <h4>Tau Beta Pi – Engineering Honor Society</h4>
-        <p>President, Secretary, Advisor (2014 – 2016). Led workshops, mentorships, service projects.</p>
-        <h4>Theta Tau – Professional Engineering Fraternity</h4>
-        <p>Vice President, Pledge Educator (2012 – 2016). Oversaw operations, events, leadership training.</p>
-        <h4>DCE – Dearborn Campus Engineers</h4>
-        <p>Vice President, Treasurer, Trustee (2012 – 2016). Managed finances and events for engineering community.</p>
-      </div>
-	  <br><br><br><br>
-	  <h2>Additional Information</h2>
-      <div class="block-bg" style="margin-top:2rem;">
-        <p>
-          <strong>Languages:</strong> English (Fluent), Ukrainian (Fluent), Russian (Fluent), German (5 years of study)<br>
-          <strong>Volunteer Work:</strong> MATHCOUNTS Foundation, Northville Civic Concern, CYM USA (Ukrainian American Youth Association)<br>
-          <strong>Interests:</strong> AI, Blockchain, Cyber-Physical Systems, GNSS Augmentation, High-Frequency RF Systems, 
-          Advanced Robotics, Edge Compute, Smart City Infrastructure
-        </p>
+      <div class="column">
+        <p>Skill Set 2</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Contact (One column, image above input) -->
-  <section id="contact">
-    <div class="container">
-      <h2>Contact</h2>
-      <div class="block-bg">
-        <img src="i2.jpg" alt="Contact Placeholder" class="rounded-image">
-        <p>Reach out if you'd like to collaborate on cutting-edge tech:</p>
-		<p>AI, Web3, Cybersec, AV, GNSS, FPGA, VLSI</p>
-        <form id="contact-form">
-          <input type="email" id="email" name="email" placeholder="Your Email" required>
-          <button type="submit">Submit</button>
-        </form>
+<!-- Education (One column) -->
+<section id="school">
+  <div class="container">
+    <h2>Education</h2>
+    <div class="block-bg">
+      <p>School details go here.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Work Experience -->
+<section id="work">
+  <div class="container">
+    <h2>Work Experience</h2>
+    <div class="block-bg">
+      <p>Work experience details.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Projects (Remains as is: 2 columns) -->
+<section id="projects">
+  <div class="container">
+    <h2>Projects</h2>
+    <div class="columns">
+      <div class="column">
+        <p>Project 1</p>
+      </div>
+      <div class="column">
+        <p>Project 2</p>
       </div>
     </div>
-	<br><br><br><br><br><br><br><br><br><br>
-  </section>
+  </div>
+</section>
 
-  <footer>&copy; 2025 Vlad Slyusar — All rights reserved.</footer>
+<!-- Publications & Patents -->
+<section id="publications">
+  <div class="container">
+    <h2>Publications &amp; Patents</h2>
+    <h3>United States Patents</h3>
+    <p>Patent details go here.</p>
+  </div>
+</section>
 
-  <!-- Scripts (unchanged 3D functionality) -->
-  <script>
-    // Setup
-    const r = new THREE.WebGLRenderer({antialias:true}), c = document.getElementById('webgl-bg');
-    r.setSize(window.innerWidth, window.innerHeight);
-    c.replaceWith(r.domElement); 
-    r.domElement.id = 'webgl-bg';
-    if(window.innerWidth > 800){
-      r.shadowMap.enabled=true; 
-      r.shadowMap.type=THREE.PCFSoftShadowMap; 
-      r.shadowMap.needsUpdate=true;
-    }
-    const s = new THREE.Scene(); 
-    s.background = new THREE.Color(0x7B61FF); https://lh3.googleusercontent.com/sZ2UgZE7oDgWT0N3AoFDvHIGbC6YK1ySseHBklVmVwNq0qsRFiJ7UMf0B_31fhQyRy1Fi8r2dTXyODXlVE0afWCJ1h75fPP-Y9yzN8fn1qcWiXY2Ty1tj-Ol5hVmS_69zg=w1280
-    s.fog = new THREE.Fog(0x7B61FF, 10, 16);
+<!-- Leadership (One column) -->
+<section id="leadership">
+  <div class="container">
+    <h2>Leadership</h2>
+    <div class="block-bg">
+      <p>Leadership details here.</p>
+    </div>
+  </div>
+</section>
 
-    const fogOrig = {near:10, far:60}, fogRed = {near:1000, far:10000}, fogTgt = {near:10, far:16};
-    const cam = new THREE.PerspectiveCamera(30, window.innerWidth/window.innerHeight,1,500);
-    cam.position.set(10,15,10); 
-    cam.lookAt(0,0,0);
+<!-- Contact (One column, image above input) -->
+<section id="contact">
+  <div class="container">
+    <h2>Contact</h2>
+    <div class="block-bg">
+      <img src="i2.jpg" alt="Contact Placeholder" class="rounded-image">
+      <p>Reach out if you'd like to collaborate on cutting-edge tech:</p>
+      <p>AI, Web3, Cybersec, AV, 5G NR, GNSS, FPGA</p>
+      <form id="contact-form">
+        <input type="email" id="email" name="email" placeholder="Your Email" required>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  <!-- Extra spacing -->
+  <br><br><br><br><br><br><br><br><br><br>
+</section>
 
-    // City
-    const city = new THREE.Object3D(); 
-    s.add(city);
-    const smoke = new THREE.Object3D(); 
-    city.add(smoke);
-    const town = new THREE.Object3D(); 
-    city.add(town);
-    const blds = [];
-    function rand(num=8){ return -Math.random()*num + Math.random()*num }
-    let tintFlag=true; 
-    function tint(){ tintFlag=!tintFlag; return tintFlag?0x111111:0x333333 }
-    function free(x,z,arr,md){ return !arr.some(p=> (p.x-x)**2 + (p.z-z)**2 < md**2) }
+<footer>&copy; 2025 Vlad Slyusar — All rights reserved.</footer>
 
-    function initCity(){
-      const cnt=80, minD=0.8, seg=2; 
-      const placed=[];
-      for(let i=0;i<cnt;i++){
-        const geom = new THREE.BoxGeometry(1,1,1,seg,seg,seg);
-        const mat = new THREE.MeshStandardMaterial({color:tint(), side:THREE.DoubleSide});
-        const wmat = new THREE.MeshLambertMaterial({
-          color:0xffffff, wireframe:true, 
-          transparent:true, opacity:0.05, side:THREE.DoubleSide
-        });
-        const cube = new THREE.Mesh(geom, mat); 
-        const wire = new THREE.Mesh(geom, wmat);
-        const floor = new THREE.Mesh(geom, mat); 
-        const wf = new THREE.Mesh(geom, wmat);
-        cube.add(wire); 
-        cube.add(wf); 
-        cube.castShadow=true; 
-        cube.receiveShadow=true;
-        const h = 0.1 + Math.abs(rand(8)); 
-        cube.scale.y = h; 
-        cube.userData.h = h;
-        blds.push(cube);
-        cube.scale.x = cube.scale.z = 0.9 + rand(1-0.9);
-        let placedFlag=false, a=0;
-        while(!placedFlag && a++ <1000){
-          const rx=Math.round(rand(15)), rz=Math.round(rand(15));
-          if(free(rx,rz,placed,minD)){
-            cube.position.set(rx,h/2,rz); 
-            floor.position.set(rx,0,rz); 
-            placed.push({x:rx,z:rz}); 
-            placedFlag=true;
-          }
-        }
-        floor.scale.y=0.05; 
-        town.add(floor); 
-        town.add(cube);
-      }
-      // Smoke
-      const gmat = new THREE.MeshToonMaterial({color:0xffff00, side:THREE.DoubleSide});
-      const ggeo = new THREE.CircleGeometry(0.01,3); 
-      const apart=5;
-      for(let h=1; h<300; h++){
-        const p = new THREE.Mesh(ggeo, gmat);
-        p.position.set(rand(apart), Math.abs(rand(2)), rand(apart));
-        p.rotation.set(rand(), rand(), rand());
-        smoke.add(p);
-      }
-      // Ground
-      const pmat = new THREE.MeshPhongMaterial({
-        color:0x000000, side:THREE.DoubleSide, roughness:10, 
-        metalness:0.6, opacity:0.9, transparent:true
+<!-- Scripts -->
+<script>
+  // Setup renderer and replace canvas element
+  const r = new THREE.WebGLRenderer({antialias:true});
+  const c = document.getElementById('webgl-bg');
+  r.setSize(window.innerWidth, window.innerHeight);
+  c.replaceWith(r.domElement);
+  r.domElement.id = 'webgl-bg';
+  
+  if(window.innerWidth > 800){
+    r.shadowMap.enabled = true;
+    r.shadowMap.type = THREE.PCFSoftShadowMap;
+    r.shadowMap.needsUpdate = true;
+  }
+
+  const s = new THREE.Scene();
+  s.background = new THREE.Color(0x7B61FF);
+  s.fog = new THREE.Fog(0x7B61FF, 10, 16);
+
+  const fogOrig = {near:10, far:16},
+        fogRed = {near:1000, far:10000},
+        fogTgt = {near:10, far:16};
+  let disableFog = false; // Flag to disable fog updates after email input
+
+  const cam = new THREE.PerspectiveCamera(30, window.innerWidth/window.innerHeight, 1, 500);
+  cam.position.set(10,15,10);
+  cam.lookAt(0,0,0);
+
+  // City
+  const city = new THREE.Object3D();
+  s.add(city);
+  const smoke = new THREE.Object3D();
+  city.add(smoke);
+  const town = new THREE.Object3D();
+  city.add(town);
+  const blds = [];
+  function rand(num = 8) {
+    return -Math.random() * num + Math.random() * num;
+  }
+  let tintFlag = true;
+  function tint() { 
+    tintFlag = !tintFlag; 
+    return tintFlag ? 0x111111 : 0x333333;
+  }
+  function free(x, z, arr, md) {
+    return !arr.some(p => (p.x - x) ** 2 + (p.z - z) ** 2 < md ** 2);
+  }
+
+  function initCity(){
+    const cnt = 80,
+          minD = 0.8,
+          seg = 2;
+    const placed = [];
+    for(let i = 0; i < cnt; i++){
+      const geom = new THREE.BoxGeometry(1, 1, 1, seg, seg, seg);
+      const mat = new THREE.MeshStandardMaterial({color: tint(), side: THREE.DoubleSide});
+      const wmat = new THREE.MeshLambertMaterial({
+        color: 0xffffff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.05,
+        side: THREE.DoubleSide
       });
-      const pgeo = new THREE.PlaneGeometry(60,60);
-      const pe = new THREE.Mesh(pgeo, pmat);
-      pe.rotation.x=-Math.PI/2; 
-      pe.position.y=-0.001; 
-      pe.receiveShadow=true; 
-      city.add(pe);
-    }
-    initCity();
-
-    // Lights
-    const aLight = new THREE.AmbientLight(0xffffff,4);
-    const lFront = new THREE.SpotLight(0xffffff,20,10);
-    lFront.rotation.x=45*Math.PI/180; 
-    lFront.rotation.z=-45*Math.PI/180;
-    lFront.position.set(5,5,5); 
-    lFront.castShadow=true;
-    lFront.shadow.mapSize.width=6000; 
-    lFront.shadow.mapSize.height=6000; 
-    lFront.penumbra=0.1;
-    const lBack = new THREE.PointLight(0xffffff,0.5); 
-    lBack.position.set(0,6,0);
-    s.add(aLight); 
-    city.add(lFront); 
-    s.add(lBack);
-
-    // Fast Lines
-    const fl=[]; 
-    const dirs=["z+","z-","x+","x-"]; 
-    const lc=25, rng=20;
-    function createLines(){
-      for(let i=0;i<lc;i++){
-        const g = new THREE.BoxGeometry(0.02,0.02,Math.random()*1+0.4);
-        const m = new THREE.MeshToonMaterial({color:0xffff00, side:THREE.DoubleSide});
-        const mesh = new THREE.Mesh(g,m); 
-        mesh.castShadow=true; 
-        mesh.receiveShadow=true;
-        mesh.userData.dir = dirs[Math.floor(Math.random()*dirs.length)];
-        switch(mesh.userData.dir){
-          case "z+":
-            mesh.position.set(rand(3), Math.abs(rand(2)), -rng);
-            break;
-          case "z-":
-            mesh.position.set(rand(3), Math.abs(rand(2)), rng);
-            break;
-          case "x+":
-            mesh.rotation.y=Math.PI*0.5;
-            mesh.position.set(-rng, Math.abs(rand(2)), rand(3));
-            break;
-          case "x-":
-            mesh.rotation.y=Math.PI*0.5;
-            mesh.position.set(rng, Math.abs(rand(2)), rand(3));
-            break;
+      const cube = new THREE.Mesh(geom, mat);
+      const wire = new THREE.Mesh(geom, wmat);
+      const floor = new THREE.Mesh(geom, mat);
+      const wf = new THREE.Mesh(geom, wmat);
+      cube.add(wire);
+      cube.add(wf);
+      cube.castShadow = true;
+      cube.receiveShadow = true;
+      // Reduce the initial max building height by dividing by 2
+      const h = (0.1 + Math.abs(rand(8))) / 2;
+      cube.scale.y = h;
+      cube.userData.h = h;
+      blds.push(cube);
+      cube.scale.x = cube.scale.z = 0.9 + rand(1 - 0.9);
+      let placedFlag = false, a = 0;
+      while(!placedFlag && a++ < 1000){
+        const rx = Math.round(rand(15)),
+              rz = Math.round(rand(15));
+        if(free(rx, rz, placed, minD)){
+          cube.position.set(rx, h / 2, rz);
+          floor.position.set(rx, 0, rz);
+          placed.push({x: rx, z: rz});
+          placedFlag = true;
         }
-        fl.push(mesh);
-        city.add(mesh);
       }
-    }
-    createLines();
-
-    // Camera Movement
-    const sections = ["#resume3d","#intro","#school","#work","#projects","#publications","#leadership","#contact"];
-    const vps = [
-      {pos:new THREE.Vector3(0,60,0), la:new THREE.Vector3(0,0,0)},
-      {pos:new THREE.Vector3(10,15,10), la:new THREE.Vector3(0,0,0)},
-      {pos:new THREE.Vector3(-5,10,12), la:new THREE.Vector3(-1,0,2)},
-      {pos:new THREE.Vector3(8,8,-2), la:new THREE.Vector3(5,0,-2)},
-      {pos:new THREE.Vector3(-8,8,-8), la:new THREE.Vector3(-4,0,-3)},
-      {pos:new THREE.Vector3(10,6,-10), la:new THREE.Vector3(6,0,-7)},
-      {pos:new THREE.Vector3(15,12,15), la:new THREE.Vector3(0,0,0)},
-      {pos:new THREE.Vector3(25,22,25), la:new THREE.Vector3(0,0,0)}
-    ];
-    let offsets = [];
-    function calcOffsets(){ offsets = sections.map(s=>document.querySelector(s).offsetTop) }
-    calcOffsets(); 
-    window.addEventListener('resize', calcOffsets);
-
-    function scrollFrac(){
-      return (window.scrollY)/(document.body.scrollHeight - window.innerHeight) || 0
-    }
-    function camTarget(){
-      const n = vps.length, fr = scrollFrac()*(n-1);
-      const i = Math.floor(fr), lf = fr-i;
-      if(i >= n-1) return vps[n-1];
-      const v1 = vps[i], v2 = vps[i+1];
-      return {
-        pos:v1.pos.clone().lerp(v2.pos, lf),
-        la:v1.la.clone().lerp(v2.la, lf)
-      }
+      floor.scale.y = 0.05;
+      town.add(floor);
+      town.add(cube);
     }
 
-    // Event Listeners
-    window.addEventListener('resize', ()=>{
-      r.setSize(window.innerWidth, window.innerHeight);
-      cam.aspect = window.innerWidth/window.innerHeight; 
-      cam.updateProjectionMatrix();
-      calcOffsets();
+    // Smoke
+    const gmat = new THREE.MeshToonMaterial({color: 0xffff00, side: THREE.DoubleSide});
+    const ggeo = new THREE.CircleGeometry(0.01, 3);
+    const apart = 5;
+    for(let h = 1; h < 300; h++){
+      const p = new THREE.Mesh(ggeo, gmat);
+      p.position.set(rand(apart), Math.abs(rand(2)), rand(apart));
+      p.rotation.set(rand(), rand(), rand());
+      smoke.add(p);
+    }
+
+    // Ground
+    const pmat = new THREE.MeshPhongMaterial({
+      color: 0x000000,
+      side: THREE.DoubleSide,
+      roughness: 10,
+      metalness: 0.6,
+      opacity: 0.9,
+      transparent: true
     });
+    const pgeo = new THREE.PlaneGeometry(60, 60);
+    const pe = new THREE.Mesh(pgeo, pmat);
+    pe.rotation.x = -Math.PI / 2;
+    pe.position.y = -0.001;
+    pe.receiveShadow = true;
+    city.add(pe);
+  }
+  initCity();
 
-    const mousePos = new THREE.Vector2();
-    window.addEventListener('mousemove', e=>{
-      mousePos.x=(e.clientX/window.innerWidth)*2-1; 
-      mousePos.y=-(e.clientY/window.innerHeight)*2+1;
-    }, false);
+  // Lights
+  const aLight = new THREE.AmbientLight(0xffffff, 4);
+  const lFront = new THREE.SpotLight(0xffffff, 20, 10);
+  lFront.rotation.x = 45 * Math.PI / 180;
+  lFront.rotation.z = -45 * Math.PI / 180;
+  lFront.position.set(5, 5, 5);
+  lFront.castShadow = true;
+  lFront.shadow.mapSize.width = 6000;
+  lFront.shadow.mapSize.height = 6000;
+  lFront.penumbra = 0.1;
+  const lBack = new THREE.PointLight(0xffffff, 0.5);
+  lBack.position.set(0, 6, 0);
+  s.add(aLight);
+  city.add(lFront);
+  s.add(lBack);
 
-    const fade = document.getElementById("scroll-fade");
-    window.addEventListener('scroll', ()=>{
-      const sy = window.scrollY;
-      fade.style.opacity = sy > 200 ? "0" : String(1 - sy/200);
+// Fast Lines
+const fl = [];
+const dirs = ["z+", "z-", "x+", "x-"];
+const lc = 25, rng = 20;
+
+function createLines() {
+  for (let i = 0; i < lc; i++) {
+    // Introduce a random delay for each line creation
+    setTimeout(() => {
+      const g = new THREE.BoxGeometry(0.02, 0.02, Math.random() * 1 + 0.4);
+      const m = new THREE.MeshToonMaterial({ color: 0xffff00, side: THREE.DoubleSide });
+      const mesh = new THREE.Mesh(g, m);
+
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      mesh.userData.dir = dirs[Math.floor(Math.random() * dirs.length)];
+
+      switch (mesh.userData.dir) {
+        case "z+":
+          mesh.position.set(rand(3), Math.abs(rand(2)), -rng + Math.random() * 2 * rng);
+          break;
+        case "z-":
+          mesh.position.set(rand(3), Math.abs(rand(2)), rng - Math.random() * 2 * rng);
+          break;
+        case "x+":
+          mesh.rotation.y = Math.PI * 0.5;
+          mesh.position.set(-rng + Math.random() * 2 * rng, Math.abs(rand(2)), rand(3));
+          break;
+        case "x-":
+          mesh.rotation.y = Math.PI * 0.5;
+          mesh.position.set(rng - Math.random() * 2 * rng, Math.abs(rand(2)), rand(3));
+          break;
+      }
+
+      fl.push(mesh);
+      city.add(mesh);
+    }, Math.random() * 2000); // Random delay up to 2 seconds
+  }
+}
+
+createLines();
+
+
+  // Camera Movement
+  const sections = ["#resume3d","#intro","#school","#work","#projects","#publications","#leadership","#contact"];
+  const vps = [
+    {pos: new THREE.Vector3(0,60,0), la: new THREE.Vector3(0,0,0)},
+    {pos: new THREE.Vector3(10,15,10), la: new THREE.Vector3(0,0,0)},
+    {pos: new THREE.Vector3(-5,10,12), la: new THREE.Vector3(-1,0,2)},
+    {pos: new THREE.Vector3(8,8,-2), la: new THREE.Vector3(5,0,-2)},
+    {pos: new THREE.Vector3(-8,8,-8), la: new THREE.Vector3(-4,0,-3)},
+    {pos: new THREE.Vector3(10,6,-10), la: new THREE.Vector3(6,0,-7)},
+    {pos: new THREE.Vector3(15,12,15), la: new THREE.Vector3(0,0,0)},
+    {pos: new THREE.Vector3(15,30,15), la: new THREE.Vector3(0,0,0)}
+  ];
+  let offsets = [];
+  function calcOffsets() {
+    offsets = sections.map(s => document.querySelector(s).offsetTop);
+  }
+  calcOffsets();
+  window.addEventListener('resize', calcOffsets);
+
+  function scrollFrac(){
+    return (window.scrollY) / (document.body.scrollHeight - window.innerHeight) || 0;
+  }
+  function camTarget(){
+    const n = vps.length,
+          fr = scrollFrac() * (n - 1);
+    const i = Math.floor(fr),
+          lf = fr - i;
+    if(i >= n - 1) return vps[n - 1];
+    const v1 = vps[i],
+          v2 = vps[i + 1];
+    return {
+      pos: v1.pos.clone().lerp(v2.pos, lf),
+      la: v1.la.clone().lerp(v2.la, lf)
+    };
+  }
+
+  // Event Listeners
+  window.addEventListener('resize', () => {
+    r.setSize(window.innerWidth, window.innerHeight);
+    cam.aspect = window.innerWidth / window.innerHeight;
+    cam.updateProjectionMatrix();
+    calcOffsets();
+  });
+
+  const mousePos = new THREE.Vector2();
+  window.addEventListener('mousemove', e => {
+    mousePos.x = (e.clientX / window.innerWidth) * 2 - 1;
+    mousePos.y = -(e.clientY / window.innerHeight) * 2 + 1;
+  }, false);
+
+  const fade = document.getElementById("scroll-fade");
+  window.addEventListener('scroll', () => {
+    const sy = window.scrollY;
+    fade.style.opacity = sy > 200 ? "0" : String(1 - sy / 200);
+    if(!disableFog){
       fogTgt.near = fogOrig.near;
       fogTgt.far = fogOrig.far;
-    });
-
-    document.getElementById('email').addEventListener('focus', ()=>{
-      fogTgt.near = fogRed.near;
-      fogTgt.far = fogRed.far;
-    });
-
-    let isScroll = false;
-    window.addEventListener('scroll', () => {
-      const sy = window.scrollY;
-      const introY = document.querySelector("#intro").offsetTop;
-      const scrollFraction = sy / (document.body.scrollHeight - window.innerHeight);
-
-      if (sy <= introY) {
-        // Preserve intro effect for top
-        const prog = sy / introY;
-        fogTgt.near = THREE.MathUtils.lerp(50, fogOrig.near, prog);
-        fogTgt.far = THREE.MathUtils.lerp(80, fogOrig.far, prog);
-      } else {
-        // Adjust fog after intro
-        fogTgt.near = fogOrig.near;
-        fogTgt.far = THREE.MathUtils.lerp(fogOrig.far, 35, scrollFraction);
-      }
-    });
-
-    // Animation
-    function animate(){
-      requestAnimationFrame(animate);
-      if(!isScroll){
-        const speed=0.001;
-        city.rotation.y -= ((mousePos.x*8) - cam.rotation.y)*speed;
-        city.rotation.x=0;
-      }
-      const sp=0.2;
-      fl.forEach(l=>{
-        switch(l.userData.dir){
-          case 'z+':
-            l.position.z += sp; 
-            if(l.position.z > rng){ 
-              l.position.z=-rng; 
-              l.position.y=Math.abs(rand(2)); 
-            }
-            break;
-          case 'z-':
-            l.position.z -= sp; 
-            if(l.position.z < -rng){ 
-              l.position.z=rng; 
-              l.position.y=Math.abs(rand(2)); 
-            }
-            break;
-          case 'x+':
-            l.position.x += sp; 
-            if(l.position.x > rng){ 
-              l.position.x=-rng; 
-              l.position.y=Math.abs(rand(2)); 
-            }
-            break;
-          case 'x-':
-            l.position.x -= sp; 
-            if(l.position.x < -rng){ 
-              l.position.x=rng; 
-              l.position.y=Math.abs(rand(2)); 
-            }
-            break;
-        }
-      });
-
-      const ct = camTarget();
-      cam.position.lerp(ct.pos, 0.08);
-      const dir = new THREE.Vector3().subVectors(ct.la, cam.position).normalize();
-      cam.lookAt(cam.position.clone().add(dir));
-
-      const sf = 0.5 + scrollFrac()*1.0;
-      blds.forEach(b=>{
-        b.scale.y = b.userData.h * sf;
-        b.position.y = (b.userData.h * sf)/2;
-      });
-
-      s.fog.near = THREE.MathUtils.lerp(s.fog.near, fogTgt.near, 0.05);
-      s.fog.far = THREE.MathUtils.lerp(s.fog.far, fogTgt.far, 0.05);
-      r.render(s, cam);
     }
-    animate();
+  });
 
-    // Menu
-    document.getElementById('hamburger').addEventListener('click', ()=>{
-      const navC = document.getElementById('nav-links');
-      navC.classList.toggle('active');
-      const act = navC.classList.contains('active'); 
-      document.getElementById('hamburger').setAttribute('aria-expanded', act);
+  let isScroll = false;
+  document.getElementById('email').addEventListener('focus', () => {
+    fogTgt.near = fogRed.near;
+    fogTgt.far = fogRed.far;
+    disableFog = true;
+  });
+
+  window.addEventListener('scroll', () => {
+    const sy = window.scrollY;
+    const introY = document.querySelector("#intro").offsetTop;
+    if (sy <= introY) {
+      disableFog = false;
+      const prog = sy / introY;
+      fogTgt.near = THREE.MathUtils.lerp(50, fogOrig.near, prog);
+      fogTgt.far = THREE.MathUtils.lerp(80, fogOrig.far, prog);
+    } else if (!disableFog) {
+      const scrollFraction = sy / (document.body.scrollHeight - window.innerHeight);
+      fogTgt.near = fogOrig.near;
+      fogTgt.far = THREE.MathUtils.lerp(fogOrig.far, 35, scrollFraction);
+    }
+  });
+
+  // Animation Loop
+  function animate(){
+    requestAnimationFrame(animate);
+    if(!isScroll){
+      const speed = 0.001;
+      city.rotation.y -= ((mousePos.x * 8) - cam.rotation.y) * speed;
+      city.rotation.x = 0;
+    }
+    const sp = 0.2;
+    fl.forEach(l => {
+      switch(l.userData.dir){
+        case 'z+':
+          l.position.z += sp;
+          if(l.position.z > rng){
+            l.position.z = -rng;
+            l.position.y = Math.abs(rand(2));
+          }
+          break;
+        case 'z-':
+          l.position.z -= sp;
+          if(l.position.z < -rng){
+            l.position.z = rng;
+            l.position.y = Math.abs(rand(2));
+          }
+          break;
+        case 'x+':
+          l.position.x += sp;
+          if(l.position.x > rng){
+            l.position.x = -rng;
+            l.position.y = Math.abs(rand(2));
+          }
+          break;
+        case 'x-':
+          l.position.x -= sp;
+          if(l.position.x < -rng){
+            l.position.x = rng;
+            l.position.y = Math.abs(rand(2));
+          }
+          break;
+      }
     });
 
-    // Initial Scroll
-    document.addEventListener('DOMContentLoaded', ()=>{
-      document.querySelector('#intro').scrollIntoView();
+    // Get target camera position and orientation based on scroll
+    const ct = camTarget();
+    cam.position.lerp(ct.pos, 0.08);
+    const dir = new THREE.Vector3().subVectors(ct.la, cam.position).normalize();
+    cam.lookAt(cam.position.clone().add(dir));
+
+    // Increase the growth multiplier so that at the top the buildings are shorter, but they grow faster.
+    // When scrollFrac() = 0, factor is 0.5; when scrollFrac() = 1, factor is 3.5.
+    const sf = 0.5 + scrollFrac() * 3;
+    blds.forEach(b => {
+      b.scale.y = b.userData.h * sf;
+      b.position.y = (b.userData.h * sf) / 2;
     });
-	
-	document.addEventListener("DOMContentLoaded", () => {
-  const buttons = document.querySelectorAll(".load-pdf");
 
-  buttons.forEach(button => {
-    button.addEventListener("click", () => {
-      const pdfUrl = button.getAttribute("data-pdf");
-      const pdfContainer = button.nextElementSibling;
+    s.fog.near = THREE.MathUtils.lerp(s.fog.near, fogTgt.near, 0.05);
+    s.fog.far = THREE.MathUtils.lerp(s.fog.far, fogTgt.far, 0.05);
+    r.render(s, cam);
+  }
+  animate();
 
-      // Create the <object> element dynamically
-      const objectElement = document.createElement("object");
-      objectElement.setAttribute("data", pdfUrl);
-      objectElement.setAttribute("type", "application/pdf");
-      //objectElement.setAttribute("width", "600");
-      //objectElement.setAttribute("height", "700");
+  // Menu functionality
+  document.getElementById('hamburger').addEventListener('click', () => {
+    const navC = document.getElementById('nav-links');
+    navC.classList.toggle('active');
+    const act = navC.classList.contains('active');
+    document.getElementById('hamburger').setAttribute('aria-expanded', act);
+  });
 
-      // Add fallback link
-      const fallbackLink = document.createElement("a");
-      fallbackLink.setAttribute("href", pdfUrl);
-      fallbackLink.setAttribute("target", "_blank");
-      fallbackLink.textContent = "Download PDF";
+  // Initial Scroll
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('#intro').scrollIntoView();
+  });
 
-      objectElement.appendChild(fallbackLink);
-
-      // Show the PDF container and append the object
-      pdfContainer.style.display = "block";
-      pdfContainer.innerHTML = ""; // Clear any existing content
-      pdfContainer.appendChild(objectElement);
-
-      // Hide the button after the PDF is loaded
-      button.style.display = "none";
+  // PDF Loader Script
+  document.addEventListener("DOMContentLoaded", () => {
+    const buttons = document.querySelectorAll(".load-pdf");
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const pdfUrl = button.getAttribute("data-pdf");
+        const pdfContainer = button.nextElementSibling;
+        const objectElement = document.createElement("object");
+        objectElement.setAttribute("data", pdfUrl);
+        objectElement.setAttribute("type", "application/pdf");
+        const fallbackLink = document.createElement("a");
+        fallbackLink.setAttribute("href", pdfUrl);
+        fallbackLink.setAttribute("target", "_blank");
+        fallbackLink.textContent = "Download PDF";
+        objectElement.appendChild(fallbackLink);
+        pdfContainer.style.display = "block";
+        pdfContainer.innerHTML = "";
+        pdfContainer.appendChild(objectElement);
+        button.style.display = "none";
+      });
     });
   });
-});
-  </script>
+</script>
 </body>
 </html>
