@@ -29,14 +29,14 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: 997; /* Behind the header and scroll-fade overlay */
+      z-index: 997; /* Below header and scroll overlay */
       pointer-events: none;
-      /* Initial opacity set to 1 (fully visible) */
+      /* Its opacity will be controlled by scroll */
       opacity: 1;
       transition: opacity 0.5s ease-out;
     }
     
-    /* Fade overlay for scrolling intro effect */
+    /* Scroll fade overlay (now inverted: transparent at top, black when scrolled) */
     #scroll-fade {
       position: fixed;
       top: 0;
@@ -46,7 +46,7 @@
       background: #000;
       pointer-events: none;
       z-index: 998;
-      opacity: 1;
+      opacity: 0;
       transition: opacity 1s ease-out;
     }
     
@@ -60,7 +60,7 @@
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       scroll-behavior: smooth;
-      z-index: 999; /* Content sits above the globe background */
+      z-index: 999; /* Content is above the globe */
     }
     
     canvas {
@@ -293,10 +293,10 @@
   <!-- Globe container (full screen at the top) -->
   <div id="globeViz"></div>
   
-  <!-- Scroll fade overlay -->
+  <!-- Scroll fade overlay (transparent at top, becomes black as you scroll) -->
   <div id="scroll-fade"></div>
   
-  <!-- THREE.js canvas (used later by the existing 3D city code) -->
+  <!-- THREE.js canvas (for existing 3D city background) -->
   <canvas id="webgl-bg"></canvas>
   
   <!-- Header -->
@@ -328,11 +328,6 @@
         </div>
       </div>
     </section>
-    <!-- (The rest of your sections, Intro, Skills, Education, Work, Projects, Publications, Leadership, Contact, etc.) -->
-    <!-- ... (Keep your existing content unchanged) ... -->
-    
-    <!-- For brevity, the remainder of your HTML content remains as it was in your original code. -->
-    <!-- Make sure all your sections and footer come within the #scrollable-content container -->
     
     <!-- Example: Intro Section -->
     <section id="intro">
@@ -354,18 +349,36 @@
       </div>
     </section>
     
-    <!-- ... (Your remaining sections: Technical Skills, Education, Work, Projects, Publications, Leadership, Contact, etc.) ... -->
-  
+    <!-- Other sections (Technical Skills, Education, Work, Projects, Publications, Leadership, Contact, etc.) go here -->
+    <!-- Make sure all your sections (including the contact section with the email input) are inside #scrollable-content -->
+    
+    <!-- Example Contact Section -->
+    <section id="contact">
+      <div class="container">
+        <h2>Contact</h2>
+        <div class="block-bg">
+          <img src="i2.jpg" alt="Contact Placeholder" class="rounded-image">
+          <p>Reach out if you'd like to collaborate on cutting-edge tech:</p>
+          <p>AI, Web3, Cybersec, AV, 5G NR, GNSS, FPGA</p>
+          <form id="contact-form">
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+      <br><br><br><br><br><br><br><br><br><br>
+    </section>
+    
     <footer>&copy; 2025 Vlad Slyusar — All rights reserved.</footer>
   </div>
   
-  <!-- Module script to initialize the Globe and update its opacity on scroll -->
+  <!-- Module script for Globe initialization and scroll-controlled fade -->
   <script type="module">
     import { csvParse } from 'https://esm.sh/d3-dsv';
 
     const globeElem = document.getElementById('globeViz');
 
-    // Initialize the globe using Globe.GL
+    // Initialize the Globe using Globe.GL
     const world = new Globe(globeElem)
       .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
       .heatmapPointLat('lat')
@@ -375,28 +388,31 @@
       .heatmapColorSaturation(2.8)
       .enablePointerInteraction(false);
 
-    // Load CSV data and set up heatmap
+    // Load CSV data and configure the heatmap
     fetch('https://raw.githubusercontent.com/down2chill/globe/refs/heads/main/world_population.csv')
       .then(res => res.text())
       .then(csv => csvParse(csv, ({ lat, lng, pop }) => ({ lat: +lat, lng: +lng, pop: +pop })))
       .then(data => world.heatmapsData([data]));
 
-    // Update the globe's opacity based on scroll
+    // Update fade overlay and globe opacity as you scroll.
+    // Now the fade overlay is 0 (transparent) at the very top and becomes fully opaque (1) at fadeThreshold.
+    // The globe opacity is the inverse (1 at top, 0 when fade is complete).
+    const fade = document.getElementById("scroll-fade");
+    const fadeThreshold = 200; // Adjust threshold (in pixels) as desired
     const scrollableContent = document.getElementById('scrollable-content');
-    const fadeThreshold = 200; // adjust the scroll length for full fade-out as needed
+
     scrollableContent.addEventListener('scroll', () => {
       const sy = scrollableContent.scrollTop;
-      const opacity = sy < fadeThreshold ? 1 - sy / fadeThreshold : 0;
-      globeElem.style.opacity = opacity;
+      const fadeOpacity = sy < fadeThreshold ? sy / fadeThreshold : 1;
+      fade.style.opacity = fadeOpacity;
+      globeElem.style.opacity = 1 - fadeOpacity;
     });
   </script>
   
   <!-- Existing Three.js and page scripts -->
   <script>
-    // Select the scrollable container
+    // Setup renderer and Three.js scene for the city background
     const scrollableContent = document.getElementById('scrollable-content');
-
-    // Setup renderer and replace canvas element
     const r = new THREE.WebGLRenderer({ antialias: true });
     const c = document.getElementById('webgl-bg');
     r.setSize(window.innerWidth, window.innerHeight);
@@ -560,7 +576,7 @@
     }
     createLines();
 
-    // Camera Movement based on scroll
+    // Camera Movement based on scroll and predefined section viewports
     const sections = ["#resume3d","#intro","#school","#work","#projects","#publications","#leadership","#contact"];
     const vps = [
       {pos: new THREE.Vector3(0,60,0), la: new THREE.Vector3(0,0,0)},
@@ -611,27 +627,36 @@
     const fade = document.getElementById("scroll-fade");
     scrollableContent.addEventListener('scroll', () => {
       const sy = scrollableContent.scrollTop;
-      fade.style.opacity = sy > 200 ? "0" : String(1 - sy / 200);
+      // Here we use the inverted fade: 0 (transparent) at top, 1 (black) at fadeThreshold
+      const prog = sy < fadeThreshold ? sy / fadeThreshold : 1;
+      fade.style.opacity = prog;
+      // Globe opacity is the inverse, so it is fully visible only when prog is 0
+      // (i.e. when the fade overlay is transparent)
+      globeElem.style.opacity = 1 - prog;
       if(!disableFog){
         fogTgt.near = fogOrig.near;
         fogTgt.far = fogOrig.far;
       }
     });
     let isScroll = false;
-    document.getElementById('email').addEventListener('focus', () => {
-      fogTgt.near = fogRed.near;
-      fogTgt.far = fogRed.far;
-      disableFog = true;
-    });
+    // Safely add the email focus event if the element exists:
+    const emailEl = document.getElementById('email');
+    if(emailEl) {
+      emailEl.addEventListener('focus', () => {
+        fogTgt.near = fogRed.near;
+        fogTgt.far = fogRed.far;
+        disableFog = true;
+      });
+    }
     scrollableContent.addEventListener('scroll', () => {
       const sy = scrollableContent.scrollTop;
       const introEl = document.querySelector("#intro");
       const introY = introEl ? introEl.offsetTop : 0;
       if (sy <= introY) {
         disableFog = false;
-        const prog = sy / introY;
-        fogTgt.near = THREE.MathUtils.lerp(50, fogOrig.near, prog);
-        fogTgt.far = THREE.MathUtils.lerp(80, fogOrig.far, prog);
+        const p = sy / introY;
+        fogTgt.near = THREE.MathUtils.lerp(50, fogOrig.near, p);
+        fogTgt.far = THREE.MathUtils.lerp(80, fogOrig.far, p);
       } else if (!disableFog) {
         const scrollFraction = sy / (scrollableContent.scrollHeight - scrollableContent.clientHeight);
         fogTgt.near = fogOrig.near;
@@ -692,21 +717,21 @@
       r.render(s, cam);
     }
     animate();
-  
+
     document.getElementById('hamburger').addEventListener('click', () => {
       const navC = document.getElementById('nav-links');
       navC.classList.toggle('active');
       const act = navC.classList.contains('active');
       document.getElementById('hamburger').setAttribute('aria-expanded', act);
     });
-  
+
     document.addEventListener('DOMContentLoaded', () => {
       const introSection = document.querySelector('#intro');
       if(introSection){
         introSection.scrollIntoView();
       }
     });
-  
+
     document.addEventListener("DOMContentLoaded", () => {
       const buttons = document.querySelectorAll(".load-pdf");
       buttons.forEach(button => {
