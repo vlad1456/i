@@ -44,7 +44,7 @@ html, body {
     overflow-y: auto; /* Enables scrolling only inside */
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
-    padding: 2rem; /* Ensures content isn't too close to edges */
+    padding: 0rem; /* Ensures content isn't too close to edges */
     box-sizing: border-box; /* Prevents unexpected layout shifts */
 }
 
@@ -177,7 +177,7 @@ body {
       padding: 1rem 2rem;
       border-radius: 10px;
       margin: 1rem auto;
-      max-width: 800px;
+      max-width: 95vw;
     }
     
     /* Two-column section layout (for specific sections that remain unchanged) */
@@ -242,6 +242,11 @@ body {
     
     /* Responsive navigation */
     @media (max-width:768px) {
+	.container {
+        width: 100%;
+        max-width: 100%; /* Make it use the full width */
+        padding: 0rem; /* Reduce padding to nearly zero */
+    }
       nav {
         display: none;
         flex-direction: column;
@@ -354,7 +359,7 @@ body {
 <br>
       <div class="block-bg">
         <p>
-          Possesses in-depth expertise in 5G/mmWave, RTK/NRTK GNSS, MEC, Edge AI, SDR, and DevSecOps. Adept at leading 
+          Possess in-depth expertise in 5G/mmWave, RTK/NRTK GNSS, MEC, Edge AI, SDR, and DevSecOps. Adept at leading 
           complex R&amp;D projects, optimizing embedded systems, and managing multiple large-scale deployments in fast-paced, 
           deadline-driven environments. Excellent communication, analytical, and leadership abilities, reinforced by hands-on 
           experience in machine learning, blockchain, and cloud technologies. Passionate about driving innovation, scalable 
@@ -1374,26 +1379,7 @@ body {
     
     <footer>&copy; 2025 Vlad Slyusar — All rights reserved.</footer>
   </div>
-  
-  
-  
-  
   </div>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
 </body>
 
 
