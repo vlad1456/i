@@ -48,6 +48,12 @@ html, body {
     box-sizing: border-box; /* Prevents unexpected layout shifts */
 }
 
+.load-pdf {
+    margin-bottom: 10px; /* Adds space below each button */
+	padding: 10px;
+}
+
+
 body {
     background: #000;
     color: #fff;
@@ -174,10 +180,18 @@ body {
     /* Reusable background block */
     .block-bg {
       background: rgba(0,0,0,0.5);
-      padding: 1rem 1rem;
+      padding: 1rem 1.5rem;
       border-radius: 10px;
       margin: 1rem auto;
       max-width: 100vw;
+    }
+	
+	.block-bg1 {
+      background: rgba(0,0,0,0.5);
+      padding: 1rem 1rem;
+      border-radius: 10px;
+      margin: 1rem auto;
+      max-width: 400px;
     }
     
     /* Two-column section layout (for specific sections that remain unchanged) */
@@ -302,6 +316,7 @@ body {
     #contact-form button:hover {
       background: #ff69b4;
     }
+	
   </style>
 </head>
 
@@ -474,7 +489,7 @@ body {
 	  
 	  
 	  <!-- Ford Motor Company -->
-<div class="block-bg">
+<div class="block-bg1">
   <h3>Ford Motor Company</h3>
   <p>
     <strong>Senior Computer/Electrical Engineer</strong><br>
@@ -695,7 +710,7 @@ body {
 
       <!-- Valeo Inc. -->
       <br><br><br><br>
-      <div class="block-bg">
+      <div class="block-bg1">
         <h3>Valeo Inc.</h3>
         <p>
           <strong>Network Management Intern</strong><br>
@@ -720,7 +735,7 @@ body {
         </ul>
       </div>
       <br><br><br><br>
-      <div class="block-bg">
+      <div class="block-bg1">
         <h3>Vector CANtech</h3>
         <p>
           <strong>Computer Engineering Intern</strong><br>
@@ -741,15 +756,7 @@ body {
           </li>
         </ul>
       </div>
-	  <br><br><br><br>
-	  <div class="block-bg">
-         <h3>Freelance</h3>
-              <p><strong>Software/Web Developer</strong><br>Northville, MI | Nov 2010 – Mar 2013</p>
-      </div>
-	  <div class="block-bg">
-                <li>Developed full-stack solutions (HTML/CSS/JS, PHP, SQL/NoSQL)</li>
-                <li>Used Angular, Node.js, Google Cloud, mobile (Android/iOS)</li>
-      </div>
+	 
     </div>
   </section>
 
@@ -759,18 +766,23 @@ body {
       <h2>Projects</h2>
       <div class="columns">
 
-          <div class="block-bg">
-            <h3>Human Heart Rate Extraction from Video</h3>
-            <p>
-              <strong>Description:</strong> Developed an innovative MATLAB‑based system employing the Viola‑Jones algorithm, KLT tracking, and Eulerian Magnification to detect and amplify subtle heart rate signals in real time.<br>
-              <strong>Technologies:</strong> MATLAB, Computer Vision, Deep Learning, Real‑Time Processing, Viola‑Jones Algorithm, KLT Tracker.<br>
-              <strong>Achievements:</strong> Achieved high-fidelity BPM extraction under challenging low-light and noisy conditions by integrating advanced signal processing techniques.
-            </p>
-            <div class="patent-image">
-              <button class="load-pdf" data-pdf="5831-Heartrate.pdf">Click to View PDF</button>
-              <div class="pdf-container" style="display: none;"></div>
-            </div>
-          </div>
+	  <div class="block-bg">
+        <h3>Human Heart Rate Extraction from Video</h3>
+        <p>
+            <strong>Description:</strong> Developed an innovative MATLAB‑based system employing the Viola‑Jones algorithm, KLT tracking, and Eulerian Magnification to detect and amplify subtle heart rate signals in real time.<br>
+            <strong>Technologies:</strong> MATLAB, Computer Vision, Deep Learning, Real‑Time Processing, Viola‑Jones Algorithm, KLT Tracker.<br>
+            <strong>Achievements:</strong> Achieved high-fidelity BPM extraction under challenging low-light and noisy conditions by integrating advanced signal processing techniques.
+        </p>
+        <div class="patent-image">
+            <button class="load-pdf" data-pdf="5831-Heartrate.pdf">View PDF</button>
+        </div>
+
+        <!-- This is the dedicated PDF container for this button -->
+        <div class="pdf-container" style="display: none;"></div>
+    </div>
+
+<!-- Move the PDF container outside of `.block-bg` -->
+<div class="pdf-container" style="display: none;"></div>
           <div class="block-bg">
             <h3>Vehicle Keyfob Security Bypass</h3>
             <p>
@@ -778,10 +790,8 @@ body {
               <strong>Technologies:</strong> HackRF SDR, RTL‑SDR, GNU Radio (GRC), DVB‑T USB Dongle, Signal Filtering, Cryptanalysis.<br>
               <strong>Achievements:</strong> Successfully unlocked a 2011 Sequoia and a 2016 Fusion, highlighting the pressing need for enhanced vehicular security measures.
             </p>
-            <div class="patent-image">
-              <button class="load-pdf" data-pdf="544.pdf">Click to View PDF</button>
-              <div class="pdf-container" style="display: none;"></div>
-            </div>
+            <div class="patent-image"><button class="load-pdf" data-pdf="544.pdf">View PDF</button></div>
+			<div class="pdf-container" style="display: none;"></div>
           </div>
           <div class="block-bg">
             <h3>One-Time-Pad Secure Communication</h3>
@@ -791,7 +801,7 @@ body {
               <strong>Achievements:</strong> Delivered a robust encryption solution that ensures secure communication across diverse hardware architectures.
             </p>
             <div class="patent-image">
-              <button class="load-pdf" data-pdf="404.pdf">Click to View PDF</button>
+              <button class="load-pdf" data-pdf="404.pdf">View PDF</button>
               <div class="pdf-container" style="display: none;"></div>
             </div>
           </div>
@@ -812,7 +822,7 @@ body {
               <strong>Achievements:</strong> Reinforced machine learning capabilities and signal processing expertise to deliver a highly accurate speech recognition solution.
             </p>
             <div class="patent-image">
-              <button class="load-pdf" data-pdf="5831-HMM.pdf">Click to View PDF</button>
+              <button class="load-pdf" data-pdf="5831-HMM.pdf">View PDF</button>
               <div class="pdf-container" style="display: none;"></div>
             </div>
           </div>
@@ -824,7 +834,7 @@ body {
               <strong>Achievements:</strong> Showcased multifaceted expertise in electronics and creative system design while ensuring seamless integration of audio and visual controls.
             </p>
             <div class="patent-image">
-              <button class="load-pdf" data-pdf="LaserHarp.pdf">Click to View PDF</button>
+              <button class="load-pdf" data-pdf="LaserHarp.pdf">View PDF</button>
               <div class="pdf-container" style="display: none;"></div>
             </div>
           </div>
@@ -844,7 +854,7 @@ body {
               <strong>Achievements:</strong> Demonstrated in-depth kernel-level programming skills and substantial improvements to OS scheduling efficiency.
             </p>
             <div class="patent-image">
-              <button class="load-pdf" data-pdf="xv6kernel.pdf">Click to View PDF</button>
+              <button class="load-pdf" data-pdf="xv6kernel.pdf">View PDF</button>
               <div class="pdf-container" style="display: none;"></div>
             </div>
           </div>
@@ -880,7 +890,7 @@ body {
         <strong>[US-12192868-B2]</strong>
       </a> - Adaptively selecting network APN for vehicle application remote computing demand</h4>
    <div class="patent-image">
-    <button class="load-pdf" data-pdf="12192868.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="12192868.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -898,7 +908,7 @@ body {
         <strong>[US-12181869-B2]</strong>
       </a> - Method and apparatus for remote driving a plurality of vehicles in a platoon</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="12181869.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="12181869.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -914,7 +924,7 @@ body {
         <strong>[US-20240412630-A1]</strong>
       </a> - EDGE COMPUTING ASSISTED VEHICLE ALERTING SYSTEM AND METHODS</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="20240412630.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="20240412630.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -930,7 +940,7 @@ body {
         <strong>[US-20240329184-A1]</strong>
       </a> - High-Accuracy Device Positioning</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="20240329184.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="20240329184.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -946,7 +956,7 @@ body {
         <strong>[US-12037021-B2]</strong>
       </a> - Electric autonomous vehicle ride service assistance</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="12037021.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="12037021.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -962,7 +972,7 @@ body {
         <strong>[US-11991346-B2]</strong>
       </a> - Video streaming anomaly detection</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="11991346.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="11991346.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -978,7 +988,7 @@ body {
         <strong>[US-11880867-B2]</strong>
       </a> - Systems and methods for providing targeted content to users</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="11880867.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="11880867.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -994,7 +1004,7 @@ body {
         <strong>[US-20230370822-A1]</strong>
       </a> - ADAPTIVELY SELECTING NETWORK APN FOR VEHICLE APPLICATION REMOTE COMPUTING DEMAND</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="20230370822.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="20230370822.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1010,7 +1020,7 @@ body {
         <strong>[US-11812355-B2]</strong>
       </a> - Drone-based vehicle connectivity systems and methods</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="11812355.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="11812355.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1026,7 +1036,7 @@ body {
         <strong>[US-11750393-B2]</strong>
       </a> - Secure broadcast delivery and verification</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="11750393.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="11750393.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1042,7 +1052,7 @@ body {
         <strong>[US-20230237529-A1]</strong>
       </a> - Systems for Providing Targeted Content</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="20230237529.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="20230237529.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1058,7 +1068,7 @@ body {
         <strong>[US-20230195105-A1]</strong>
       </a> - Remote Driving a Plurality of Vehicles</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="20230195105.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="20230195105.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1074,7 +1084,7 @@ body {
         <strong>[US-20230156179-A1]</strong>
       </a> - Video Streaming Anomaly Detection</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="20230156179.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="20230156179.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1090,7 +1100,7 @@ body {
         <strong>[US-20230110300-A1]</strong>
       </a> - Electric Autonomous Vehicle Ride</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="20230110300.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="20230110300.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1106,7 +1116,7 @@ body {
         <strong>[US-11551456-B2]</strong>
       </a> - Enhanced Infrastructure</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="11551456.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="11551456.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1122,7 +1132,7 @@ body {
         <strong>[US-20220377519-A1]</strong>
       </a> - Drone-based Vehicle Connectivity</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="20220377519.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="20220377519.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1138,7 +1148,7 @@ body {
         <strong>[US-20220321352-A1]</strong>
       </a> - Secure Broadcast Delivery</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="20220321352.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="20220321352.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1154,7 +1164,7 @@ body {
         <strong>[US-11395107-B1]</strong>
       </a> - Multicast assisted parking lot management</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="11395107.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="11395107.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1170,7 +1180,7 @@ body {
         <strong>[US-20220176986-A1]</strong>
       </a> - ADAPTIVE GUIDANCE FOR GROUP VEHICULAR TRAVEL</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="20220176986.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="20220176986.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1186,7 +1196,7 @@ body {
         <strong>[US-11210943-B2]</strong>
       </a> - Edge computing aided radio congestion mitigation</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="11210943.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="11210943.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1202,7 +1212,7 @@ body {
         <strong>[US-20210397853-A1]</strong>
       </a> - Enhanced Infrastructure</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="20210397853.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="20210397853.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1218,7 +1228,7 @@ body {
         <strong>[US-20210272454-A1]</strong>
       </a> - Edge Computing Aided Radio Congestion</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="20210272454.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="20210272454.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1234,7 +1244,7 @@ body {
         <strong>[US-10542493-B2]</strong>
       </a> - Vehicle communications management</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="10542493.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="10542493.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1250,7 +1260,7 @@ body {
         <strong>[US-10305527-B2]</strong>
       </a> - Communicatively coupling mobile devices to wireless local area networks of vehicles</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="10305527.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="10305527.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1266,7 +1276,7 @@ body {
         <strong>[US-20190007900-A1]</strong>
       </a> - Vehicle Communications Management</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="20190007900.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="20190007900.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1282,7 +1292,7 @@ body {
         <strong>[US-20180213414-A1]</strong>
       </a> - Communicatively Coupling Mobile Devices</h4>
   <div class="patent-image">
-    <button class="load-pdf" data-pdf="20180213414.pdf">Click to View PDF</button>
+    <button class="load-pdf" data-pdf="20180213414.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
@@ -1302,17 +1312,17 @@ body {
   <h4><a href="https://sis.nipo.gov.ua/en/search/detail/375394/" target="_blank" style="color: white; text-decoration: none;">
         <strong>[UA-64952]</strong>
       </a> - Trap for Rodents</h4>
-  <div class="patent-image">
-    <button class="load-pdf" data-pdf="64952UA.pdf">Click to View PDF (Ukrainian)</button>
-    <div class="pdf-container" style="display: none;"></div>
-  </div>
 <div class="patent-image">
-    <button class="load-pdf" data-pdf="64952EN.pdf">Click to View PDF (Abstract, English)</button>
+    <button class="load-pdf" data-pdf="64952UA.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
   </div>
   <div class="patent-content">
     <p><strong>Date Issued:</strong> March 15, 2004</p>
-    <p><strong>Summary:</strong> Uses a swiveling base and fulcrum in a hollow container to safely capture rodents. Recognized as the youngest patent holder in Ukraine for early innovation at age 9.</p>
+    <p><strong>Summary:</strong> A rodent trap contains a hollow container with an open inlet and a cut in the bottom from the side of the rear wall,
+whereon a cross-beam, which is rotary around the horizontal axis, is placed, the one end of which lies on the bottom
+from the side of the inlet. At the end of the cross-beam from the side of the entry a weight is placed and the weight
+centre of the cross-beam is shifted from rotation axis thereof to the rear wall, which is made in such a manner as to
+allow turning outside and has a bait inside.</p>
   </div>
 </div>
 
@@ -1501,17 +1511,6 @@ body {
         floor.scale.y = 0.05;
         town.add(floor);
         town.add(cube);
-      }
-
-      // Smoke
-      const gmat = new THREE.MeshToonMaterial({color: 0xffff00, side: THREE.DoubleSide});
-      const ggeo = new THREE.CircleGeometry(0.01, 3);
-      const apart = 5;
-      for(let h = 1; h < 300; h++){
-        const p = new THREE.Mesh(ggeo, gmat);
-        p.position.set(rand(apart), Math.abs(rand(2)), rand(apart));
-        p.rotation.set(rand(), rand(), rand());
-        smoke.add(p);
       }
 
       // Ground
@@ -1767,27 +1766,51 @@ document.querySelectorAll('#nav-links a').forEach(link => {
     });
   
     // PDF Loader Script
-    document.addEventListener("DOMContentLoaded", () => {
-      const buttons = document.querySelectorAll(".load-pdf");
-      buttons.forEach(button => {
+document.addEventListener("DOMContentLoaded", () => {
+    const buttons = document.querySelectorAll(".load-pdf");
+
+    buttons.forEach(button => {
         button.addEventListener("click", () => {
-          const pdfUrl = button.getAttribute("data-pdf");
-          const pdfContainer = button.nextElementSibling;
-          const objectElement = document.createElement("object");
-          objectElement.setAttribute("data", pdfUrl);
-          objectElement.setAttribute("type", "application/pdf");
-          const fallbackLink = document.createElement("a");
-          fallbackLink.setAttribute("href", pdfUrl);
-          fallbackLink.setAttribute("target", "_blank");
-          fallbackLink.textContent = "Download PDF";
-          objectElement.appendChild(fallbackLink);
-          pdfContainer.style.display = "block";
-          pdfContainer.innerHTML = "";
-          pdfContainer.appendChild(objectElement);
-          button.style.display = "none";
+            const pdfUrl = button.getAttribute("data-pdf");
+            const pdfContainer = button.closest(".block-bg").querySelector(".pdf-container"); // Get the correct container
+
+            const isVisible = pdfContainer.style.display === "flex";
+
+            if (isVisible) {
+                // Hide the PDF and reset button text
+                pdfContainer.style.display = "none";
+                pdfContainer.innerHTML = "";
+                button.textContent = "View PDF";
+            } else {
+                // Show the PDF in its specific container
+                pdfContainer.innerHTML = "";
+
+                const objectElement = document.createElement("object");
+                objectElement.setAttribute("data", pdfUrl);
+                objectElement.setAttribute("type", "application/pdf");
+                objectElement.setAttribute("width", "100%");
+                objectElement.setAttribute("height", "600px");
+
+                // Fallback download link
+                const fallbackLink = document.createElement("a");
+                fallbackLink.setAttribute("href", pdfUrl);
+                fallbackLink.setAttribute("target", "_blank");
+                fallbackLink.textContent = "Download PDF";
+
+                objectElement.appendChild(fallbackLink);
+                pdfContainer.appendChild(objectElement);
+
+                pdfContainer.style.display = "flex";
+                button.textContent = "Hide PDF";
+            }
         });
-      });
     });
+});
+
+
+
+
+
 	
 	 document.addEventListener("keydown", function (e) {
     if (
