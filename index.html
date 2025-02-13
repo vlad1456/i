@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
   <meta name="description" content="Vlad Slyusar's Digital Resume + 3D City Demo">
-  <meta name="viewport"
-        content="width=device-width, 
-                 initial-scale=1.0, 
-                 minimum-scale=1.0, 
-                 maximum-scale=1.0, 
-                 user-scalable=no, 
-                 target-densitydpi=device-dpi">
+  <meta name="viewport" content="height=device-height, 
+                      width=device-width, initial-scale=1.0, 
+                      minimum-scale=1.0, maximum-scale=1.0, 
+                      user-scalable=no, target-densitydpi=device-dpi">
   <title>Vlad Slyusar | Digital Resume 3D</title>
-
+	<script>
+  // Disable all console outputs
+  
+</script>
   <!-- THREE.JS -->
   <script src="three.min.js"></script>
-
   <style>
-    /* Ensure no scrolling on the overall page */
+    /* Basic global styles */
     html, body {
       width: 100%;
       height: 100%;
@@ -29,7 +29,7 @@
       text-align: center;
     }
 
-    /* Outer wrapper: fixed size, no scroll */
+  /* Outer wrapper: fixed size, no scroll */
     .outer-wrapper {
       position: relative;
       width: 100%;
@@ -50,17 +50,17 @@
       scroll-behavior: smooth;
     }
 
-    /* Canvas styling */
+    
     canvas {
       display: block;
-      position: fixed; 
+      position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
       z-index: -1;
     }
-
+    
     /* Container to help center and manage max width for content */
     .container {
       width: 100%;
@@ -69,7 +69,7 @@
       box-sizing: border-box;
       padding: 1rem;
     }
-
+    
     .pdf-container {
       width: calc(100% - 2rem);
       margin: 1rem;
@@ -78,7 +78,7 @@
       position: relative;
       padding-top: 110%;
     }
-
+    
     object {
       position: absolute;
       top: 0;
@@ -86,7 +86,7 @@
       width: 100%;
       height: 100%;
     }
-
+    
     /* Header */
     header {
       position: fixed;
@@ -217,23 +217,24 @@
       background: rgba(0,0,0,0.3);
     }
     
-    /* Fade overlay for scrolling intro effect */
-    #scroll-fade {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('c.png') no-repeat center center;
-      background-size: cover;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 1;
-      transition: opacity 1s ease-out;
-    }
+   /* Fade overlay for scrolling intro effect */
+#scroll-fade {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('c.png') no-repeat center center;
+  background-size: cover;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
+  transition: opacity 1s ease-out;
+}
+
     
     /* Responsive navigation */
-    @media (max-width: 768px) {
+    @media (max-width:768px) {
       nav {
         display: none;
         flex-direction: column;
@@ -292,22 +293,18 @@
   </style>
 </head>
 <body>
-
-<!-- Outer wrapper, no scroll -->
-<div class="outer-wrapper">
-
-  <!-- Canvas and overlay fade at the same level (non-scrolling) -->
+<div class="outer-wrapper">	
   <div id="scroll-fade"></div>
   <canvas id="webgl-bg"></canvas>
-
-  <!-- Fixed header (non-scrolling) -->
+  
   <header>
     <h1>Vlad Slyusar</h1>
     <a href="#intro" id="narrow-home" class="narrow-btn" style="margin-left: 6rem;">Intro</a>
-    <a href="#work" id="narrow-contact" class="narrow-btn">Work</a>
+	<a href="#work" id="narrow-contact" class="narrow-btn">Work</a>
     <a href="#contact" id="narrow-contact" class="narrow-btn">Contact</a>
     <div class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</div>
     <nav id="nav-links">
+      <!--a href="#resume3d">Home</a-->
       <a href="#intro">Intro</a>
       <a href="#school">School</a>
       <a href="#work">Work</a>
@@ -317,70 +314,52 @@
       <a href="#contact">Contact</a>
     </nav>
   </header>
-
-  <!-- Scrollable content wrapper -->
+  
+  <!-- Scrollable Content Wrapper -->
   <div class="scrollable-content" id="scrollable-content">
-
     <!-- 3D Resume (One column) -->
-    <section id="resume3d">
-      <div class="container">
-        <!-- Placeholder or introduction area -->
+  <section id="resume3d">
+    <div class="container">
+      
+      <!--div class="block-bg">
+        <h2>Welcome</h2>
+		<img src="i.jpg" alt="Vlad Slyusar" class="rounded-image">		
+      </div-->
+	  
+    </div>
+	
+  </section>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <!-- Intro (One column) -->
+  <section id="intro">
+    <div class="container">
+      <h2>Introduction</h2>
+      <div class="block-bg">
+        
+        <p>
+          Highly accomplished Computer/Electrical Engineer with over 10 years experience delivering advanced connectivity, 
+          high-precision positioning, RF systems, embedded software, and hardware design solutions. Demonstrated track record 
+          in autonomous vehicle (AV) technology, cybersecurity, network security, and IoT integration, backed by a 4.0 M.S.E. 
+          GPA and dual B.S.E. degrees.
+        </p>
       </div>
-    </section>
-
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br>
-
-    <!-- Intro (One column) -->
-    <section id="intro">
-      <div class="container">
-        <h2>Introduction</h2>
-        <div class="block-bg">
-          <p>
-            Highly accomplished Computer/Electrical Engineer with over 10 years experience delivering advanced connectivity, 
-            high-precision positioning, RF systems, embedded software, and hardware design solutions. Demonstrated track record 
-            in autonomous vehicle (AV) technology, cybersecurity, network security, and IoT integration, backed by a 4.0 M.S.E. 
-            GPA and dual B.S.E. degrees.
-          </p>
-        </div>
-        <br>
-        <img src="i.jpg" alt="Vlad Slyusar" class="rounded-image">
-        <br>
-        <div class="block-bg">
-          <p>
-            Possesses in-depth expertise in 5G/mmWave, RTK/NRTK GNSS, MEC, Edge AI, SDR, and DevSecOps. Adept at leading 
-            complex R&amp;D projects, optimizing embedded systems, and managing multiple large-scale deployments in fast-paced, 
-            deadline-driven environments. Excellent communication, analytical, and leadership abilities, reinforced by hands-on 
-            experience in machine learning, blockchain, and cloud technologies. Passionate about driving innovation, scalable 
-            solutions, and secure vehicular communications that power the next generation of mobility.
-          </p>
-        </div>
+<br>
+<img src="i.jpg" alt="Vlad Slyusar" class="rounded-image">
+<br>
+      <div class="block-bg">
+        <p>
+          Possesses in-depth expertise in 5G/mmWave, RTK/NRTK GNSS, MEC, Edge AI, SDR, and DevSecOps. Adept at leading 
+          complex R&amp;D projects, optimizing embedded systems, and managing multiple large-scale deployments in fast-paced, 
+          deadline-driven environments. Excellent communication, analytical, and leadership abilities, reinforced by hands-on 
+          experience in machine learning, blockchain, and cloud technologies. Passionate about driving innovation, scalable 
+          solutions, and secure vehicular communications that power the next generation of mobility.
+        </p>
       </div>
-    </section>
+  </div>
+  </section>
 
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
 
 
   <!-- Technical Skills (Remains as is: 2 columns) -->
@@ -1368,45 +1347,13 @@
       </div>
     </div>
   </section>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
+    
     <!-- Contact (One column, image above input) -->
     <section id="contact">
       <div class="container">
         <h2>Contact</h2>
         <div class="block-bg">
-          <p>Email me at: <a href="mailto:contact@ivl.ad" style="color: #ffffff;">contact@ivl.ad</a></p>
+	  <p>Email me at: <a href="mailto:contact@ivl.ad" style="color: #ffffff;">contact@ivl.ad</a></p>
           <img src="i2.jpg" alt="Contact Placeholder" class="rounded-image">
           <p>Reach out if you'd like to collaborate on cutting-edge tech:</p>
           <p>AI, Web3, Cybersec, AV, 5G NR, GNSS, FPGA</p>
@@ -1418,160 +1365,158 @@
       </div>
       <!-- Extra spacing -->
       <br><br><br><br><br><br><br><br><br><br>
-    </section>
+</section>
 
+    
     <footer>&copy; 2025 Vlad Slyusar — All rights reserved.</footer>
-
-  </div> <!-- End of scrollable-content -->
-
-</div> <!-- End of outer-wrapper -->
-
-
-<!-- Scripts -->
-<script>
-  // ---------------------------------------------------------
-  // 3D SCENE SETUP
-  // ---------------------------------------------------------
+  </div>
   
-  // Setup renderer and replace canvas element
-  const r = new THREE.WebGLRenderer({antialias:true});
-  const c = document.getElementById('webgl-bg');
-  r.setSize(window.innerWidth, window.innerHeight);
-  c.replaceWith(r.domElement);
-  r.domElement.id = 'webgl-bg';
+  <!-- Scripts -->
+  <script>
+    // Select the scrollable container
+    const scrollableContent = document.getElementById('scrollable-content');
 
-  if(window.innerWidth > 800){
-    r.shadowMap.enabled = true;
-    r.shadowMap.type = THREE.PCFSoftShadowMap;
-    r.shadowMap.needsUpdate = true;
-  }
+    // Setup renderer and replace canvas element
+    const r = new THREE.WebGLRenderer({antialias:true});
+    const c = document.getElementById('webgl-bg');
+    r.setSize(window.innerWidth, window.innerHeight);
+    c.replaceWith(r.domElement);
+    r.domElement.id = 'webgl-bg';
+    
+    if(window.innerWidth > 800){
+      r.shadowMap.enabled = true;
+      r.shadowMap.type = THREE.PCFSoftShadowMap;
+      r.shadowMap.needsUpdate = true;
+    }
 
-  const s = new THREE.Scene();
-  s.background = new THREE.Color(0x7B61FF);
-  s.fog = new THREE.Fog(0x7B61FF, 10, 16);
+    const s = new THREE.Scene();
+    s.background = new THREE.Color(0x7B61FF);
+    s.fog = new THREE.Fog(0x7B61FF, 10, 16);
 
-  const fogOrig = {near:10, far:60},
-        fogRed = {near:1000, far:10000},
-        fogTgt = {near:10, far:16};
-  let disableFog = false; // Flag to disable fog updates after email input
+    const fogOrig = {near:10, far:60},
+          fogRed = {near:1000, far:10000},
+          fogTgt = {near:10, far:16};
+    let disableFog = false; // Flag to disable fog updates after email input
 
-  const cam = new THREE.PerspectiveCamera(30, window.innerWidth/window.innerHeight, 1, 500);
-  cam.position.set(10,15,10);
-  cam.lookAt(0,0,0);
+    const cam = new THREE.PerspectiveCamera(30, window.innerWidth/window.innerHeight, 1, 500);
+    cam.position.set(10,15,10);
+    cam.lookAt(0,0,0);
 
-  // City
-  const city = new THREE.Object3D();
-  s.add(city);
-  const smoke = new THREE.Object3D();
-  city.add(smoke);
-  const town = new THREE.Object3D();
-  city.add(town);
-  const blds = [];
-  function rand(num = 8) {
-    return -Math.random() * num + Math.random() * num;
-  }
-  let tintFlag = true;
-  function tint() { 
-    tintFlag = !tintFlag; 
-    return tintFlag ? 0x111111 : 0x333333;
-  }
-  function free(x, z, arr, md) {
-    return !arr.some(p => (p.x - x) ** 2 + (p.z - z) ** 2 < md ** 2);
-  }
+    // City
+    const city = new THREE.Object3D();
+    s.add(city);
+    const smoke = new THREE.Object3D();
+    city.add(smoke);
+    const town = new THREE.Object3D();
+    city.add(town);
+    const blds = [];
+    function rand(num = 8) {
+      return -Math.random() * num + Math.random() * num;
+    }
+    let tintFlag = true;
+    function tint() { 
+      tintFlag = !tintFlag; 
+      return tintFlag ? 0x111111 : 0x333333;
+    }
+    function free(x, z, arr, md) {
+      return !arr.some(p => (p.x - x) ** 2 + (p.z - z) ** 2 < md ** 2);
+    }
 
-  function initCity(){
-    const cnt = 80,
-          minD = 0.8,
-          seg = 2;
-    const placed = [];
-    for(let i = 0; i < cnt; i++){
-      const geom = new THREE.BoxGeometry(1, 1, 1, seg, seg, seg);
-      const mat = new THREE.MeshStandardMaterial({color: tint(), side: THREE.DoubleSide});
-      const wmat = new THREE.MeshLambertMaterial({
-        color: 0xffffff,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.05,
-        side: THREE.DoubleSide
-      });
-      const cube = new THREE.Mesh(geom, mat);
-      const wire = new THREE.Mesh(geom, wmat);
-      const floor = new THREE.Mesh(geom, mat);
-      const wf = new THREE.Mesh(geom, wmat);
-      cube.add(wire);
-      cube.add(wf);
-      cube.castShadow = true;
-      cube.receiveShadow = true;
-      // Reduce the initial max building height by dividing by 2
-      const h = (0.1 + Math.abs(rand(8))) / 2;
-      cube.scale.y = h;
-      cube.userData.h = h;
-      blds.push(cube);
-      cube.scale.x = cube.scale.z = 0.9 + rand(1 - 0.9);
-      let placedFlag = false, a = 0;
-      while(!placedFlag && a++ < 1000){
-        const rx = Math.round(rand(15)),
-              rz = Math.round(rand(15));
-        if(free(rx, rz, placed, minD)){
-          cube.position.set(rx, h / 2, rz);
-          floor.position.set(rx, 0, rz);
-          placed.push({x: rx, z: rz});
-          placedFlag = true;
+    function initCity(){
+      const cnt = 80,
+            minD = 0.8,
+            seg = 2;
+      const placed = [];
+      for(let i = 0; i < cnt; i++){
+        const geom = new THREE.BoxGeometry(1, 1, 1, seg, seg, seg);
+        const mat = new THREE.MeshStandardMaterial({color: tint(), side: THREE.DoubleSide});
+        const wmat = new THREE.MeshLambertMaterial({
+          color: 0xffffff,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.05,
+          side: THREE.DoubleSide
+        });
+        const cube = new THREE.Mesh(geom, mat);
+        const wire = new THREE.Mesh(geom, wmat);
+        const floor = new THREE.Mesh(geom, mat);
+        const wf = new THREE.Mesh(geom, wmat);
+        cube.add(wire);
+        cube.add(wf);
+        cube.castShadow = true;
+        cube.receiveShadow = true;
+        // Reduce the initial max building height by dividing by 2
+        const h = (0.1 + Math.abs(rand(8))) / 2;
+        cube.scale.y = h;
+        cube.userData.h = h;
+        blds.push(cube);
+        cube.scale.x = cube.scale.z = 0.9 + rand(1 - 0.9);
+        let placedFlag = false, a = 0;
+        while(!placedFlag && a++ < 1000){
+          const rx = Math.round(rand(15)),
+                rz = Math.round(rand(15));
+          if(free(rx, rz, placed, minD)){
+            cube.position.set(rx, h / 2, rz);
+            floor.position.set(rx, 0, rz);
+            placed.push({x: rx, z: rz});
+            placedFlag = true;
+          }
         }
+        floor.scale.y = 0.05;
+        town.add(floor);
+        town.add(cube);
       }
-      floor.scale.y = 0.05;
-      town.add(floor);
-      town.add(cube);
+
+      // Smoke
+      const gmat = new THREE.MeshToonMaterial({color: 0xffff00, side: THREE.DoubleSide});
+      const ggeo = new THREE.CircleGeometry(0.01, 3);
+      const apart = 5;
+      for(let h = 1; h < 300; h++){
+        const p = new THREE.Mesh(ggeo, gmat);
+        p.position.set(rand(apart), Math.abs(rand(2)), rand(apart));
+        p.rotation.set(rand(), rand(), rand());
+        smoke.add(p);
+      }
+
+      // Ground
+      const pmat = new THREE.MeshPhongMaterial({
+        color: 0x000000,
+        side: THREE.DoubleSide,
+        //roughness: 10,
+        //metalness: 0.6,
+        opacity: 0.9,
+        transparent: true
+      });
+      const pgeo = new THREE.PlaneGeometry(60, 60);
+      const pe = new THREE.Mesh(pgeo, pmat);
+      pe.rotation.x = -Math.PI / 2;
+      pe.position.y = -0.001;
+      pe.receiveShadow = true;
+      city.add(pe);
     }
+    initCity();
 
-    // Smoke
-    const gmat = new THREE.MeshToonMaterial({color: 0xffff00, side: THREE.DoubleSide});
-    const ggeo = new THREE.CircleGeometry(0.01, 3);
-    const apart = 5;
-    for(let h = 1; h < 300; h++){
-      const p = new THREE.Mesh(ggeo, gmat);
-      p.position.set(rand(apart), Math.abs(rand(2)), rand(apart));
-      p.rotation.set(rand(), rand(), rand());
-      smoke.add(p);
-    }
-
-    // Ground
-    const pmat = new THREE.MeshPhongMaterial({
-      color: 0x000000,
-      side: THREE.DoubleSide,
-      opacity: 0.9,
-      transparent: true
-    });
-    const pgeo = new THREE.PlaneGeometry(60, 60);
-    const pe = new THREE.Mesh(pgeo, pmat);
-    pe.rotation.x = -Math.PI / 2;
-    pe.position.y = -0.001;
-    pe.receiveShadow = true;
-    city.add(pe);
-  }
-  initCity();
-
-  // Lights
-  const aLight = new THREE.AmbientLight(0xffffff, 4);
-  const lFront = new THREE.SpotLight(0xffffff, 20, 10);
-  lFront.rotation.x = 45 * Math.PI / 180;
-  lFront.rotation.z = -45 * Math.PI / 180;
-  lFront.position.set(5, 5, 5);
-  lFront.castShadow = true;
-  lFront.shadow.mapSize.width = 6000;
-  lFront.shadow.mapSize.height = 6000;
-  lFront.penumbra = 0.1;
-  const lBack = new THREE.PointLight(0xffffff, 0.5);
-  lBack.position.set(0, 6, 0);
-  s.add(aLight);
-  city.add(lFront);
-  s.add(lBack);
+    // Lights
+    const aLight = new THREE.AmbientLight(0xffffff, 4);
+    const lFront = new THREE.SpotLight(0xffffff, 20, 10);
+    lFront.rotation.x = 45 * Math.PI / 180;
+    lFront.rotation.z = -45 * Math.PI / 180;
+    lFront.position.set(5, 5, 5);
+    lFront.castShadow = true;
+    lFront.shadow.mapSize.width = 6000;
+    lFront.shadow.mapSize.height = 6000;
+    lFront.penumbra = 0.1;
+    const lBack = new THREE.PointLight(0xffffff, 0.5);
+    lBack.position.set(0, 6, 0);
+    s.add(aLight);
+    city.add(lFront);
+    s.add(lBack);
 
   // Fast Lines
   const fl = [];
   const dirs = ["z+", "z-", "x+", "x-"];
   const lc = 25, rng = 20;
-
+  
   function createLines() {
     for (let i = 0; i < lc; i++) {
       // Introduce a random delay for each line creation
@@ -1579,9 +1524,11 @@
         const g = new THREE.BoxGeometry(0.02, 0.02, Math.random() * 1 + 0.4);
         const m = new THREE.MeshToonMaterial({ color: 0xffff00, side: THREE.DoubleSide });
         const mesh = new THREE.Mesh(g, m);
+  
         mesh.castShadow = true;
         mesh.receiveShadow = true;
         mesh.userData.dir = dirs[Math.floor(Math.random() * dirs.length)];
+  
         switch (mesh.userData.dir) {
           case "z+":
             mesh.position.set(rand(3), Math.abs(rand(2)), -rng + Math.random() * 2 * rng);
@@ -1598,208 +1545,203 @@
             mesh.position.set(rng - Math.random() * 2 * rng, Math.abs(rand(2)), rand(3));
             break;
         }
+  
         fl.push(mesh);
         city.add(mesh);
       }, Math.random() * 2000); // Random delay up to 2 seconds
     }
   }
+  
   createLines();
-
-  // Camera Movement
-  const sections = ["#resume3d","#intro","#school","#work","#projects","#publications","#leadership","#contact"];
-  const vps = [
-    {pos: new THREE.Vector3(10,50,10), la: new THREE.Vector3(0,0,0)},
-    {pos: new THREE.Vector3(10,15,10), la: new THREE.Vector3(0,0,0)},
-    {pos: new THREE.Vector3(-5,10,12), la: new THREE.Vector3(-1,0,2)},
-    {pos: new THREE.Vector3(8,8,-2), la: new THREE.Vector3(5,0,-2)},
-    {pos: new THREE.Vector3(-8,8,-8), la: new THREE.Vector3(-4,0,-3)},
-    {pos: new THREE.Vector3(10,6,-10), la: new THREE.Vector3(6,0,-7)},
-    {pos: new THREE.Vector3(15,12,15), la: new THREE.Vector3(0,0,0)},
-    {pos: new THREE.Vector3(15,30,15), la: new THREE.Vector3(0,0,0)}
-  ];
-  let offsets = [];
-  function calcOffsets() {
-    offsets = sections.map(sel => {
-      const el = document.querySelector(sel);
-      return el ? el.offsetTop : 0;
-    });
-  }
-  calcOffsets();
-  window.addEventListener('resize', calcOffsets);
-
-  // We reference the scrolling container
-  const scrollableContent = document.getElementById('scrollable-content');
-
-  function scrollFrac(){
-    return (scrollableContent.scrollTop) / (scrollableContent.scrollHeight - scrollableContent.clientHeight) || 0;
-  }
-  function camTarget(){
-    const n = vps.length,
-          fr = scrollFrac() * (n - 1);
-    const i = Math.floor(fr),
-          lf = fr - i;
-    if(i >= n - 1) return vps[n - 1];
-    const v1 = vps[i],
-          v2 = vps[i + 1];
-    return {
-      pos: v1.pos.clone().lerp(v2.pos, lf),
-      la: v1.la.clone().lerp(v2.la, lf)
-    };
-  }
-
-  // Listen for window/canvas resize
-  window.addEventListener('resize', () => {
-    r.setSize(window.innerWidth, window.innerHeight);
-    cam.aspect = window.innerWidth / window.innerHeight;
-    cam.updateProjectionMatrix();
+  
+    // Camera Movement
+    const sections = ["#resume3d","#intro","#school","#work","#projects","#publications","#leadership","#contact"];
+    const vps = [
+      {pos: new THREE.Vector3(10,50,10), la: new THREE.Vector3(0,0,0)},
+      {pos: new THREE.Vector3(10,15,10), la: new THREE.Vector3(0,0,0)},
+      {pos: new THREE.Vector3(-5,10,12), la: new THREE.Vector3(-1,0,2)},
+      {pos: new THREE.Vector3(8,8,-2), la: new THREE.Vector3(5,0,-2)},
+      {pos: new THREE.Vector3(-8,8,-8), la: new THREE.Vector3(-4,0,-3)},
+      {pos: new THREE.Vector3(10,6,-10), la: new THREE.Vector3(6,0,-7)},
+      {pos: new THREE.Vector3(15,12,15), la: new THREE.Vector3(0,0,0)},
+      {pos: new THREE.Vector3(15,30,15), la: new THREE.Vector3(0,0,0)}
+    ];
+    let offsets = [];
+    function calcOffsets() {
+      offsets = sections.map(s => {
+        const el = document.querySelector(s);
+        return el ? el.offsetTop : 0;
+      });
+    }
     calcOffsets();
-  });
-
-  const mousePos = new THREE.Vector2();
-  window.addEventListener('mousemove', e => {
-    mousePos.x = (e.clientX / window.innerWidth) * 2 - 1;
-    mousePos.y = -(e.clientY / window.innerHeight) * 2 + 1;
-  }, false);
-
-  const fade = document.getElementById("scroll-fade");
-  scrollableContent.addEventListener('scroll', () => {
-    const sy = scrollableContent.scrollTop;
-    fade.style.opacity = sy > 200 ? "0" : String(1 - sy / 200);
-    if(!disableFog){
-      fogTgt.near = fogOrig.near;
-      fogTgt.far = fogOrig.far;
+    window.addEventListener('resize', calcOffsets);
+  
+    function scrollFrac(){
+      return (scrollableContent.scrollTop) / (scrollableContent.scrollHeight - scrollableContent.clientHeight) || 0;
     }
-  });
-
-  // If user focuses on the email input, remove city fog
-  document.getElementById('email').addEventListener('focus', () => {
-    fogTgt.near = fogRed.near;
-    fogTgt.far = fogRed.far;
-    disableFog = true;
-  });
-
-  // Another scroll event to adjust fog
-  scrollableContent.addEventListener('scroll', () => {
-    const sy = scrollableContent.scrollTop;
-    const introEl = document.querySelector("#intro");
-    const introY = introEl ? introEl.offsetTop : 0;
-    if (sy <= introY) {
-      disableFog = false;
-      const prog = sy / introY;
-      fogTgt.near = THREE.MathUtils.lerp(50, fogOrig.near, prog);
-      fogTgt.far = THREE.MathUtils.lerp(80, fogOrig.far, prog);
-    } else if (!disableFog) {
-      const scrollFraction = sy / (scrollableContent.scrollHeight - scrollableContent.clientHeight);
-      fogTgt.near = fogOrig.near;
-      fogTgt.far = THREE.MathUtils.lerp(fogOrig.far, 35, scrollFraction);
+    function camTarget(){
+      const n = vps.length,
+            fr = scrollFrac() * (n - 1);
+      const i = Math.floor(fr),
+            lf = fr - i;
+      if(i >= n - 1) return vps[n - 1];
+      const v1 = vps[i],
+            v2 = vps[i + 1];
+      return {
+        pos: v1.pos.clone().lerp(v2.pos, lf),
+        la: v1.la.clone().lerp(v2.la, lf)
+      };
     }
-  });
-
-  // Animation Loop
-  function animate(){
-    requestAnimationFrame(animate);
-
-    // Simple rotation effect based on mouse
-    const speed = 0.001;
-    city.rotation.y -= ((mousePos.x * 8) - cam.rotation.y) * speed;
-    city.rotation.x = 0;
-
-    // Move lines
-    const sp = 0.2;
-    fl.forEach(l => {
-      switch(l.userData.dir){
-        case 'z+':
-          l.position.z += sp;
-          if(l.position.z > rng){
-            l.position.z = -rng;
-            l.position.y = Math.abs(rand(2));
-          }
-          break;
-        case 'z-':
-          l.position.z -= sp;
-          if(l.position.z < -rng){
-            l.position.z = rng;
-            l.position.y = Math.abs(rand(2));
-          }
-          break;
-        case 'x+':
-          l.position.x += sp;
-          if(l.position.x > rng){
-            l.position.x = -rng;
-            l.position.y = Math.abs(rand(2));
-          }
-          break;
-        case 'x-':
-          l.position.x -= sp;
-          if(l.position.x < -rng){
-            l.position.x = rng;
-            l.position.y = Math.abs(rand(2));
-          }
-          break;
+  
+    // Event Listeners
+    window.addEventListener('resize', () => {
+      r.setSize(window.innerWidth, window.innerHeight);
+      cam.aspect = window.innerWidth / window.innerHeight;
+      cam.updateProjectionMatrix();
+      calcOffsets();
+    });
+  
+    const mousePos = new THREE.Vector2();
+    window.addEventListener('mousemove', e => {
+      mousePos.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mousePos.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    }, false);
+  
+    const fade = document.getElementById("scroll-fade");
+    scrollableContent.addEventListener('scroll', () => {
+      const sy = scrollableContent.scrollTop;
+      fade.style.opacity = sy > 200 ? "0" : String(1 - sy / 200);
+      if(!disableFog){
+        fogTgt.near = fogOrig.near;
+        fogTgt.far = fogOrig.far;
       }
     });
-
-    // Get target camera position/rotation
-    const ct = camTarget();
-    cam.position.lerp(ct.pos, 0.08);
-    const dir = new THREE.Vector3().subVectors(ct.la, cam.position).normalize();
-    cam.lookAt(cam.position.clone().add(dir));
-
-    // Buildings grow with scroll
-    const sf = 0.5 + scrollFrac() * 3;
-    blds.forEach(b => {
-      b.scale.y = b.userData.h * sf;
-      b.position.y = (b.userData.h * sf) / 2;
+  
+    let isScroll = false;
+    document.getElementById('email').addEventListener('focus', () => {
+      fogTgt.near = fogRed.near;
+      fogTgt.far = fogRed.far;
+      disableFog = true;
     });
-
-    s.fog.near = THREE.MathUtils.lerp(s.fog.near, fogTgt.near, 0.05);
-    s.fog.far = THREE.MathUtils.lerp(s.fog.far, fogTgt.far, 0.05);
-
-    r.render(s, cam);
-  }
-  animate();
-
-  // Hamburger Menu
-  document.getElementById('hamburger').addEventListener('click', () => {
-    const navC = document.getElementById('nav-links');
-    navC.classList.toggle('active');
-    const act = navC.classList.contains('active');
-    document.getElementById('hamburger').setAttribute('aria-expanded', act);
-  });
-
-  // Auto-scroll to #intro on load (optional)
-  document.addEventListener('DOMContentLoaded', () => {
-    const introSection = document.querySelector('#intro');
-    if(introSection){
-      introSection.scrollIntoView();
+  
+    scrollableContent.addEventListener('scroll', () => {
+      const sy = scrollableContent.scrollTop;
+      const introEl = document.querySelector("#intro");
+      const introY = introEl ? introEl.offsetTop : 0;
+      if (sy <= introY) {
+        disableFog = false;
+        const prog = sy / introY;
+        fogTgt.near = THREE.MathUtils.lerp(50, fogOrig.near, prog);
+        fogTgt.far = THREE.MathUtils.lerp(80, fogOrig.far, prog);
+      } else if (!disableFog) {
+        const scrollFraction = sy / (scrollableContent.scrollHeight - scrollableContent.clientHeight);
+        fogTgt.near = fogOrig.near;
+        fogTgt.far = THREE.MathUtils.lerp(fogOrig.far, 35, scrollFraction);
+      }
+    });
+  
+    // Animation Loop
+    function animate(){
+      requestAnimationFrame(animate);
+      if(!isScroll){
+        const speed = 0.001;
+        city.rotation.y -= ((mousePos.x * 8) - cam.rotation.y) * speed;
+        city.rotation.x = 0;
+      }
+      const sp = 0.2;
+      fl.forEach(l => {
+        switch(l.userData.dir){
+          case 'z+':
+            l.position.z += sp;
+            if(l.position.z > rng){
+              l.position.z = -rng;
+              l.position.y = Math.abs(rand(2));
+            }
+            break;
+          case 'z-':
+            l.position.z -= sp;
+            if(l.position.z < -rng){
+              l.position.z = rng;
+              l.position.y = Math.abs(rand(2));
+            }
+            break;
+          case 'x+':
+            l.position.x += sp;
+            if(l.position.x > rng){
+              l.position.x = -rng;
+              l.position.y = Math.abs(rand(2));
+            }
+            break;
+          case 'x-':
+            l.position.x -= sp;
+            if(l.position.x < -rng){
+              l.position.x = rng;
+              l.position.y = Math.abs(rand(2));
+            }
+            break;
+        }
+      });
+  
+      // Get target camera position and orientation based on scroll
+      const ct = camTarget();
+      cam.position.lerp(ct.pos, 0.08);
+      const dir = new THREE.Vector3().subVectors(ct.la, cam.position).normalize();
+      cam.lookAt(cam.position.clone().add(dir));
+  
+      // Increase the growth multiplier so that at the top the buildings are shorter, but they grow faster.
+      // When scrollFrac() = 0, factor is 0.5; when scrollFrac() = 1, factor is 3.5.
+      const sf = 0.5 + scrollFrac() * 3;
+      blds.forEach(b => {
+        b.scale.y = b.userData.h * sf;
+        b.position.y = (b.userData.h * sf) / 2;
+      });
+  
+      s.fog.near = THREE.MathUtils.lerp(s.fog.near, fogTgt.near, 0.05);
+      s.fog.far = THREE.MathUtils.lerp(s.fog.far, fogTgt.far, 0.05);
+      r.render(s, cam);
     }
-  });
-
-  // PDF Loader Script (Optional functionality)
-  document.addEventListener("DOMContentLoaded", () => {
-    const buttons = document.querySelectorAll(".load-pdf");
-    buttons.forEach(button => {
-      button.addEventListener("click", () => {
-        const pdfUrl = button.getAttribute("data-pdf");
-        const pdfContainer = button.nextElementSibling;
-        const objectElement = document.createElement("object");
-        objectElement.setAttribute("data", pdfUrl);
-        objectElement.setAttribute("type", "application/pdf");
-        const fallbackLink = document.createElement("a");
-        fallbackLink.setAttribute("href", pdfUrl);
-        fallbackLink.setAttribute("target", "_blank");
-        fallbackLink.textContent = "Download PDF";
-        objectElement.appendChild(fallbackLink);
-        pdfContainer.style.display = "block";
-        pdfContainer.innerHTML = "";
-        pdfContainer.appendChild(objectElement);
-        button.style.display = "none";
+    animate();
+  
+    // Menu functionality
+    document.getElementById('hamburger').addEventListener('click', () => {
+      const navC = document.getElementById('nav-links');
+      navC.classList.toggle('active');
+      const act = navC.classList.contains('active');
+      document.getElementById('hamburger').setAttribute('aria-expanded', act);
+    });
+  
+    // Initial Scroll to Intro
+    document.addEventListener('DOMContentLoaded', () => {
+      const introSection = document.querySelector('#intro');
+      if(introSection){
+        introSection.scrollIntoView();
+      }
+    });
+  
+    // PDF Loader Script
+    document.addEventListener("DOMContentLoaded", () => {
+      const buttons = document.querySelectorAll(".load-pdf");
+      buttons.forEach(button => {
+        button.addEventListener("click", () => {
+          const pdfUrl = button.getAttribute("data-pdf");
+          const pdfContainer = button.nextElementSibling;
+          const objectElement = document.createElement("object");
+          objectElement.setAttribute("data", pdfUrl);
+          objectElement.setAttribute("type", "application/pdf");
+          const fallbackLink = document.createElement("a");
+          fallbackLink.setAttribute("href", pdfUrl);
+          fallbackLink.setAttribute("target", "_blank");
+          fallbackLink.textContent = "Download PDF";
+          objectElement.appendChild(fallbackLink);
+          pdfContainer.style.display = "block";
+          pdfContainer.innerHTML = "";
+          pdfContainer.appendChild(objectElement);
+          button.style.display = "none";
+        });
       });
     });
-  });
-
-  // Disable dev tools (optional)
-  document.addEventListener("keydown", function (e) {
+	
+	 document.addEventListener("keydown", function (e) {
     if (
       e.key === "F12" || // Disable F12
       (e.ctrlKey && e.shiftKey && e.key === "I") || // Disable Ctrl+Shift+I
@@ -1810,11 +1752,12 @@
     }
   });
 
-  // Disable right-click context menu (optional)
+  // Disable right-click context menu
   document.addEventListener("contextmenu", function (e) {
     e.preventDefault();
   });
-</script>
-
+	
+  </script>
+  </div>
 </body>
 </html>
