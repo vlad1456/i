@@ -18,7 +18,7 @@
   <style>
     /* Basic global styles */
     html, body {
-    height: 100%; /* Ensure the full height is explicitly defined */
+    height: 100vh; /* Ensure the full height is explicitly defined */
     margin: 0;
     padding: 0;
     overflow: hidden; /* Ensure no scroll bars on the whole page */
@@ -29,6 +29,14 @@ body {
     color: #fff;
     font-family: sans-serif;
     text-align: center;
+}
+
+/* Wrapper that prevents body scrolling */
+.no-scroll-wrapper {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .scrollable-content {
