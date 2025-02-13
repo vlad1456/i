@@ -1300,7 +1300,7 @@ body {
 <br>
 
 	
-	<br><br><br><br><br><br><br><br>
+	<br><br><br><br><br>
     <!-- International Patents -->
     <h3>International Patents</h3>
 
@@ -1308,7 +1308,7 @@ body {
 	<div class="patent-entry block-bg">
   <h4><a href="https://sis.nipo.gov.ua/en/search/detail/375394/" target="_blank" style="color: white; text-decoration: none;">
         <strong>[UA-64952]</strong>
-      </a> - Trap for Rodents</h4>
+      </a> - Trap for Rodents (Ukraine)</h4>
 <div class="patent-image">
     <button class="load-pdf" data-pdf="64952UA.pdf">View PDF</button>
     <div class="pdf-container" style="display: none;"></div>
@@ -1595,7 +1595,7 @@ allow turning outside and has a bait inside.</p>
       {pos: new THREE.Vector3(8,8,-2), la: new THREE.Vector3(5,0,-2)},
       {pos: new THREE.Vector3(-8,8,-8), la: new THREE.Vector3(-4,0,-3)},
       {pos: new THREE.Vector3(10,6,-10), la: new THREE.Vector3(6,0,-7)},
-      {pos: new THREE.Vector3(15,12,15), la: new THREE.Vector3(0,0,0)},
+      {pos: new THREE.Vector3(15,8,15), la: new THREE.Vector3(0,0,0)},
       {pos: new THREE.Vector3(15,30,15), la: new THREE.Vector3(0,0,0)}
     ];
     let offsets = [];
@@ -1673,66 +1673,131 @@ allow turning outside and has a bait inside.</p>
     });
   
     // Animation Loop
-    function animate(){
-      requestAnimationFrame(animate);
-      if(!isScroll){
+// Function to determine new direction upon collision (Only 180°, +90°, -90°)
+function getNewDirection(currentDir) {
+    if (currentDir === "z+") return ["z-", "x+", "x-"][Math.floor(Math.random() * 3)];
+    if (currentDir === "z-") return ["z+", "x-", "x+"][Math.floor(Math.random() * 3)];
+    if (currentDir === "x+") return ["x-", "z+","z-"][Math.floor(Math.random() * 3)];
+    if (currentDir === "x-") return ["x+", "z-", "z+"][Math.floor(Math.random() * 3)];
+}
+
+// Function to check collision only when the streak is near ground level
+function checkCollision(line) {
+    const threshold = 0.5;
+    return blds.some(b => 
+        Math.abs(line.position.x - b.position.x) < threshold &&
+        Math.abs(line.position.z - b.position.z) < threshold &&
+        line.position.y <= (b.scale.y + 0.2) // Only check if it's at building height
+    );
+}
+
+function animate(){
+    requestAnimationFrame(animate);
+    if(!isScroll){
         const speed = 0.001;
         city.rotation.y -= ((mousePos.x * 8) - cam.rotation.y) * speed;
         city.rotation.x = 0;
-      }
-      const sp = 0.2;
-      fl.forEach(l => {
+    }
+
+    const sp = 0.2;
+    const passThroughChance = 0.1; // 10% chance to pass through a building instead of bouncing
+
+    fl.forEach(l => {
+        const prevPos = l.position.clone();
+        let bounced = false;
+
         switch(l.userData.dir){
-          case 'z+':
-            l.position.z += sp;
-            if(l.position.z > rng){
-              l.position.z = -rng;
-              l.position.y = Math.abs(rand(2));
-            }
-            break;
-          case 'z-':
-            l.position.z -= sp;
-            if(l.position.z < -rng){
-              l.position.z = rng;
-              l.position.y = Math.abs(rand(2));
-            }
-            break;
-          case 'x+':
-            l.position.x += sp;
-            if(l.position.x > rng){
-              l.position.x = -rng;
-              l.position.y = Math.abs(rand(2));
-            }
-            break;
-          case 'x-':
-            l.position.x -= sp;
-            if(l.position.x < -rng){
-              l.position.x = rng;
-              l.position.y = Math.abs(rand(2));
-            }
-            break;
+            case 'z+':
+                l.position.z += sp;
+                if (l.position.z > rng) { 
+                    l.position.copy(prevPos);
+                    l.userData.dir = "z-";
+                    bounced = true;
+                } else if (checkCollision(l)) {
+                    if (Math.random() > passThroughChance) { // Most times, it bounces
+                        l.position.copy(prevPos);
+                        l.userData.dir = getNewDirection("z+");
+                        bounced = true;
+                    }
+                }
+                break;
+            case 'z-':
+                l.position.z -= sp;
+                if (l.position.z < -rng) { 
+                    l.position.copy(prevPos);
+                    l.userData.dir = "z+";
+                    bounced = true;
+                } else if (checkCollision(l)) {
+                    if (Math.random() > passThroughChance) {
+                        l.position.copy(prevPos);
+                        l.userData.dir = getNewDirection("z-");
+                        bounced = true;
+                    }
+                }
+                break;
+            case 'x+':
+                l.position.x += sp;
+                if (l.position.x > rng) { 
+                    l.position.copy(prevPos);
+                    l.userData.dir = "x-";
+                    bounced = true;
+                } else if (checkCollision(l)) {
+                    if (Math.random() > passThroughChance) {
+                        l.position.copy(prevPos);
+                        l.userData.dir = getNewDirection("x+");
+                        bounced = true;
+                    }
+                }
+                break;
+            case 'x-':
+                l.position.x -= sp;
+                if (l.position.x < -rng) { 
+                    l.position.copy(prevPos);
+                    l.userData.dir = "x+";
+                    bounced = true;
+                } else if (checkCollision(l)) {
+                    if (Math.random() > passThroughChance) {
+                        l.position.copy(prevPos);
+                        l.userData.dir = getNewDirection("x-");
+                        bounced = true;
+                    }
+                }
+                break;
         }
-      });
-  
-      // Get target camera position and orientation based on scroll
-      const ct = camTarget();
-      cam.position.lerp(ct.pos, 0.08);
-      const dir = new THREE.Vector3().subVectors(ct.la, cam.position).normalize();
-      cam.lookAt(cam.position.clone().add(dir));
-  
-      // Increase the growth multiplier so that at the top the buildings are shorter, but they grow faster.
-      // When scrollFrac() = 0, factor is 0.5; when scrollFrac() = 1, factor is 3.5.
-      const sf = 0.5 + scrollFrac() * 3;
-      blds.forEach(b => {
+
+        // If the direction changed, adjust rotation accordingly
+        if (bounced) {
+            l.rotation.y = (l.userData.dir.includes("x")) ? Math.PI * 0.5 : 0;
+        }
+    });
+
+    // Get target camera position and orientation based on scroll
+    const ct = camTarget();
+    cam.position.lerp(ct.pos, 0.08);
+    const dir = new THREE.Vector3().subVectors(ct.la, cam.position).normalize();
+    cam.lookAt(cam.position.clone().add(dir));
+
+    const sf = 0.5 + scrollFrac() * 3;
+    blds.forEach(b => {
         b.scale.y = b.userData.h * sf;
         b.position.y = (b.userData.h * sf) / 2;
-      });
-  
-      s.fog.near = THREE.MathUtils.lerp(s.fog.near, fogTgt.near, 0.05);
-      s.fog.far = THREE.MathUtils.lerp(s.fog.far, fogTgt.far, 0.05);
-      r.render(s, cam);
-    }
-    animate();
+    });
+
+    s.fog.near = THREE.MathUtils.lerp(s.fog.near, fogTgt.near, 0.05);
+    s.fog.far = THREE.MathUtils.lerp(s.fog.far, fogTgt.far, 0.05);
+    r.render(s, cam);
+}
+
+// Adjust streaker height to half of its previous max length
+fl.forEach(l => {
+    l.scale.y *= 0.5; // Reduce max length by half
+    l.position.y = Math.random() * 3; // Randomize height slightly
+});
+
+animate();
+
+
+
   
    // Menu functionality
 const hamburger = document.getElementById('hamburger');
