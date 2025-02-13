@@ -24,28 +24,33 @@
     overflow: hidden; /* Ensure no scroll bars on the whole page */
 }
 
-body {
-    background: #000;
-    color: #fff;
-    font-family: sans-serif;
-    text-align: center;
+/* Ensure the full height is explicitly defined and prevent page scrolling */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent scrolling on the entire page */
 }
 
-/* Wrapper that prevents body scrolling */
+/* New Wrapper: Locks the full page */
 .no-scroll-wrapper {
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    position: fixed; /* Prevents the page from scrolling */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Ensures outer page doesn't scroll */
 }
 
+/* This is the only area that can scroll */
 .scrollable-content {
-    
-
-    height: 100vh;
-	flex: 1;
-    overflow-y: auto; /* Only this element should scroll */
-    -webkit-overflow-scrolling: touch;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Ensures content fills the wrapper */
+    overflow-y: auto; /* Enables scrolling inside */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling for mobile */
     scroll-behavior: smooth;
 }
 
@@ -312,7 +317,7 @@ body {
       <a href="#contact">Contact</a>
     </nav>
   </header>
-  
+    <div class="no-scroll-wrapper">
   <!-- Scrollable Content Wrapper -->
   <div class="scrollable-content" id="scrollable-content">
     <!-- 3D Resume (One column) -->
@@ -839,6 +844,10 @@ body {
   </section>
 
 </body>
+
+
+
+</div>
 </html>
 
 
