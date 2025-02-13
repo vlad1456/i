@@ -135,7 +135,7 @@ body {
     
     .hamburger {
       position: absolute;
-      right: 1rem;
+      right: 3rem;
       font-size: 1.5rem;
       cursor: pointer;
       color: #fff;
@@ -315,7 +315,7 @@ body {
   <header>
     <h1>Vlad Slyusar</h1>
     <a href="#intro" id="narrow-home" class="narrow-btn" style="margin-left: 6rem;">Intro</a>
-	<a href="#work" id="narrow-contact" class="narrow-btn">Work</a>
+	<!--a href="#work" id="narrow-contact" class="narrow-btn">Work</a-->
     <a href="#contact" id="narrow-contact" class="narrow-btn">Contact</a>
     <div class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</div>
     <nav id="nav-links">
@@ -1366,14 +1366,20 @@ body {
       <div class="container">
         <h2>Contact</h2>
         <div class="block-bg">
-	  <p>Email me at: <a href="mailto:contact@ivl.ad" style="color: #ffffff;">contact@ivl.ad</a></p>
-          <img src="i2.jpg" alt="Contact Placeholder" class="rounded-image">
-          <p>Reach out if you'd like to collaborate on cutting-edge tech:</p>
-          <p>AI, Web3, Cybersec, AV, 5G NR, GNSS, FPGA</p>
-          <form id="contact-form">
+		
+		<form id="contact-form">
             <input type="email" id="email" name="email" placeholder="Your Email" required>
             <button type="submit">Submit</button>
           </form>
+		
+		<img src="i2.jpg" alt="Contact Placeholder" class="rounded-image">
+		
+		 <p> <a href="mailto:contact@ivl.ad" style="color: #ffffff;">contact@ivl.ad</a></p>
+          
+          <p>Reach out if you'd like to collaborate on cutting-edge tech:</p>
+          <p>AI, Web3, Cybersec, AV, 5G NR, GNSS, FPGA</p>
+		 
+          
         </div>
       </div>
       <!-- Extra spacing -->
