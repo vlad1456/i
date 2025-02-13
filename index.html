@@ -1375,7 +1375,7 @@ body {
           </form>
 		<br>
 		
-		
+		<p>Reach out to collaborate on cutting-edge tech!</p>
 		 
           
           <!--p>Reach out if you'd like to collaborate on cutting-edge tech:</p>
@@ -1386,7 +1386,7 @@ body {
 		
 		<img src="i2.jpg" alt="Contact Placeholder" class="rounded-image">
 		
-		<p>Reach out to collaborate on cutting-edge tech!</p>
+		
 		<!--div class="block-bg">
 		 <p>Reach out if you'd like to collaborate on cutting-edge tech:</p>
           <p>AI, Web3, Cybersec, AV, 5G NR, GNSS, FPGA</p>
@@ -1738,13 +1738,25 @@ body {
     }
     animate();
   
-    // Menu functionality
-    document.getElementById('hamburger').addEventListener('click', () => {
-      const navC = document.getElementById('nav-links');
-      navC.classList.toggle('active');
-      const act = navC.classList.contains('active');
-      document.getElementById('hamburger').setAttribute('aria-expanded', act);
-    });
+   // Menu functionality
+const hamburger = document.getElementById('hamburger');
+const navC = document.getElementById('nav-links');
+
+// Toggle menu on hamburger click
+hamburger.addEventListener('click', () => {
+  navC.classList.toggle('active');
+  const act = navC.classList.contains('active');
+  hamburger.setAttribute('aria-expanded', act);
+});
+
+// Close menu when clicking a nav link
+document.querySelectorAll('#nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    navC.classList.remove('active'); // Close menu
+    hamburger.setAttribute('aria-expanded', 'false');
+  });
+});
+
   
     // Initial Scroll to Intro
     document.addEventListener('DOMContentLoaded', () => {
